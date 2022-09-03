@@ -17,7 +17,7 @@ public:
 		std::string textureFile,
 		int backgroundMovement,
 		std::string soundFile,
-		float soundVolume 
+		float soundVolume
 	) : Game(
 		fps,
 		animRect,
