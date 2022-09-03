@@ -1,4 +1,7 @@
 #pragma once
+#ifndef GAME_H
+#define GAME_H
+#include "Header.h"
 
 #include <iostream>
 #include <d3d9.h>
@@ -56,3 +59,5 @@ public:
 	}
 
 };
+
+#endif

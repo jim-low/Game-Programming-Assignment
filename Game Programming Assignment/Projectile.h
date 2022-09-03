@@ -1,5 +1,7 @@
 #pragma once
-#include "Game.h"
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
+#include "Header.h"
 
 class Projectile : public Game {
 public:
@@ -37,3 +39,5 @@ public:
 
 	}
 };
+
+#endif

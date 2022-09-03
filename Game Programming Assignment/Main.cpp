@@ -1,16 +1,7 @@
-#define WIN32_LEAN_AND_MEAN
-#define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80)
+#include "Header.h"
 
-#include <iostream>
-#include <Windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <dinput.h>
-
-#pragma comment (lib, "d3d9.lib") // this code is NOT standard C++ -> cannot use this code on Linux, only works on Windows
-#pragma comment (lib, "d3dx9.lib") // this code is NOT standard C++ -> cannot use this code on Linux, only works on Windows
-#pragma comment (lib, "dinput8.lib")
-#pragma comment (lib, "dxguid.lib")
+#define MyWindowWidth 800
+#define MyWindowHeight 600
 
 //Window's Global
 HWND g_hWnd = NULL;
@@ -18,8 +9,6 @@ WNDCLASS wndClass;
 HRESULT hr;
 
 using namespace std;
-#define MyWindowWidth 800
-#define MyWindowHeight 600
 
 //DX Global
 IDirect3DDevice9* d3dDevice;
@@ -27,13 +16,11 @@ IDirect3DDevice9* d3dDevice;
 //Direct Input Global
 LPDIRECTINPUT8 dInput;
 LPDIRECTINPUTDEVICE8  dInputKeyboardDevice;
-BYTE  diKeys[256];
+BYTE diKeys[256];
 LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 DIMOUSESTATE mouseState;
 
-
-LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
 	switch (message)
 	{
@@ -48,13 +35,12 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 	return 0;
 }
 
-void CreateMyWindow()
-{
+void CreateMyWindow() {
 	ZeroMemory(&wndClass, sizeof(wndClass));
 
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wndClass.hInstance = GetModuleHandle(NULL);	
+	wndClass.hInstance = GetModuleHandle(NULL);
 	wndClass.lpfnWndProc = WindowProcedure;
 	wndClass.lpszClassName = "My Window";
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
@@ -118,11 +104,11 @@ void InitializeLevel() {
 }
 
 void GetInput() {
-	
+
 }
 
 void Update(int framesToUpdate) {
-	for (int i = 0; i < framesToUpdate; i++){
+	for (int i = 0; i < framesToUpdate; i++) {
 	}
 }
 
@@ -152,8 +138,7 @@ int IfMyWindowIsRunning() {
 	return true;
 }
 
-void CleanUpMyWindow()
-{
+void CleanUpMyWindow() {
 	UnregisterClass(wndClass.lpszClassName, GetModuleHandle(NULL));
 }
 
@@ -202,3 +187,4 @@ int main() {
 	return 0;
 
 }
+

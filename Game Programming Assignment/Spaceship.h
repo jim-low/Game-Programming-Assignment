@@ -1,6 +1,8 @@
 #pragma once
+#ifndef SPACESHIP_H
+#define SPACESHIP_H
 
-#include "Game.h"
+#include "Header.h"
 
 class Spaceship : public Game {
 protected:
@@ -54,3 +56,5 @@ public:
 		this->fireRate = fireRate;
 	}
 };
+
+#endif
