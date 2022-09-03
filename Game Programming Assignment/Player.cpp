@@ -2,7 +2,12 @@
 
 void Player::Initialize()
 {
-	textureFile = "Assets/player-spaceship.png";
+	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/player-spaceship.png", &texture);
+
+	if (FAILED(hr)) {
+		cout << "Failed to load texture" << endl;
+	}
+
 	textureWidth = 318;
 	textureHeight = 512;
 
@@ -26,6 +31,9 @@ void Player::Initialize()
 	maxFrame = (spriteRow * spriteCol) - 1;
 }
 
-void Player::Update()
-{
+// void Player::Update()
+// {
+// }
+
+Player::~Player() {
 }

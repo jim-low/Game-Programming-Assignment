@@ -18,6 +18,13 @@ BYTE diKeys[256];
 LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 DIMOUSESTATE mouseState;
 
+// drawing things
+LPD3DXSPRITE sprite = NULL;
+
+// gaem things
+stack<Game*> games;
+Player* player = new Player();
+
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
 	switch (message)
@@ -65,6 +72,8 @@ int CreateMy3D() {
 
 	hr = direct3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dPP, &d3dDevice);
 
+	hr = D3DXCreateSprite(d3dDevice, &sprite);
+
 	//	Create sprite. Study the documentation. 
 
 
@@ -110,10 +119,6 @@ void Update(int framesToUpdate) {
 	}
 }
 
-void Render() {
-
-}
-
 int IfMyWindowIsRunning() {
 
 	MSG msg;
@@ -141,10 +146,13 @@ void CleanUpMyWindow() {
 }
 
 void CleanUpLevel() {
-
+	
 }
 
 void CleanUpMyDirectX() {
+	sprite->Release();
+	sprite = NULL;
+
 	d3dDevice->Release();
 	d3dDevice = NULL;
 }
@@ -169,12 +177,16 @@ int main() {
 	CreateMyDirectInput();
 	InitializeLevel();
 
+	player->Initialize();
+	games.push(player);
+
 	while (IfMyWindowIsRunning())
 	{
 		GetInput();
 		Update(60);
-		Render();
-		//PlaySound();
+		(games.top())->Render();
+		// Render();
+		// PlaySound();
 
 	}
 	CleanUpMyDirectInput();

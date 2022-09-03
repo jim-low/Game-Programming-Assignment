@@ -21,18 +21,20 @@ protected:
 	int maxFrame;
 	int textureWidth;
 	int textureHeight;
-	std::string textureFile;
+	LPDIRECT3DTEXTURE9 texture;
 	int backgroundMovement;
-	std::string soundFile;
+	// string soundFile;
 	float soundVolume;
 
 public:
 	Game();
+	~Game();
 
 	virtual void Initialize();
 	virtual void Render();
-	virtual void Update();
-	virtual void Input();
+	virtual void CleanUp();
+	// virtual void Update();
+	// virtual void Input();
 };
 
 #endif

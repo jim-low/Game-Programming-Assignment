@@ -5,10 +5,11 @@
 
 class Player : public Spaceship {
 protected:
-	Weapon weapon[2];
+	// Weapon weapon[2];
 
 public:
-	Player() : Spaceship();
+	Player() : Spaceship() {}
+	~Player();
 
 	void Initialize();
 	void Update();

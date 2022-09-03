@@ -29,10 +29,13 @@
 #include "Weapon.h"
 #include "Melee.h"
 #include "Range.h"
+#include "FrameTimer.h"
 
 using namespace std;
 
 // externs
-stack<Game*> gameStack;
+extern stack<Game*> games;
+extern IDirect3DDevice9* d3dDevice;
+extern LPD3DXSPRITE sprite;
 
 #endif
