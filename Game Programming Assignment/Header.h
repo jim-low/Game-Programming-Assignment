@@ -13,6 +13,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
+#include <stack>
 
 #pragma comment (lib, "d3d9.lib") // this code is NOT standard C++ -> cannot use this code on Linux, only works on Windows
 #pragma comment (lib, "d3dx9.lib") // this code is NOT standard C++ -> cannot use this code on Linux, only works on Windows
@@ -29,6 +30,9 @@
 #include "Melee.h"
 #include "Range.h"
 
+using namespace std;
+
 // externs
+stack<Game*> gameStack;
 
 #endif

@@ -8,8 +8,6 @@ HWND g_hWnd = NULL;
 WNDCLASS wndClass;
 HRESULT hr;
 
-using namespace std;
-
 //DX Global
 IDirect3DDevice9* d3dDevice;
 
