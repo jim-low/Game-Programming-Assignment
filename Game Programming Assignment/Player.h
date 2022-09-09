@@ -17,7 +17,13 @@ enum Direction {
 class Player : public Spaceship {
 private:
 	vector<Projectile*> bullets;
+	int ammo;
+	int maxAmmo;
+	boolean reloading;
+	float reloadTimer;
+	float reloadRate;
 
+	// name probably need to change
 	boolean canShoot;
 
 	boolean upPressed;
@@ -32,7 +38,7 @@ private:
 	float speed;
 	float friction;
 
-	float timer;
+	float fireRateTimer;
 	float fireRate;
 
 	void Move();
