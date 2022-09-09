@@ -2,9 +2,6 @@
 #include "Game.h"
 #include "Level1.h"
 
-#define MyWindowWidth 1600
-#define MyWindowHeight 900
-
 //Window's Global
 HWND g_hWnd = NULL;
 WNDCLASS wndClass;

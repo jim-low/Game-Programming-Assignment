@@ -1,6 +1,7 @@
 #pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
+#include <vector>
 #include "Header.h"
 #include "Spaceship.h"
 #include "Projectile.h"
@@ -15,7 +16,20 @@ enum Direction {
 
 class Player : public Spaceship {
 private:
-	Projectile* bullet;
+	vector<Projectile*> bullets;
+
+	boolean canShoot;
+
+	boolean upPressed;
+	boolean downPressed;
+	boolean leftPressed;
+	boolean rightPressed;
+	boolean spacePressed;
+
+	float timer;
+	float fireRate;
+
+	void Move();
 	void Shoot();
 
 public:

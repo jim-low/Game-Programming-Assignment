@@ -10,6 +10,16 @@ void Player::Initialize()
 
 	health = 100;
 
+	canShoot = false;
+	fireRate = 0.5;
+	timer = 10;
+
+	upPressed = false;
+	downPressed = false;
+	leftPressed = false;
+	rightPressed = false;
+	spacePressed = false;
+
 	textureWidth = 318;
 	textureHeight = 512;
 
@@ -26,7 +36,7 @@ void Player::Initialize()
 	scaling = D3DXVECTOR2(0.7, -0.7);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
-	position = D3DXVECTOR2(69, 420);
+	position = D3DXVECTOR2(800, 600);
 
 	colRect.top = position.y;
 	colRect.bottom = colRect.top + spriteHeight;
@@ -42,6 +52,12 @@ void Player::Render()
 		return;
 	}
 
+	for (Projectile* bullet : bullets) {
+		if (!bullet->outOfBounds) {
+			bullet->Render();
+		}
+	}
+
 	D3DXMATRIX mat;
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &centre, direction, &position);
 	sprite->SetTransform(&mat);
@@ -49,8 +65,28 @@ void Player::Render()
 }
 
 void Player::Update() {
-	//Move();
-	Shoot();
+	Move();
+
+	if (canShoot) {
+		Shoot();
+	}
+
+	for (Projectile* bullet : bullets) {
+		if (!bullet->outOfBounds) {
+			bullet->Update();
+		}
+	}
+
+	cout << timer << endl;
+
+	if (spacePressed && !canShoot) {
+		timer -= fireRate;
+		if (timer <= 0) {
+			timer = 10;
+			canShoot = false;
+			spacePressed = false;
+		}
+	}
 }
 
 void Player::Input() {
@@ -58,30 +94,56 @@ void Player::Input() {
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
 	// shoot update
-	if (diKeys[DIK_SPACE] & 0x80) {
-		Shoot();
+	if (diKeys[DIK_SPACE] & 0x80 && !spacePressed) {
+		spacePressed = true;
+		canShoot = true;
 	}
 
 	// movement
 	if (diKeys[DIK_W] & 0x80) {
-		position.y -= 5;
+		upPressed = true;
 	}
 
 	if (diKeys[DIK_S] & 0x80) {
-		position.y += 5;
+		downPressed = true;
 	}
 
 	if (diKeys[DIK_A] & 0x80) {
-		position.x -= 5;
+		leftPressed = true;
 	}
 
 	if (diKeys[DIK_D] & 0x80) {
+		rightPressed = true;
+	}
+}
+
+void Player::Move() {
+	if (upPressed) {
+		position.y -= 5;
+		upPressed = false;
+	}
+
+	if (downPressed) {
+		position.y += 5;
+		downPressed = false;
+	}
+
+	if (leftPressed) {
+		position.x -= 5;
+		leftPressed = false;
+	}
+
+	if (rightPressed) {
 		position.x += 5;
+		rightPressed = false;
 	}
 }
 
 void Player::Shoot() {
-	cout << "pew pew mothafoka" << endl;
+	Projectile* bullet = new Projectile();
+	bullet->Initialization(D3DXVECTOR2(position.x + (spriteWidth / 6), position.y - (spriteHeight/2)));
+	bullets.push_back(bullet);
+	canShoot = false;
 }
 
 Player::~Player() {
