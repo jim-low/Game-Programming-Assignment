@@ -20,6 +20,11 @@ void Player::Initialize()
 	rightPressed = false;
 	spacePressed = false;
 
+	acceleration = D3DXVECTOR2(0, 0);
+	velocity = D3DXVECTOR2(0, 0);
+	speed = 2.f;
+	friction = 0.2;
+
 	textureWidth = 318;
 	textureHeight = 512;
 
@@ -77,8 +82,6 @@ void Player::Update() {
 		}
 	}
 
-	cout << timer << endl;
-
 	if (spacePressed && !canShoot) {
 		timer -= fireRate;
 		if (timer <= 0) {
@@ -119,24 +122,30 @@ void Player::Input() {
 
 void Player::Move() {
 	if (upPressed) {
-		position.y -= 5;
+		acceleration.y -= speed;
 		upPressed = false;
 	}
 
 	if (downPressed) {
-		position.y += 5;
+		acceleration.y += speed;
 		downPressed = false;
 	}
 
 	if (leftPressed) {
-		position.x -= 5;
+		acceleration.x -= speed;
 		leftPressed = false;
 	}
 
 	if (rightPressed) {
-		position.x += 5;
+		acceleration.x += speed;
 		rightPressed = false;
 	}
+
+	velocity += acceleration;
+	velocity *= (1 - friction);
+	cout << velocity.x << " " << velocity.y << endl;
+	position += velocity;
+	acceleration = D3DXVECTOR2(0, 0);
 }
 
 void Player::Shoot() {
