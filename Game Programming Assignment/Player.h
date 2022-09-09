@@ -26,6 +26,8 @@ private:
 	boolean rightPressed;
 	boolean spacePressed;
 
+	// TODO: implement acceleration, velocity
+
 	float timer;
 	float fireRate;
 
