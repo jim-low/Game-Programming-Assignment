@@ -3,6 +3,7 @@
 #define SPACESHIP_H
 
 #include "Header.h"
+#include "Game.h"
 
 class Spaceship : public Game {
 protected:

@@ -2,8 +2,12 @@
 #ifndef MELEE_H
 #define MELEE_H
 #include "Header.h"
-class Melee
+#include "Weapon.h"
+
+class Melee : public Weapon
 {
+	Melee() : Weapon() {}
+	~Melee();
 };
 
 

@@ -1,4 +1,4 @@
-#include "Header.h"
+#include "FrameTimer.h"
 
 void FrameTimer::Init(int fps)
 {

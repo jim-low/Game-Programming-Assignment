@@ -2,8 +2,12 @@
 #ifndef RANGE_H
 #define RANGE_H
 #include "Header.h"
-class Range
+#include "Weapon.h"
+
+class Range : public Weapon
 {
+	Range() : Weapon() {}
+	~Range();
 };
 
 

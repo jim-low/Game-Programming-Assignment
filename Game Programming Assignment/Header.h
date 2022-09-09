@@ -2,7 +2,6 @@
 
 #ifndef HEADER_H
 #define HEADER_H
-#include "Header.h"
 
 // include perpustakaan
 #define WIN32_LEAN_AND_MEAN
@@ -22,13 +21,6 @@
 
 // classes
 #include "Game.h"
-#include "Spaceship.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Projectile.h"
-#include "Weapon.h"
-#include "Melee.h"
-#include "Range.h"
 #include "FrameTimer.h"
 
 using namespace std;
@@ -37,5 +29,8 @@ using namespace std;
 extern stack<Game*> games;
 extern IDirect3DDevice9* d3dDevice;
 extern LPD3DXSPRITE sprite;
+extern LPDIRECTINPUT8 dInput;
+extern LPDIRECTINPUTDEVICE8 dInputKeyboardDevice;
+extern BYTE diKeys[256];
 
 #endif

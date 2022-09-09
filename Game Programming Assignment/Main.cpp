@@ -1,7 +1,9 @@
 #include "Header.h"
+#include "Game.h"
+#include "Level1.h"
 
-#define MyWindowWidth 800
-#define MyWindowHeight 600
+#define MyWindowWidth 1600
+#define MyWindowHeight 900
 
 //Window's Global
 HWND g_hWnd = NULL;
@@ -13,8 +15,9 @@ IDirect3DDevice9* d3dDevice;
 
 //Direct Input Global
 LPDIRECTINPUT8 dInput;
-LPDIRECTINPUTDEVICE8  dInputKeyboardDevice;
+LPDIRECTINPUTDEVICE8 dInputKeyboardDevice;
 BYTE diKeys[256];
+
 LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 DIMOUSESTATE mouseState;
 
@@ -23,7 +26,7 @@ LPD3DXSPRITE sprite = NULL;
 
 // gaem things
 stack<Game*> games;
-Player* player = new Player();
+Level1* level1;
 
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
@@ -52,7 +55,7 @@ void CreateMyWindow() {
 
 	RegisterClass(&wndClass);
 
-	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Spaceship Game", WS_OVERLAPPEDWINDOW, 0, 100, MyWindowWidth, MyWindowHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
+	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Spaceship Game", WS_OVERLAPPEDWINDOW, 150, 100, MyWindowWidth, MyWindowHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
 	ShowWindow(g_hWnd, 1);
 }
 
@@ -111,7 +114,6 @@ void InitializeLevel() {
 }
 
 void GetInput() {
-
 }
 
 void Update(int framesToUpdate) {
@@ -177,14 +179,16 @@ int main() {
 	CreateMyDirectInput();
 	InitializeLevel();
 
-	player->Initialize();
-	games.push(player);
+	level1 = new Level1();
+	games.push(level1);
 
 	while (IfMyWindowIsRunning())
 	{
 		GetInput();
-		Update(60);
-		(games.top())->Render();
+		// Update(60);
+		games.top()->Input();
+		games.top()->Update();
+		games.top()->Render();
 		// Render();
 		// PlaySound();
 

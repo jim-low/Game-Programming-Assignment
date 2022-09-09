@@ -1,1 +1,5 @@
-#include "Header.h"
+#include "Weapon.h"
+
+void Weapon::Initialization()
+{
+}

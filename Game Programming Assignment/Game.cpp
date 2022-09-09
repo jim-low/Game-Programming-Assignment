@@ -24,7 +24,6 @@ void Game::Render() {
 	//sprite->Draw(texture, &numbersRect, NULL, &numbersPosition, D3DCOLOR_XRGB(255, 255, 255));
 
 	sprite->Draw(texture, &animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
-
 	
 	//font->DrawText(sprite, "Hello World!", -1, &textRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
@@ -46,6 +45,14 @@ void Game::CleanUp()
 {
 	texture->Release();
 	texture = NULL;
+}
+
+void Game::Update() {
+
+}
+
+void Game::Input() {
+
 }
 
 Game::~Game() {
