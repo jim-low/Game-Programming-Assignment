@@ -114,4 +114,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\Practical\P9\Prac8and9\fmod.dll">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\..\Practical\P9\Prac8and9\fmodL.dll">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

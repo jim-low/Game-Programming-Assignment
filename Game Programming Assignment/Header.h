@@ -21,8 +21,10 @@
 #pragma comment (lib, "d3dx9.lib") // this code is NOT standard C++ -> cannot use this code on Linux, only works on Windows
 #pragma comment (lib, "dinput8.lib")
 #pragma comment (lib, "dxguid.lib")
+#pragma comment (lib, "fmod_vc.lib")
 
 // classes
+#include "AudioManager.h"
 #include "Game.h"
 #include "FrameTimer.h"
 
