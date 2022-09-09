@@ -5,8 +5,21 @@
 #include "Game.h"
 
 class Projectile : public Game {
+protected:
+	D3DXVECTOR2 speed;
+	int damage;
+
 public:
-	Projectile() : Game() {}
+	boolean outOfBounds;
+
+	Projectile() : Game() {
+		//this->Initialization();
+	}
+	~Projectile();
+
+	void Initialization(D3DXVECTOR2 startPos);
+	void Update();
+	void Render();
 };
 
 #endif
