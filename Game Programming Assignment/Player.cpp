@@ -11,10 +11,10 @@ void Player::Initialize()
 	health = 100;
 
 	canShoot = false;
-	fireRate = 0.5;
+	fireRate = 0.8;
 	fireRateTimer = 10;
 
-	maxAmmo = 10;
+	maxAmmo = 15;
 	ammo = maxAmmo;
 	reloading = false;
 	reloadRate = 0.1;
@@ -105,11 +105,6 @@ void Player::Update() {
 			fireRateTimer = 10;
 		}
 	}
-
-	cout << "ammo: " << ammo << endl;
-	cout << "reloadTimer: " << reloadTimer << endl;
-	cout << endl;
-	cout << "fireRateTimer: " << fireRateTimer << endl;
 }
 
 void Player::Input() {
@@ -140,7 +135,32 @@ void Player::Input() {
 	}
 }
 
+vector<Projectile*>* Player::getBullets()
+{
+	return &bullets;
+}
+
+void Player::CheckBoundary() { // TODO: fix this shit
+	if (position.x - speed < 0) {
+		leftPressed = false;
+	}
+
+	if (position.x + spriteWidth + speed > MyWindowWidth) {
+		rightPressed = false;
+	}
+
+	if (position.y - speed < 0) {
+		upPressed = false;
+	}
+
+	if (position.y + spriteHeight + speed > MyWindowHeight) {
+		downPressed = false;
+	}
+}
+
 void Player::Move() {
+	CheckBoundary();
+
 	if (upPressed) {
 		acceleration.y -= speed;
 		upPressed = false;

@@ -1,16 +1,18 @@
 #include "Enemy.h"
+#include "Player.h"
+#include "Projectile.h"
 
 void Enemy::Initialize() {
-	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/alien1.png", &texture);
+	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/aliens.png", &texture);
 
 	if (FAILED(hr)) {
 		cout << "Failed to load texture" << endl;
 	}
 
-	health = 5;
+	health = 30;
 	
-	textureWidth = 48 * 4;
-	textureHeight = 48/2 * 3;
+	textureWidth = 576/4;
+	textureHeight = 384/8;
 
 	spriteRow = 1;
 	spriteCol = 3;
@@ -25,7 +27,7 @@ void Enemy::Initialize() {
 	scaling = D3DXVECTOR2(1, 1);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
-	position = D3DXVECTOR2(5, 5);
+	position = D3DXVECTOR2(0, 0);
 
 	colRect.top = position.y;
 	colRect.bottom = colRect.top + spriteHeight;
@@ -36,6 +38,7 @@ void Enemy::Initialize() {
 }
 
 void Enemy::Update() {
+	cout << "Enemy health: " << health << endl;
 }
 
 void Enemy::Render() {
