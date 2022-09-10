@@ -4,11 +4,10 @@ void AudioManager::InitializeAudio()
 {
 	result = FMOD::System_Create(&system);
 	result = system->init(64, FMOD_INIT_NORMAL, extraDriverData);
-	result = system->createChannelGroup(bgGroup, group);
 }
 
 void AudioManager::PlayBackgroundSound(){
-	result = system->playSound(bgSoundTrack, 0, false, &channel);
+	result = system->playSound(bgSoundTrack, group, false, &channel);
 	channel->setVolume(0.01);
 	channel->setPitch(1.5);
 	
@@ -16,7 +15,7 @@ void AudioManager::PlayBackgroundSound(){
 }
 
 void AudioManager::StopBackgroundSound() {
-	channel->stop();
+	group->stop();
 }
 
 void AudioManager::PlayCreditsSound(){
@@ -27,8 +26,32 @@ void AudioManager::PlayWinSoundTrack(){
 	result = system->playSound(winSoundTrack, 0, false, &channel);
 }
 
+void AudioManager::StopWinSoundTrack() {
+
+}
+
 void AudioManager::PlayLoseSoundTrack() {
 	result = system->playSound(loseSoundTrack, 0, false, &channel);
+}
+
+void AudioManager::StopLoseSoundTrack() {
+
+}
+
+void AudioManager::PlayGameplaySoundTrack() {
+	result = system->playSound(gameplaySound, 0, false, &channel);
+}
+
+void AudioManager::StopGameplaySoundTrack() {
+
+}
+
+void AudioManager::PlayBossSoundTrack() {
+	result = system->playSound(bossSoundTrack, 0, false, &channel);
+}
+
+void AudioManager::StopBossSoundTrack() {
+
 }
 
 void AudioManager::PlayShootSound() {
@@ -53,14 +76,6 @@ void AudioManager::PlaySwingSound() {
 
 void AudioManager::PlayExplosionSound() {
 	result = system->playSound(explosionSound, 0, false, &channel);
-}
-
-void AudioManager::PlayGameplaySoundTrack() {
-	result = system->playSound(gameplaySound, 0, false, &channel);
-}
-
-void AudioManager::PlayBossSoundTrack() {
-	result = system->playSound(bossSoundTrack, 0, false, &channel);
 }
 
 void AudioManager::PlayClickSound() {
