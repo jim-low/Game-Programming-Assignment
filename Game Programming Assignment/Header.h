@@ -24,9 +24,10 @@
 #pragma comment (lib, "fmod_vc.lib")
 
 // classes
-#include "AudioManager.h"
 #include "Game.h"
+#include "AudioManager.h"
 #include "FrameTimer.h"
+#include "CreditsPage.h"
 
 using namespace std;
 
@@ -37,5 +38,9 @@ extern LPD3DXSPRITE sprite;
 extern LPDIRECTINPUT8 dInput;
 extern LPDIRECTINPUTDEVICE8 dInputKeyboardDevice;
 extern BYTE diKeys[256];
+extern LPDIRECTINPUTDEVICE8 dInputMouseDevice;
+extern DIMOUSESTATE mouseState;
+extern AudioManager* audioManager;
+
 
 #endif

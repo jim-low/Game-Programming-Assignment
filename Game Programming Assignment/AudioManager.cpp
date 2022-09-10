@@ -4,54 +4,37 @@ void AudioManager::InitializeAudio()
 {
 	result = FMOD::System_Create(&system);
 	result = system->init(64, FMOD_INIT_NORMAL, extraDriverData);
+	result = system->createChannelGroup(channelGroup, &bgGroup);
 }
 
-void AudioManager::PlayBackgroundSound(){
-	result = system->playSound(bgSoundTrack, group, false, &channel);
-	channel->setVolume(0.01);
-	channel->setPitch(1.5);
-	
-	
-}
+void AudioManager::PlayMainMenuSoundTrack(){
+	result = system->playSound(bgSoundTrack, bgGroup, false, &channel);
+	bgGroup->setVolume(0.03);
+	bgGroup->setPitch(1.5);
+	}
 
 void AudioManager::StopBackgroundSound() {
-	group->stop();
+	bgGroup->stop();
 }
 
 void AudioManager::PlayCreditsSound(){
-	result = system->playSound(creditSoundTrack, 0, false, &channel);
+	result = system->playSound(creditSoundTrack, bgGroup, false, &channel);
 }
 
 void AudioManager::PlayWinSoundTrack(){
 	result = system->playSound(winSoundTrack, 0, false, &channel);
 }
 
-void AudioManager::StopWinSoundTrack() {
-
-}
-
 void AudioManager::PlayLoseSoundTrack() {
 	result = system->playSound(loseSoundTrack, 0, false, &channel);
-}
-
-void AudioManager::StopLoseSoundTrack() {
-
 }
 
 void AudioManager::PlayGameplaySoundTrack() {
 	result = system->playSound(gameplaySound, 0, false, &channel);
 }
 
-void AudioManager::StopGameplaySoundTrack() {
-
-}
-
 void AudioManager::PlayBossSoundTrack() {
 	result = system->playSound(bossSoundTrack, 0, false, &channel);
-}
-
-void AudioManager::StopBossSoundTrack() {
-
 }
 
 void AudioManager::PlayShootSound() {
@@ -80,7 +63,7 @@ void AudioManager::PlayExplosionSound() {
 
 void AudioManager::PlayClickSound() {
 	result = system->playSound(clickSound, 0, false, &channel);
-	channel->setVolume(1);
+	channel->setVolume(0.1);
 }
 
 void AudioManager::PlayHoverButtonSound() {
@@ -91,7 +74,7 @@ void AudioManager::PlayHoverButtonSound() {
 void AudioManager::LoadSounds()
 {
 	result = system->createSound("../Assets/Audio/bg1.mp3", FMOD_DEFAULT, 0, &bgSoundTrack);
-	result = bgSoundTrack->setMode(FMOD_LOOP_OFF);
+	result = bgSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createSound("../Assets/Audio/", FMOD_DEFAULT, 0, &creditSoundTrack);
 	result = creditSoundTrack->setMode(FMOD_LOOP_OFF);
