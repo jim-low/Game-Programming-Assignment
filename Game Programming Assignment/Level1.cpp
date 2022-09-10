@@ -6,11 +6,17 @@ Level1::~Level1() {
 void Level1::Initialize() {
 	player = new Player();
 	enemy = new Enemy();
+	playerBullets = player->getBullets();
 }
 
 void Level1::Update() {
 	player->Update();
 	enemy->Update();
+
+	for (int i = 0; i < playerBullets->size(); ++i) {
+		Projectile* bullet = playerBullets->at(i);
+		// checkCollision(enemy, bullet);
+	}
 }
 
 void Level1::Render() {
@@ -21,7 +27,7 @@ void Level1::Render() {
 
 	// render game objects
 	player->Render();
-	// enemy->Render();
+	enemy->Render();
 
 	sprite->End();
 

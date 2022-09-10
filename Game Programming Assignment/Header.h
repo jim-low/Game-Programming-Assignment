@@ -24,9 +24,9 @@
 #pragma comment (lib, "fmod_vc.lib")
 
 // classes
-#include "AudioManager.h"
 #include "Game.h"
 #include "FrameTimer.h"
+#include "AudioManager.h"
 
 using namespace std;
 

@@ -8,8 +8,8 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 		cout << "Failed to load texture" << endl;
 	}
 
-	speed = D3DXVECTOR2(0, -10.f);
-	damage = 69;
+	speed = D3DXVECTOR2(0, -15.f);
+	damage = 10;
 	outOfBounds = false;
 
 	textureWidth = 64;
@@ -41,7 +41,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 void Projectile::Update() {
 	position += speed;
 
-	if (position.x < (0 - textureWidth) || position.x > MyWindowWidth || position.y < (0 - textureHeight) || position.y > MyWindowHeight) {
+	if (position.y < (0 - textureHeight) || position.y > MyWindowHeight) {
 		outOfBounds = true;
 	}
 }

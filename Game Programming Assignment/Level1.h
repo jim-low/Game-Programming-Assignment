@@ -10,6 +10,8 @@ class Level1 : public Game
 {
 protected:
 	Player* player;
+	vector<Projectile*>* playerBullets;
+
 	Enemy* enemy;
 
 public:

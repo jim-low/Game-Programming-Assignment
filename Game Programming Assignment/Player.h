@@ -17,6 +17,7 @@ enum Direction {
 class Player : public Spaceship {
 private:
 	vector<Projectile*> bullets;
+
 	int ammo;
 	int maxAmmo;
 	boolean reloading;
@@ -32,7 +33,6 @@ private:
 	boolean rightPressed;
 	boolean spacePressed;
 
-	// TODO: implement acceleration, velocity
 	D3DXVECTOR2 acceleration;
 	D3DXVECTOR2 velocity;
 	float speed;
@@ -43,6 +43,7 @@ private:
 
 	void Move();
 	void Shoot();
+	void CheckBoundary();
 
 public:
 	Player() : Spaceship() {
@@ -54,6 +55,7 @@ public:
 	void Update();
 	void Render();
 	void Input();
+	vector<Projectile*>* getBullets();
 };
 
 #endif
