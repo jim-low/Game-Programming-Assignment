@@ -73,6 +73,7 @@ void AudioManager::PlayHoverButtonSound() {
 
 void AudioManager::LoadSounds()
 {
+
 	result = system->createSound("../Assets/Audio/bg1.mp3", FMOD_DEFAULT, 0, &bgSoundTrack);
 	result = bgSoundTrack->setMode(FMOD_LOOP_NORMAL);
 

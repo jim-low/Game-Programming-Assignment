@@ -13,13 +13,12 @@ void CreditsPage::Initialize()
 	audioManager = new AudioManager();
 	audioManager->InitializeAudio();
 	audioManager->LoadSounds();
-	audioManager->PlayBackgroundSound();
+	audioManager->PlayMainMenuSoundTrack();
 }
 
 void CreditsPage::Update()
 {
 	if (clicked) {
-
 		audioManager->StopBackgroundSound();
 		audioManager->PlayClickSound();
 		std::cout << "Mouse Click One" << std::endl;
@@ -46,6 +45,7 @@ void CreditsPage::Input()
 	if (BUTTONDOWN(mouseState, 0)) {
 		clicked = true;
 	}
+
 }
 
 CreditsPage::~CreditsPage()

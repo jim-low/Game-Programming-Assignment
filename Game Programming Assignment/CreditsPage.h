@@ -7,6 +7,7 @@
 class CreditsPage : public Game {
 private:
 	boolean clicked;
+	boolean hover;
 
 public:
 	CreditsPage() : Game() {
