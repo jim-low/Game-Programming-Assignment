@@ -2,7 +2,7 @@
 #include "Projectile.h"
 
 void Projectile::Initialization(D3DXVECTOR2 startPos) {
-	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/player-bullet-but-better-edit.png", &texture);
+	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/bullet1.png", &texture);
 
 	if (FAILED(hr)) {
 		cout << "Failed to load texture" << endl;
@@ -12,8 +12,8 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 	damage = 69;
 	outOfBounds = false;
 
-	textureWidth = 30;
-	textureHeight = 29;
+	textureWidth = 64;
+	textureHeight = 64;
 
 	spriteRow = 1;
 	spriteCol = 1;
@@ -25,7 +25,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(1, 1);
+	scaling = D3DXVECTOR2(0.5, 0.5);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
 	position = startPos;

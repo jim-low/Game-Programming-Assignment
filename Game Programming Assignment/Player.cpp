@@ -12,13 +12,24 @@ void Player::Initialize()
 
 	canShoot = false;
 	fireRate = 0.5;
-	timer = 10;
+	fireRateTimer = 10;
+
+	maxAmmo = 10;
+	ammo = maxAmmo;
+	reloading = false;
+	reloadRate = 0.1;
+	reloadTimer = 10;
 
 	upPressed = false;
 	downPressed = false;
 	leftPressed = false;
 	rightPressed = false;
 	spacePressed = false;
+
+	acceleration = D3DXVECTOR2(0, 0);
+	velocity = D3DXVECTOR2(0, 0);
+	speed = 2.f;
+	friction = 0.2;
 
 	textureWidth = 318;
 	textureHeight = 512;
@@ -67,7 +78,7 @@ void Player::Render()
 void Player::Update() {
 	Move();
 
-	if (canShoot) {
+	if (canShoot && !reloading) {
 		Shoot();
 	}
 
@@ -77,16 +88,28 @@ void Player::Update() {
 		}
 	}
 
-	cout << timer << endl;
-
-	if (spacePressed && !canShoot) {
-		timer -= fireRate;
-		if (timer <= 0) {
-			timer = 10;
-			canShoot = false;
-			spacePressed = false;
+	if (reloading) {
+		reloadTimer -= reloadRate;
+		if (reloadTimer <= 0) {
+			reloading = false;
+			ammo = maxAmmo;
+			reloadTimer = 10;
 		}
 	}
+
+	if (spacePressed && !canShoot) {
+		fireRateTimer -= fireRate;
+		if (fireRateTimer <= 0) {
+			canShoot = false;
+			spacePressed = false;
+			fireRateTimer = 10;
+		}
+	}
+
+	cout << "ammo: " << ammo << endl;
+	cout << "reloadTimer: " << reloadTimer << endl;
+	cout << endl;
+	cout << "fireRateTimer: " << fireRateTimer << endl;
 }
 
 void Player::Input() {
@@ -94,7 +117,7 @@ void Player::Input() {
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
 	// shoot update
-	if (diKeys[DIK_SPACE] & 0x80 && !spacePressed) {
+	if (diKeys[DIK_SPACE] & 0x80 && !spacePressed && !reloading) {
 		spacePressed = true;
 		canShoot = true;
 	}
@@ -119,24 +142,29 @@ void Player::Input() {
 
 void Player::Move() {
 	if (upPressed) {
-		position.y -= 5;
+		acceleration.y -= speed;
 		upPressed = false;
 	}
 
 	if (downPressed) {
-		position.y += 5;
+		acceleration.y += speed;
 		downPressed = false;
 	}
 
 	if (leftPressed) {
-		position.x -= 5;
+		acceleration.x -= speed;
 		leftPressed = false;
 	}
 
 	if (rightPressed) {
-		position.x += 5;
+		acceleration.x += speed;
 		rightPressed = false;
 	}
+
+	velocity += acceleration;
+	velocity *= (1 - friction);
+	position += velocity;
+	acceleration = D3DXVECTOR2(0, 0);
 }
 
 void Player::Shoot() {
@@ -144,6 +172,12 @@ void Player::Shoot() {
 	bullet->Initialization(D3DXVECTOR2(position.x + (spriteWidth / 6), position.y - (spriteHeight/2)));
 	bullets.push_back(bullet);
 	canShoot = false;
+	ammo -= 1;
+
+	if (ammo <= 0) {
+		reloading = true;
+		canShoot = false;
+	}
 }
 
 Player::~Player() {
