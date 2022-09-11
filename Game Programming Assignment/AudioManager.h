@@ -7,7 +7,7 @@
 class AudioManager {
 public:
 	FMOD::System* system;
-	FMOD::Sound* winSoundTrack, * loseSoundTrack, * bgSoundTrack, * creditSoundTrack, * shootSound, * pickUpSound,
+	FMOD::Sound* winSoundTrack, * loseSoundTrack, * bgSoundTrack, * creditSoundTrack, * playerShootSound, * enemyShootSound, * pickUpSound,
 		* collideSound, * damagedSound, * swingSound, * explosionSound, * gameplaySound, * bossSoundTrack, * clickSound;
 	FMOD::Channel* channel = 0;
 	char* channelGroup;
@@ -24,7 +24,8 @@ public:
 	void PlayWinSoundTrack();
 	void PlayLoseSoundTrack();
 	void PlayBossSoundTrack();
-	void PlayShootSound();
+	void PlayPlayerShootSound();
+	void PlayEnemyShootSound();
 	void PlayPickUpSound();
 	void PlayCollisionSound();
 	void PlayDamagedSound();
