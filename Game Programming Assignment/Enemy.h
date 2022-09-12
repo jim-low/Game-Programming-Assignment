@@ -16,6 +16,7 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
+	void Damage(int damage);
 };
 
 #endif

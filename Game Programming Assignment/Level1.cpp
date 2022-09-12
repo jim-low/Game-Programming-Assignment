@@ -15,7 +15,10 @@ void Level1::Update() {
 
 	for (int i = 0; i < playerBullets->size(); ++i) {
 		Projectile* bullet = playerBullets->at(i);
-		// checkCollision(enemy, bullet);
+		if (!bullet->outOfBounds && Game::checkCollision(enemy->getBody(), bullet->getBody())) {
+			bullet->outOfBounds = true;
+			enemy->Damage(bullet->GetDamage());
+		}
 	}
 }
 

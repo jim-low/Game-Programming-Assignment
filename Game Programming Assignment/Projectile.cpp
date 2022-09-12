@@ -44,6 +44,18 @@ void Projectile::Update() {
 	if (position.y < (0 - textureHeight) || position.y > MyWindowHeight) {
 		outOfBounds = true;
 	}
+
+	animRect.top = currentFrame * spriteHeight;
+	animRect.bottom = animRect.top + spriteHeight;
+	animRect.left = currentFrame * spriteWidth;
+	animRect.right = animRect.left + spriteWidth;
+
+	colRect.top = position.y;
+	colRect.bottom = colRect.top + spriteHeight;
+	colRect.left = position.x;
+	colRect.right = colRect.left + spriteWidth;
+
+	maxFrame = (spriteRow * spriteCol) - 1;
 }
 
 void Projectile::Render() {
@@ -51,6 +63,11 @@ void Projectile::Render() {
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, &centre, direction, &position);
 	sprite->SetTransform(&mat);
 	sprite->Draw(texture, &animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+}
+
+int Projectile::GetDamage()
+{
+	return damage;
 }
 
 Projectile::~Projectile() {

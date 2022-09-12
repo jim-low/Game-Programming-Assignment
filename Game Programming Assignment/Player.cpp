@@ -76,6 +76,7 @@ void Player::Render()
 }
 
 void Player::Update() {
+	// gameplay
 	Move();
 
 	if (canShoot && !reloading) {
@@ -88,6 +89,7 @@ void Player::Update() {
 		}
 	}
 
+	// timer update
 	if (reloading) {
 		reloadTimer -= reloadRate;
 		if (reloadTimer <= 0) {
@@ -105,6 +107,19 @@ void Player::Update() {
 			fireRateTimer = 10;
 		}
 	}
+
+	// sprite update
+	animRect.top = currentFrame * spriteHeight;
+	animRect.bottom = animRect.top + spriteHeight;
+	animRect.left = currentFrame * spriteWidth;
+	animRect.right = animRect.left + spriteWidth;
+
+	colRect.top = position.y;
+	colRect.bottom = colRect.top + spriteHeight;
+	colRect.left = position.x;
+	colRect.right = colRect.left + spriteWidth;
+
+	maxFrame = (spriteRow * spriteCol) - 1;
 }
 
 void Player::Input() {
