@@ -12,12 +12,22 @@ protected:
 	RECT titleRect; 
 	RECT buttonPlayRect;
 	RECT buttonSettingsRect;
+	RECT buttonCreditsRect;
+	RECT buttonQuitRect;
 
 	//textures
 	LPDIRECT3DTEXTURE9 butUnPlayTexture = NULL;
 	LPDIRECT3DTEXTURE9 butPlayTexture = NULL;
 	LPDIRECT3DTEXTURE9 butUnSettingsTexture = NULL;
 	LPDIRECT3DTEXTURE9 butSettingsTexture = NULL;
+	LPDIRECT3DTEXTURE9 butUnCreditsTexture = NULL;
+	LPDIRECT3DTEXTURE9 butCreditsTexture = NULL;
+	LPDIRECT3DTEXTURE9 butUnQuitTexture = NULL;
+	LPDIRECT3DTEXTURE9 butQuitTexture = NULL;
+
+	//buttonSizes
+	int menuButtonWidth;
+	int menuButtonHeight;
 
 	//brushes
 	LPD3DXFONT titleBrush; //Title of game
