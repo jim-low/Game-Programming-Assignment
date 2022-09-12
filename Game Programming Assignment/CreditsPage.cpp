@@ -10,9 +10,6 @@ void CreditsPage::Initialize()
 		cout << "Failed to load texture" << endl;
 	}
 
-	audioManager = new AudioManager();
-	audioManager->InitializeAudio();
-	audioManager->LoadSounds();
 	audioManager->PlayMainMenuSoundTrack();
 }
 

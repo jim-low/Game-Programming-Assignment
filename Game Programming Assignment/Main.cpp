@@ -24,6 +24,7 @@ LPD3DXSPRITE sprite = NULL;
 // gaem things
 stack<Game*> games;
 Level1* level1;
+AudioManager* audioManager;
 
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
@@ -108,6 +109,12 @@ void InitializeLevel() {
 	if (FAILED(hr)) {
 		cout << "Failed to create player texture." << endl;
 	}
+}
+
+void InitializeSound() {
+	audioManager = new AudioManager();
+	audioManager->InitializeAudio();
+	audioManager->LoadSounds();
 }
 
 void GetInput() {
