@@ -12,7 +12,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 	damage = 10;
 	outOfBounds = false;
 
-	textureWidth = 64;
+	textureWidth = 35;
 	textureHeight = 64;
 
 	spriteRow = 1;
@@ -25,7 +25,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(0.5, 0.5);
+	scaling = D3DXVECTOR2(1, 1);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
 	position = startPos;
