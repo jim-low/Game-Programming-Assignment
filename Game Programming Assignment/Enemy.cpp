@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Projectile.h"
 
-void Enemy::Initialize() {
+void Enemy::Initialize(D3DXVECTOR2 startPos) {
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/aliens.png", &texture);
 
 	if (FAILED(hr)) {
@@ -27,7 +27,7 @@ void Enemy::Initialize() {
 	scaling = D3DXVECTOR2(1.3, 1.3);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
-	position = D3DXVECTOR2(100, 100);
+	position = startPos;
 
 	colRect.top = position.y;
 	colRect.bottom = colRect.top + spriteHeight;

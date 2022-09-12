@@ -25,7 +25,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(1, 1);
+	scaling = D3DXVECTOR2(0.7, 0.7);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
 	position = startPos;
@@ -41,10 +41,6 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 void Projectile::Update() {
 	position += speed;
 
-	if (position.y < (0 - textureHeight) || position.y > MyWindowHeight) {
-		outOfBounds = true;
-	}
-
 	animRect.top = currentFrame * spriteHeight;
 	animRect.bottom = animRect.top + spriteHeight;
 	animRect.left = currentFrame * spriteWidth;
@@ -56,6 +52,10 @@ void Projectile::Update() {
 	colRect.right = colRect.left + spriteWidth;
 
 	maxFrame = (spriteRow * spriteCol) - 1;
+
+	if (position.y < (0 - textureHeight) || position.y > MyWindowHeight) {
+		outOfBounds = true;
+	}
 }
 
 void Projectile::Render() {
@@ -71,5 +71,4 @@ int Projectile::GetDamage()
 }
 
 Projectile::~Projectile() {
-	cout << "bullet has been deletedededed" << endl;
 }

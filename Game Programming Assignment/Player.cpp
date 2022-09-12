@@ -204,7 +204,7 @@ void Player::Move() {
 
 void Player::Shoot() {
 	Projectile* bullet = new Projectile();
-	bullet->Initialization(D3DXVECTOR2(position.x + (spriteWidth / 6), position.y - (spriteHeight/2)));
+	bullet->Initialization(D3DXVECTOR2(position.x + (spriteWidth / 5), position.y - (spriteHeight/2)));
 	bullets.push_back(bullet);
 	canShoot = false;
 	ammo -= 1;

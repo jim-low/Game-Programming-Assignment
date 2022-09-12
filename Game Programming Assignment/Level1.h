@@ -12,7 +12,11 @@ protected:
 	Player* player;
 	vector<Projectile*>* playerBullets;
 
-	Enemy* enemy;
+	vector<Enemy*> enemies;
+	int maxEnemies;
+
+private:
+	void InitializeEnemies();
 
 public:
 	Level1() : Game() {

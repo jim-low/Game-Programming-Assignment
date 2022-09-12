@@ -44,7 +44,7 @@ public:
 	virtual void Input();
 	static boolean checkCollision(RECT a, RECT b);
 
-	RECT getBody() {
+	RECT GetBody() {
 		return colRect;
 	}
 };
