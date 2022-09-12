@@ -1,21 +1,50 @@
 #include "Level1.h"
 
+void Level1::InitializeEnemies()
+{
+	maxEnemies = 10;
+	for (int i = 0; i < maxEnemies; ++i) {
+		int x = (rand() % (MyWindowWidth + 1));
+		int y = (rand() % (MyWindowHeight + 1));
+		Enemy* enemy = new Enemy();
+		enemy->Initialize(D3DXVECTOR2(x, y));
+		enemies.push_back(enemy);
+	}
+}
+
 Level1::~Level1() {
 }
 
 void Level1::Initialize() {
 	player = new Player();
-	enemy = new Enemy();
+	InitializeEnemies();
 	playerBullets = player->getBullets();
 }
 
 void Level1::Update() {
 	player->Update();
-	enemy->Update();
+	int size;
 
-	for (int i = 0; i < playerBullets->size(); ++i) {
+	size = enemies.size();
+	for (int i = 0; i < size; ++i) {
+		Enemy* enemy = enemies.at(i);
+		enemy->Update();
+	}
+
+	size = playerBullets->size();
+	for (int i = 0; i < size; ++i) {
 		Projectile* bullet = playerBullets->at(i);
-		// checkCollision(enemy, bullet);
+		if (bullet->outOfBounds) {
+			continue;
+		}
+
+		for (int j = 0; j < enemies.size(); ++j) {
+			Enemy* enemy = enemies.at(j);
+			if (checkCollision(enemy->GetBody(), bullet->GetBody())) {
+				enemy->Damage(bullet->GetDamage());
+				bullet->outOfBounds = true;
+			}
+		}
 	}
 }
 
@@ -27,7 +56,11 @@ void Level1::Render() {
 
 	// render game objects
 	player->Render();
-	enemy->Render();
+	int size = enemies.size();
+	for (int i = 0; i < size; ++i) {
+		Enemy* enemy = enemies.at(i);
+		enemy->Render();
+	}
 
 	sprite->End();
 

@@ -20,6 +20,7 @@ public:
 	void Initialization(D3DXVECTOR2 startPos);
 	void Update();
 	void Render();
+	int GetDamage();
 };
 
 #endif

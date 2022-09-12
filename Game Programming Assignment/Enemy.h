@@ -8,14 +8,13 @@
 class Enemy : public Spaceship {
 protected:
 public:
-	Enemy() : Spaceship() {
-		this->Initialize();
-	}
+	Enemy() : Spaceship() {}
 	~Enemy();
 
-	void Initialize();
+	void Initialize(D3DXVECTOR2 startPos);
 	void Update();
 	void Render();
+	void Damage(int damage);
 };
 
 #endif

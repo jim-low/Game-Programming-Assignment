@@ -42,7 +42,11 @@ public:
 	virtual void CleanUp();
 	virtual void Update();
 	virtual void Input();
-	// virtual void Input();
+	static boolean checkCollision(RECT a, RECT b);
+
+	RECT GetBody() {
+		return colRect;
+	}
 };
 
 #endif

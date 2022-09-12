@@ -41,6 +41,15 @@ void Game::Render() {
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
+boolean Game::checkCollision(RECT a, RECT b) {
+	if (a.bottom < b.top) return false;
+	if (a.top > b.bottom) return false;
+	if (a.right < b.left) return false;
+	if (a.left > b.right) return false;
+
+	return true;
+}
+
 void Game::CleanUp()
 {
 	texture->Release();
