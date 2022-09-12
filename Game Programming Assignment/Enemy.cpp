@@ -24,7 +24,7 @@ void Enemy::Initialize() {
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(1, 1);
+	scaling = D3DXVECTOR2(1.3, 1.3);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
 	position = D3DXVECTOR2(0, 0);
