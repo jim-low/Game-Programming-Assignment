@@ -5,7 +5,7 @@ void Level1::InitializeEnemies()
 	maxEnemies = 10;
 	for (int i = 0; i < maxEnemies; ++i) {
 		int x = (rand() % (MyWindowWidth + 1));
-		int y = (rand() % (MyWindowHeight + 1));
+		int y = (rand() % ((MyWindowHeight / 4) + 1));
 		Enemy* enemy = new Enemy();
 		enemy->Initialize(D3DXVECTOR2(x, y));
 		enemies.push_back(enemy);
