@@ -8,7 +8,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 		cout << "Failed to load texture" << endl;
 	}
 
-	speed = D3DXVECTOR2(0, -15.f);
+	speed = D3DXVECTOR2(0, -25.f);
 	damage = 10;
 	outOfBounds = false;
 
