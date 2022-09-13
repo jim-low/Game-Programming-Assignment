@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Player.h"
 
 void Player::Initialize()
@@ -64,9 +65,7 @@ void Player::Render()
 	}
 
 	for (Projectile* bullet : bullets) {
-		if (!bullet->outOfBounds) {
-			bullet->Render();
-		}
+		bullet->Render();
 	}
 
 	D3DXMATRIX mat;
@@ -84,9 +83,7 @@ void Player::Update() {
 	}
 
 	for (Projectile* bullet : bullets) {
-		if (!bullet->outOfBounds) {
-			bullet->Update();
-		}
+		bullet->Update();
 	}
 
 	// timer update
@@ -120,6 +117,16 @@ void Player::Update() {
 	colRect.right = colRect.left + spriteWidth;
 
 	maxFrame = (spriteRow * spriteCol) - 1;
+
+	// bullets update
+	for (int i = 0; i < bullets.size(); ++i) {
+		if (bullets.at(i)->outOfBounds) {
+			bullets.erase(bullets.begin() + i);
+		}
+		else {
+			bullets.at(i)->Update();
+		}
+	}
 }
 
 void Player::Input() {

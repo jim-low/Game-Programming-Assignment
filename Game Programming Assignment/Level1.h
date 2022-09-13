@@ -17,6 +17,9 @@ protected:
 
 private:
 	void InitializeEnemies();
+	void UpdateEnemies();
+	void CheckBulletsHitEnemies();
+	void RenderEnemies();
 
 public:
 	Level1() : Game() {

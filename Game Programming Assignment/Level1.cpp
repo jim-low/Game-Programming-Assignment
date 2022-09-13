@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "Level1.h"
 
 void Level1::InitializeEnemies()
@@ -12,27 +13,21 @@ void Level1::InitializeEnemies()
 	}
 }
 
-Level1::~Level1() {
-}
-
-void Level1::Initialize() {
-	player = new Player();
-	InitializeEnemies();
-	playerBullets = player->getBullets();
-}
-
-void Level1::Update() {
-	player->Update();
-	int size;
-
-	size = enemies.size();
-	for (int i = 0; i < size; ++i) {
-		Enemy* enemy = enemies.at(i);
-		enemy->Update();
+void Level1::UpdateEnemies()
+{
+	for (int i = 0; i < enemies.size(); ++i) {
+		if (enemies.at(i)->IsDed()) {
+			enemies.erase(enemies.begin() + i);
+		}
+		else {
+			enemies.at(i)->Update();
+		}
 	}
+}
 
-	size = playerBullets->size();
-	for (int i = 0; i < size; ++i) {
+void Level1::CheckBulletsHitEnemies()
+{
+	for (int i = 0; i < playerBullets->size(); ++i) {
 		Projectile* bullet = playerBullets->at(i);
 		if (bullet->outOfBounds) {
 			continue;
@@ -48,6 +43,31 @@ void Level1::Update() {
 	}
 }
 
+void Level1::RenderEnemies()
+{
+	for (int i = 0; i < enemies.size(); ++i) {
+		Enemy* enemy = enemies.at(i);
+		enemy->Render();
+	}
+}
+
+Level1::~Level1() {
+}
+
+void Level1::Initialize() {
+	player = new Player();
+	InitializeEnemies();
+	playerBullets = player->getBullets();
+}
+
+void Level1::Update() {
+	player->Update();
+	playerBullets = player->getBullets();
+
+	UpdateEnemies();
+	CheckBulletsHitEnemies();
+}
+
 void Level1::Render() {
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	d3dDevice->BeginScene();
@@ -56,11 +76,7 @@ void Level1::Render() {
 
 	// render game objects
 	player->Render();
-	int size = enemies.size();
-	for (int i = 0; i < size; ++i) {
-		Enemy* enemy = enemies.at(i);
-		enemy->Render();
-	}
+	RenderEnemies();
 
 	sprite->End();
 
