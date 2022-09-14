@@ -5,13 +5,14 @@ void AudioManager::InitializeAudio()
 	result = FMOD::System_Create(&system);
 	result = system->init(64, FMOD_INIT_NORMAL, extraDriverData);
 	result = system->createChannelGroup(channelGroup, &bgGroup);
+	
 }
 
 void AudioManager::PlayMainMenuSoundTrack(){
 	result = system->playSound(bgSoundTrack, bgGroup, false, &channel);
 	bgGroup->setVolume(0.03);
 	bgGroup->setPitch(1.5);
-	}
+}
 
 void AudioManager::StopBackgroundSound() {
 	bgGroup->stop();
@@ -19,22 +20,23 @@ void AudioManager::StopBackgroundSound() {
 
 void AudioManager::PlayCreditsSound(){
 	result = system->playSound(creditSoundTrack, bgGroup, false, &channel);
+	bgGroup->setVolume(0.03);
 }
 
 void AudioManager::PlayWinSoundTrack(){
-	result = system->playSound(winSoundTrack, 0, false, &channel);
+	result = system->playSound(winSoundTrack, bgGroup, false, &channel);
 }
 
 void AudioManager::PlayLoseSoundTrack() {
-	result = system->playSound(loseSoundTrack, 0, false, &channel);
+	result = system->playSound(loseSoundTrack, bgGroup, false, &channel);
 }
 
 void AudioManager::PlayGameplaySoundTrack() {
-	result = system->playSound(gameplaySound, 0, false, &channel);
+	result = system->playSound(gameplaySound, bgGroup, false, &channel);
 }
 
 void AudioManager::PlayBossSoundTrack() {
-	result = system->playSound(bossSoundTrack, 0, false, &channel);
+	result = system->playSound(bossSoundTrack, bgGroup, false, &channel);
 }
 
 void AudioManager::PlayPlayerShootSound() {
@@ -81,14 +83,14 @@ void AudioManager::LoadSounds()
 	result = system->createSound("../Assets/Audio/bg1.mp3", FMOD_DEFAULT, 0, &bgSoundTrack);
 	result = bgSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
-	result = system->createSound("../Assets/Audio/Credits_Music_Loop.wav", FMOD_DEFAULT, 0, &creditSoundTrack);
-	result = creditSoundTrack->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("../Assets/Audio/Credit_Tracks.mp3", FMOD_DEFAULT, 0, &creditSoundTrack);
+	result = creditSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Win_Music.wav", FMOD_DEFAULT, 0, &winSoundTrack);
-	result = winSoundTrack->setMode(FMOD_LOOP_OFF);
+	result = winSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Lose_Music", FMOD_DEFAULT, 0, &loseSoundTrack);
-	result = loseSoundTrack->setMode(FMOD_LOOP_OFF);
+	result = loseSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Player_Shoot.wav", FMOD_DEFAULT, 0, &playerShootSound);
 	result = playerShootSound->setMode(FMOD_LOOP_OFF);
@@ -115,7 +117,7 @@ void AudioManager::LoadSounds()
 	result = gameplaySound->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Boss_Music.mp3", FMOD_DEFAULT, 0, &bossSoundTrack);
-	result = bossSoundTrack->setMode(FMOD_LOOP_OFF);
+	result = bossSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/click-electronic.wav", FMOD_DEFAULT, 0, &clickSound);
 	result = clickSound->setMode(FMOD_LOOP_OFF);
