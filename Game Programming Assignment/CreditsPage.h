@@ -8,6 +8,8 @@ class CreditsPage : public Game {
 private:
 	boolean clicked;
 	boolean hover;
+	LPCSTR credits;
+	D3DXMATRIX mat;
 
 public:
 	CreditsPage() : Game() {

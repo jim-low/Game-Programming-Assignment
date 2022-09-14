@@ -52,6 +52,9 @@ boolean Game::checkCollision(RECT a, RECT b) {
 
 void Game::CleanUp()
 {
+	font->Release();
+	font = NULL;
+
 	texture->Release();
 	texture = NULL;
 }

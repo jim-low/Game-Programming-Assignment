@@ -27,7 +27,7 @@
 #include "Game.h"
 #include "AudioManager.h"
 #include "FrameTimer.h"
-#include "AudioManager.h"
+#include "CreditsPage.h"
 
 using namespace std;
 
@@ -41,6 +41,6 @@ extern BYTE diKeys[256];
 extern LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 extern DIMOUSESTATE mouseState;
 extern AudioManager* audioManager;
-
+extern LPD3DXFONT font;
 
 #endif
