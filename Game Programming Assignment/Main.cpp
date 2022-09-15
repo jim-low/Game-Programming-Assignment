@@ -189,10 +189,10 @@ int main() {
 	InitializeLevel();
 	InitializeSound();
 
-	//level1 = new Level1();
-	//games.push(level1);
-	creditsPage = new CreditsPage();
-	games.push(creditsPage);
+	level1 = new Level1();
+	games.push(level1);
+	//creditsPage = new CreditsPage();
+	//games.push(creditsPage);
 
 	while (IfMyWindowIsRunning())
 	{
