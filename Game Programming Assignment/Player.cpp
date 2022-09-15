@@ -1,9 +1,8 @@
-#include <algorithm>
 #include "Player.h"
 
 void Player::Initialize()
 {
-	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/player-spaceship.png", &texture);
+	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/new-spaceship.png", &texture);
 
 	if (FAILED(hr)) {
 		cout << "Failed to load texture" << endl;
@@ -31,12 +30,16 @@ void Player::Initialize()
 	velocity = D3DXVECTOR2(0, 0);
 	speed = 2.f;
 	friction = 0.2;
+	rotationSpeed = 0.1f;
+	direction = 0.0f;
+	mass = 1;
+	force = 1.f;
 
-	textureWidth = 318;
-	textureHeight = 512;
+	textureWidth = 42;
+	textureHeight = 29;
 
-	spriteRow = 4;
-	spriteCol = 3;
+	spriteRow = 1;
+	spriteCol = 1;
 	spriteWidth = textureWidth / spriteCol;
 	spriteHeight = textureHeight / spriteRow;
 
@@ -45,10 +48,10 @@ void Player::Initialize()
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(0.7, -0.7);
+	scaling = D3DXVECTOR2(2, 2);
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
-	position = D3DXVECTOR2(800, 600);
+	position = D3DXVECTOR2(500, 500);
 
 	colRect.top = position.y;
 	colRect.bottom = colRect.top + spriteHeight;
@@ -181,32 +184,36 @@ void Player::CheckBoundary() { // TODO: fix this shit
 }
 
 void Player::Move() {
-	CheckBoundary();
+	// CheckBoundary();
 
 	if (upPressed) {
-		acceleration.y -= speed;
+		position.y -= 5;
+		//acceleration.x = cos(direction) * force / mass;
+		//acceleration.y = sin(direction) * force / mass;
 		upPressed = false;
 	}
 
 	if (downPressed) {
-		acceleration.y += speed;
+		position.y += 5;
 		downPressed = false;
 	}
 
 	if (leftPressed) {
-		acceleration.x -= speed;
+		position.x -= 5;
+		//direction -= rotationSpeed;
 		leftPressed = false;
 	}
 
 	if (rightPressed) {
-		acceleration.x += speed;
+		position.x += 5;
+		//direction += rotationSpeed;
 		rightPressed = false;
 	}
 
-	velocity += acceleration;
-	velocity *= (1 - friction);
-	position += velocity;
-	acceleration = D3DXVECTOR2(0, 0);
+	//velocity += acceleration;
+	//velocity *= (1 - friction);
+	//position += velocity;
+	//acceleration = D3DXVECTOR2(0, 0);
 }
 
 void Player::Shoot() {

@@ -7,8 +7,8 @@
 #define WIN32_LEAN_AND_MEAN
 #define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80)
 
-#define MyWindowWidth 800
-#define MyWindowHeight 600
+#define MyWindowWidth 1600
+#define MyWindowHeight 900
 
 #include <iostream>
 #include <Windows.h>
@@ -41,6 +41,6 @@ extern BYTE diKeys[256];
 extern LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 extern DIMOUSESTATE mouseState;
 extern AudioManager* audioManager;
-
+extern float PI;
 
 #endif

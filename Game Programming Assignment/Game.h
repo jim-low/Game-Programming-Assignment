@@ -47,6 +47,10 @@ public:
 	RECT GetBody() {
 		return colRect;
 	}
+
+	D3DXVECTOR2 GetPos() {
+		return position;
+	}
 };
 
 #endif

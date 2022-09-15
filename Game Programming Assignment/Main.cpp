@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Header.h"
 #include "Game.h"
 #include "Level1.h"
@@ -25,6 +26,8 @@ LPD3DXSPRITE sprite = NULL;
 stack<Game*> games;
 Level1* level1;
 AudioManager* audioManager;
+
+float PI = atan(1.f) * 4;
 
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 

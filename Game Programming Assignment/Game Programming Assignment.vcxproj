@@ -146,12 +146,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Comet.cpp" />
     <ClCompile Include="CreditsPage.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOverPage.cpp" />
     <ClCompile Include="Level1.cpp" />
+    <ClCompile Include="Level2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Melee.cpp" />
@@ -164,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Comet.h" />
     <ClInclude Include="CreditsPage.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FrameTimer.h" />
@@ -171,6 +174,7 @@
     <ClInclude Include="GameOverPage.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="Level2.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Melee.h" />
     <ClInclude Include="Player.h" />

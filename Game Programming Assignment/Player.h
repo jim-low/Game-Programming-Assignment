@@ -6,14 +6,6 @@
 #include "Spaceship.h"
 #include "Projectile.h"
 
-enum Direction {
-	NO_MOVE,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN
-};
-
 class Player : public Spaceship {
 private:
 	vector<Projectile*> bullets;
@@ -37,6 +29,10 @@ private:
 	D3DXVECTOR2 velocity;
 	float speed;
 	float friction;
+	float direction;
+	float rotationSpeed;
+	float force;
+	int mass;
 
 	float fireRateTimer;
 	float fireRate;
