@@ -4,12 +4,16 @@
 
 #include "Header.h"
 #include "Game.h"
+#include "CreditsPage.h"
 #include "Player.h"
 #include "Comet.h"
 
 class Level1 : public Game
 {
 protected:
+	CreditsPage* credits;
+	boolean playCredits;
+
 	vector<Comet*> comets;
 	Player* player;
 

@@ -1,6 +1,5 @@
 #include "CreditsPage.h"
 
-
 void CreditsPage::Initialize()
 {
 	//run the script
@@ -8,15 +7,9 @@ void CreditsPage::Initialize()
 		DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &font);
 
-	hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/harambe.png", &texture);
-
 	if (FAILED(hr)) {
-		cout << "Failed to load texture" << endl;
+		cout << "Failed to load font" << endl;
 	}
-
-	player = new Player();
-	cometSpawnRate = 0.8;
-	cometTimer = 10;
 
 	colRect.left = 50;
 	colRect.top = 0;
@@ -40,19 +33,8 @@ void CreditsPage::Initialize()
 
 }
 
-void CreditsPage::SpawnComet()
-{
-	Comet* comet = new Comet();
-	comet->ApplyAngle(315.0f * PI / 180);
-	comets.push_back(comet);
-}
-
-
 void CreditsPage::Update()
 {
-	
-	player->Update();
-
 	if (clicked) {
 		audioManager->StopBackgroundSound();
 		//games.pop();
@@ -63,41 +45,13 @@ void CreditsPage::Update()
 		position.y = MyWindowHeight;
 	}
 
-	for (int i = 0; i < comets.size(); ++i) {
-		comets.at(i)->Update();
-	}
-
-	cometTimer -= cometSpawnRate;
-	if (cometTimer <= 0) {
-		SpawnComet();
-		cometTimer = 10;
-	}
-
 	clicked = false;
 }
 
 void CreditsPage::Render() {
-	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-	d3dDevice->BeginScene();
-
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-
-	
-	player->Render();
-
-	for (int i = 0; i < comets.size(); ++i) {
-		comets.at(i)->Render();
-	}
-
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &position);
 	sprite->SetTransform(&mat);
 	font->DrawText(sprite, credits, lstrlenA(credits), &colRect, DT_WORDBREAK, D3DCOLOR_XRGB(255, 255, 0));
-
-
-	sprite->End();
-
-	d3dDevice->EndScene();
-	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 void CreditsPage::Input()
@@ -105,16 +59,12 @@ void CreditsPage::Input()
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
-	player->Input();
-
 	if (diKeys[DIK_RETURN] & 0x80) {
 		clicked = true;
 	}
 	
 }
 
-
 CreditsPage::~CreditsPage()
 {
-	CleanUp();
 }

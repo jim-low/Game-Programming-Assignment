@@ -3,6 +3,8 @@
 
 void Level1::Initialize()
 {
+	credits = new CreditsPage();
+	playCredits = true;
 	player = new Player();
 	cometSpawnRate = 0.2;
 	cometTimer = 10;
@@ -50,6 +52,10 @@ void Level1::Input()
 
 void Level1::Update()
 {
+	if (playCredits) {
+		credits->Update();
+	}
+
 	player->Update();
 
 	for (int i = 0; i < comets.size(); ++i) {
@@ -81,6 +87,10 @@ void Level1::Render()
 	player->Render();
 	for (int i = 0; i < comets.size(); ++i) {
 		comets.at(i)->Render();
+	}
+
+	if (playCredits) {
+		credits->Render();
 	}
 
 	sprite->End();

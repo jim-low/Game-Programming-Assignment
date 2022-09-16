@@ -8,14 +8,6 @@
 #include "Comet.h"
 
 class CreditsPage : public Game {
-protected:
-
-	vector<Comet*> comets;
-	Player* player;
-
-	float cometSpawnRate;
-	float cometTimer;
-
 private:
 	boolean clicked;
 	boolean hover;
@@ -23,8 +15,6 @@ private:
 	D3DXMATRIX mat;
 	float textSpeed;
 	LPDIRECT3DTEXTURE9 harambe;
-
-	void SpawnComet();
 
 public:
 	CreditsPage() : Game() {
