@@ -130,7 +130,7 @@ void AudioManager::LoadSounds()
 	result = system->createStream("../Assets/Audio/Ship_Explosion.wav", FMOD_DEFAULT, 0, &explosionSound);
 	result = explosionSound->setMode(FMOD_LOOP_OFF);
 
-	result = system->createStream("../Assets/Audio/Fight_Music_Loop", FMOD_DEFAULT, 0, &gameplaySound);
+	result = system->createStream("../Assets/Audio/Fight_Music_Loop.wav", FMOD_DEFAULT, 0, &gameplaySound);
 	result = gameplaySound->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Boss_Music.mp3", FMOD_DEFAULT, 0, &bossSoundTrack);

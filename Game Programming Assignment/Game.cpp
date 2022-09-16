@@ -68,5 +68,4 @@ void Game::Input() {
 }
 
 Game::~Game() {
-	CleanUp();
 }

@@ -28,7 +28,6 @@ private:
 
 	D3DXVECTOR2 acceleration;
 	D3DXVECTOR2 velocity;
-	float speed;
 	float friction;
 	float direction;
 	float rotationSpeed;
@@ -48,6 +47,8 @@ public:
 		this->Initialize();
 	}
 	~Player();
+
+	boolean isDed;
 
 	void Initialize();
 	void Update();

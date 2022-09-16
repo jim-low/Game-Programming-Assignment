@@ -9,6 +9,7 @@ void Player::Initialize()
 	}
 
 	health = 100;
+	isDed = false;
 
 	canShoot = false;
 	fireRate = 0.8;
@@ -28,12 +29,11 @@ void Player::Initialize()
 
 	acceleration = D3DXVECTOR2(0, 0);
 	velocity = D3DXVECTOR2(0, 0);
-	speed = 2.f;
-	friction = 0.2;
+	friction = 0.05;
 	rotationSpeed = 0.1f;
 	direction = 0.0f;
 	mass = 1;
-	force = 1.f;
+	force = 2.f;
 
 	textureWidth = 42;
 	textureHeight = 29;
@@ -49,9 +49,9 @@ void Player::Initialize()
 	animRect.right = animRect.left + spriteWidth;
 
 	scaling = D3DXVECTOR2(2, 2);
-	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
+	centre = D3DXVECTOR2((spriteWidth * scaling.x) / 2, (spriteHeight * scaling.y) / 2);
 	direction = 0;
-	position = D3DXVECTOR2(500, 500);
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (spriteWidth * scaling.x), (MyWindowHeight / 2) - (spriteHeight * scaling.y));
 
 	colRect.top = position.y;
 	colRect.bottom = colRect.top + spriteHeight;
@@ -63,7 +63,7 @@ void Player::Initialize()
 
 void Player::Render()
 {
-	if (health <= 0) {
+	if (isDed) {
 		return;
 	}
 
@@ -78,7 +78,10 @@ void Player::Render()
 }
 
 void Player::Update() {
-	// gameplay
+	if (isDed) {
+		return;
+	}
+
 	Move();
 
 	if (canShoot && !reloading) {
@@ -133,6 +136,9 @@ void Player::Update() {
 }
 
 void Player::Input() {
+	if (isDed) {
+		return;
+	}
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
@@ -171,20 +177,27 @@ int Player::GetHealth()
 }
 
 void Player::CheckBoundary() { // TODO: fix this shit
-	if (position.x - speed < 0) {
-		leftPressed = false;
+	float width = spriteWidth * scaling.x;
+	float height = spriteHeight * scaling.y;
+
+	if (position.x < 0 || position.x > MyWindowWidth - width) {
+		if (position.x < 0) {
+			position.x = 0;
+		}
+		if (position.x > MyWindowWidth - width) {
+			position.x = MyWindowWidth - width;
+		}
+		velocity.x *= -1;
 	}
 
-	if (position.x + spriteWidth + speed > MyWindowWidth) {
-		rightPressed = false;
-	}
-
-	if (position.y - speed < 0) {
-		upPressed = false;
-	}
-
-	if (position.y + spriteHeight + speed > MyWindowHeight) {
-		downPressed = false;
+	if (position.y < 0 || position.y > MyWindowHeight - height) {
+		if (position.y < 0) {
+			position.y = 0;
+		}
+		if (position.y > MyWindowHeight - height) {
+			position.y = MyWindowHeight - height;
+		}
+		velocity.y *= -1;
 	}
 }
 
@@ -193,46 +206,34 @@ void Player::Damage(int damage)
 	health -= damage;
 
 	if (health <= 0) {
-		Die();
+		audioManager->PlayExplosionSound();
+		isDed = true;
 	}
-}
-
-void Player::Die()
-{
-	cout << "Player has dieddddddddddd" << endl;
 }
 
 void Player::Move() {
-	// CheckBoundary();
+	CheckBoundary();
 
 	if (upPressed) {
-		position.y -= 5;
-		//acceleration.x = cos(direction) * force / mass;
-		//acceleration.y = sin(direction) * force / mass;
+		acceleration.x = sin(direction) * force / mass;
+		acceleration.y = -cos(direction) * force / mass;
 		upPressed = false;
 	}
 
-	if (downPressed) {
-		position.y += 5;
-		downPressed = false;
-	}
-
 	if (leftPressed) {
-		position.x -= 5;
-		//direction -= rotationSpeed;
+		direction -= rotationSpeed;
 		leftPressed = false;
 	}
 
 	if (rightPressed) {
-		position.x += 5;
-		//direction += rotationSpeed;
+		direction += rotationSpeed;
 		rightPressed = false;
 	}
 
-	//velocity += acceleration;
-	//velocity *= (1 - friction);
-	//position += velocity;
-	//acceleration = D3DXVECTOR2(0, 0);
+	velocity += acceleration;
+	velocity *= (1 - friction);
+	position += velocity;
+	acceleration = D3DXVECTOR2(0, 0);
 }
 
 void Player::Shoot() {
