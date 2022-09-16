@@ -1,4 +1,5 @@
 #include "Level1.h"
+#include "Level2.h"
 
 void Level1::Initialize()
 {
@@ -52,6 +53,13 @@ void Level1::Update()
 
 	for (int i = 0; i < comets.size(); ++i) {
 		comets.at(i)->Update();
+	}
+
+	for (int i = 0; i < comets.size(); ++i) {
+		if (Level2::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
+			player->Damage(comets.at(i)->GetDamage());
+			comets.erase(comets.begin() + i);
+		}
 	}
 
 	cometTimer -= cometSpawnRate;

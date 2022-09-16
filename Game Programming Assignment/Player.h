@@ -40,6 +40,7 @@ private:
 	void Move();
 	void Shoot();
 	void CheckBoundary();
+	void Die();
 
 public:
 	Player() : Spaceship() {
@@ -52,6 +53,8 @@ public:
 	void Render();
 	void Input();
 	vector<Projectile*>* getBullets();
+	int GetHealth();
+	void Damage(int damage);
 };
 
 #endif

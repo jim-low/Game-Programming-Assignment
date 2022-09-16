@@ -49,9 +49,29 @@ void Comet::ApplyAngle(float radian)
 	speed.y = speed.y * sin(radian);
 }
 
+int Comet::GetDamage()
+{
+	return damage;
+}
+
 void Comet::Update()
 {
 	position += speed;
+
+	spriteRow = 1;
+	spriteCol = 1;
+	spriteWidth = textureWidth / spriteCol;
+	spriteHeight = textureHeight / spriteRow;
+
+	animRect.top = currentFrame * spriteHeight;
+	animRect.bottom = animRect.top + spriteHeight;
+	animRect.left = currentFrame * spriteWidth;
+	animRect.right = animRect.left + spriteWidth;
+
+	colRect.top = position.y;
+	colRect.bottom = colRect.top + spriteHeight;
+	colRect.left = position.x;
+	colRect.right = colRect.left + spriteWidth;
 }
 
 void Comet::Render()
@@ -65,19 +85,19 @@ void Comet::Render()
 
 D3DXVECTOR2 Comet::RandomPositionOutsideScreen()
 {
+	int min = -30;
+	int max = MyWindowHeight + 30;
+
 	float x = 0;
 	float y = 0;
 
 	if (rand() % 2 == 0) {
-		cout << "appearing from left" << endl;
 		x = (rand() % (-10 + 1));
 	}
 	else {
-		cout << "appearing from right" << endl;
 		x = (rand() % ((MyWindowWidth + 10) - MyWindowWidth) + 1) + MyWindowWidth;
 	}
-	y = (rand() % (-10 - (MyWindowHeight + 10) + 1) + (MyWindowHeight + 10));
-	cout << y << endl;
+	y = (rand() % (max - min + 1) + min);
 
 	return D3DXVECTOR2(x, y);
 }

@@ -34,7 +34,7 @@ void Level2::CheckBulletsHitEnemies()
 
 		for (int j = 0; j < enemies.size(); ++j) {
 			Enemy* enemy = enemies.at(j);
-			if (checkCollision(enemy->GetBody(), bullet->GetBody())) {
+			if (CheckCollision(enemy->GetBody(), bullet->GetBody())) {
 				enemy->Damage(bullet->GetDamage());
 				bullet->outOfBounds = true;
 			}

@@ -165,6 +165,11 @@ vector<Projectile*>* Player::getBullets()
 	return &bullets;
 }
 
+int Player::GetHealth()
+{
+	return health;
+}
+
 void Player::CheckBoundary() { // TODO: fix this shit
 	if (position.x - speed < 0) {
 		leftPressed = false;
@@ -181,6 +186,20 @@ void Player::CheckBoundary() { // TODO: fix this shit
 	if (position.y + spriteHeight + speed > MyWindowHeight) {
 		downPressed = false;
 	}
+}
+
+void Player::Damage(int damage)
+{
+	health -= damage;
+
+	if (health <= 0) {
+		Die();
+	}
+}
+
+void Player::Die()
+{
+	cout << "Player has dieddddddddddd" << endl;
 }
 
 void Player::Move() {

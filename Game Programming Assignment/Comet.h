@@ -24,6 +24,7 @@ public:
 	void Render();
 
 	void ApplyAngle(float radian);
+	int GetDamage();
 };
 
 #endif
