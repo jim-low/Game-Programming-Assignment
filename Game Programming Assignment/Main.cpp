@@ -1,6 +1,8 @@
+#include <math.h>
 #include "Header.h"
 #include "Game.h"
 #include "Level1.h"
+#include "CreditsPage.h"
 #include "MainMenu.h"
 #include "GameOverPage.h"
 
@@ -22,11 +24,15 @@ DIMOUSESTATE mouseState;
 
 // drawing things
 LPD3DXSPRITE sprite = NULL;
+LPD3DXFONT font = NULL;
 
 // gaem things
 stack<Game*> games;
 Level1* level1;
 AudioManager* audioManager;
+CreditsPage* creditsPage;
+
+float PI = atan(1.f) * 4;
 
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
@@ -184,6 +190,12 @@ int main() {
 	CreateMy3D();
 	CreateMyDirectInput();
 	InitializeLevel();
+	InitializeSound();
+
+	//level1 = new Level1();
+	//games.push(level1);
+	creditsPage = new CreditsPage();
+	games.push(creditsPage);
 	
 	MainMenu *mainMenu = new MainMenu();
 	GameOverPage* gameOver = new GameOverPage();

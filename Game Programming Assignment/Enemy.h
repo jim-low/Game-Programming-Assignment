@@ -6,7 +6,6 @@
 #include "Header.h"
 
 class Enemy : public Spaceship {
-protected:
 public:
 	Enemy() : Spaceship() {}
 	~Enemy();
@@ -15,6 +14,7 @@ public:
 	void Update();
 	void Render();
 	void Damage(int damage);
+	boolean IsDed();
 };
 
 #endif

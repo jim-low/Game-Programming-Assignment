@@ -47,11 +47,15 @@ public:
 	virtual void Render(); 
 	virtual void CleanUp();
 	virtual void Update();
-	virtual void Input(); 
-	static boolean checkCollision(RECT a, RECT b);
+	virtual void Input();
+	static boolean CheckCollision(RECT a, RECT b);
 
 	RECT GetBody() {
 		return colRect;
+	}
+
+	D3DXVECTOR2 GetPos() {
+		return position;
 	}
 };
 

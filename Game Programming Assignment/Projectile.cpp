@@ -71,4 +71,5 @@ int Projectile::GetDamage()
 }
 
 Projectile::~Projectile() {
+	cout << "Projectile is deleted" << endl;
 }

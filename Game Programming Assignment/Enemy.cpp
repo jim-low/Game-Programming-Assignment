@@ -71,6 +71,11 @@ void Enemy::Damage(int damage)
 	health -= damage;
 }
 
-Enemy::~Enemy() {
+boolean Enemy::IsDed()
+{
+	return health <= 0;
+}
 
+Enemy::~Enemy() {
+	cout << "Enemy is deletedetdetdetd" << endl;
 }

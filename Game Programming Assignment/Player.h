@@ -6,17 +6,10 @@
 #include "Spaceship.h"
 #include "Projectile.h"
 
-enum Direction {
-	NO_MOVE,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN
-};
-
 class Player : public Spaceship {
 private:
 	vector<Projectile*> bullets;
+	//Projectile* bullets;
 
 	int ammo;
 	int maxAmmo;
@@ -37,6 +30,10 @@ private:
 	D3DXVECTOR2 velocity;
 	float speed;
 	float friction;
+	float direction;
+	float rotationSpeed;
+	float force;
+	int mass;
 
 	float fireRateTimer;
 	float fireRate;
@@ -44,6 +41,7 @@ private:
 	void Move();
 	void Shoot();
 	void CheckBoundary();
+	void Die();
 
 public:
 	Player() : Spaceship() {
@@ -55,7 +53,11 @@ public:
 	void Update();
 	void Render();
 	void Input();
+
 	vector<Projectile*>* getBullets();
+	//Projectile* getBullets();
+	int GetHealth();
+	void Damage(int damage);
 };
 
 #endif

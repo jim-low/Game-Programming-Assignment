@@ -41,7 +41,7 @@ void Game::Render() {
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-boolean Game::checkCollision(RECT a, RECT b) {
+boolean Game::CheckCollision(RECT a, RECT b) {
 	if (a.bottom < b.top) return false;
 	if (a.top > b.bottom) return false;
 	if (a.right < b.left) return false;
@@ -52,6 +52,9 @@ boolean Game::checkCollision(RECT a, RECT b) {
 
 void Game::CleanUp()
 {
+	font->Release();
+	font = NULL;
+
 	texture->Release();
 	texture = NULL;
 }
