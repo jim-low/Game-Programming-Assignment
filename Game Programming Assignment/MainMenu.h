@@ -23,6 +23,11 @@ protected:
 	LPDIRECT3DTEXTURE9 butCreditsTexture = NULL;
 	LPDIRECT3DTEXTURE9 butQuitTexture = NULL;
 
+	D3DXVECTOR2 playButtonPos;
+	D3DXVECTOR2 settingsButtonPos;
+	D3DXVECTOR2 creditsButtonPos;
+	D3DXVECTOR2 quitButtonPos;
+
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;
@@ -30,10 +35,16 @@ protected:
 	int titleHeight;
 	D3DXMATRIX buttonMat; //for matrix position
 	D3DXVECTOR2 titlePosition;
+
 	D3DXVECTOR2 playPosition; 
 	D3DXVECTOR2 settingsPosition;
 	D3DXVECTOR2 creditsPosition;
 	D3DXVECTOR2 quitPosition;
+
+	RECT playCol;
+	RECT settingsCol;
+	RECT creditsCol;
+	RECT quitCol;
 
 	//currentSelectedButton
 	int currentSelection;
@@ -57,6 +68,9 @@ protected:
 	boolean mouseLeftClick;
 	boolean mouseRightClick;
 	boolean enterPressed;
+
+private:
+	RECT mouse;
 
 public:
 	MainMenu() : Game() { //constructor

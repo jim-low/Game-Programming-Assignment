@@ -2,31 +2,12 @@
 #define GAMEOVERPAGE_H
 #include "Header.h"
 #include "Game.h"
-
+#include "RickRoll.h"
 
 class GameOverPage : public Game
 {
 private:
-	//RECTS to pinpoint location
-	RECT rickRect;
-	RECT loseTitleRect;
-
-	//textures
-	LPDIRECT3DTEXTURE9 rickTexture = NULL;
-
-	D3DXMATRIX loseMat; //for matrix position
-	D3DXVECTOR2 loseTitlePosition;
-	D3DXVECTOR2 rickPosition;
-	int currentRow;
-	int rowFrame;
-
-	//coordinates of box using lines----
-	D3DXVECTOR2 lBpos1;
-	D3DXVECTOR2 lBpos2;
-	D3DXVECTOR2 lBpos3;
-	D3DXVECTOR2 lBpos4;
-	D3DXVECTOR2 lBVertices[5];
-	int boxNTitleGap;
+	RickRoll* neverGonnaGiveYouUp;
 
 public:
 	GameOverPage() : Game() { //constructor

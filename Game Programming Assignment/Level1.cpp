@@ -98,8 +98,6 @@ void Level1::Update()
 		}
 	}
 
-
-
 	if (player != NULL && player->isDed) {
 		player = NULL;
 		// call game over here

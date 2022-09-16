@@ -32,10 +32,17 @@ AudioManager* audioManager;
 
 float PI = atan(1.f) * 4;
 
+int mouseX = 0;
+int mouseY = 0;
+
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
 	switch (message)
 	{
+	case WM_MOUSEMOVE:
+		mouseX = (short)LOWORD(lParam);
+		mouseY = (short)HIWORD(lParam);
+		break;
 		//	The message is post when we destroy the window.
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -188,10 +195,10 @@ int main() {
 	InitializeSound();
 
 	//CreditsPage* creditsPage = new CreditsPage();
-	//MainMenu* mainMenu = new MainMenu();
+	MainMenu* mainMenu = new MainMenu();
 	//GameOverPage* gameOver = new GameOverPage();
-	Level1* level1 = new Level1();
-	games.push(level1);
+	//Level1* level1 = new Level1();
+	games.push(mainMenu);
 
 	while (IfMyWindowIsRunning())
 	{

@@ -118,7 +118,7 @@ void AudioManager::LoadSounds()
 	result = system->createStream("../Assets/Audio/Win_Music.wav", FMOD_DEFAULT, 0, &winSoundTrack);
 	result = winSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
-	result = system->createStream("../Assets/Audio/Lose_Music", FMOD_DEFAULT, 0, &loseSoundTrack);
+	result = system->createStream("../Assets/Audio/Lose_Music.mp3", FMOD_DEFAULT, 0, &loseSoundTrack);
 	result = loseSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Player_Shoot.wav", FMOD_DEFAULT, 0, &playerShootSound);

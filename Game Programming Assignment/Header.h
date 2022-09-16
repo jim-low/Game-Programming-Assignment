@@ -42,5 +42,7 @@ extern DIMOUSESTATE mouseState;
 extern AudioManager* audioManager;
 extern LPD3DXFONT font;
 extern float PI;
+extern int mouseX;
+extern int mouseY;
 
 #endif

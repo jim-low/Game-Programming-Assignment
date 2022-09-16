@@ -37,7 +37,6 @@ protected:
 	//test (Brushes)
 	LPD3DXFONT fontBrush; //Title of game
 	LPD3DXLINE lineBrush; //lines for the panel and cover
-	LPD3DXSPRITE spriteBrush; //To draw buttons in the panel
 
 public:
 	Game();
