@@ -93,9 +93,16 @@ D3DXVECTOR2 Comet::RandomPositionOutsideScreen()
 
 	if (rand() % 2 == 0) {
 		x = (rand() % (-10 + 1));
+		
+		audioManager->SetPanning(-1);
+		audioManager->PlayCometSound();
+
 	}
 	else {
 		x = (rand() % ((MyWindowWidth + 10) - MyWindowWidth) + 1) + MyWindowWidth;
+
+		audioManager->SetPanning(1);
+		audioManager->PlayCometSound();
 	}
 	y = (rand() % (max - min + 1) + min);
 

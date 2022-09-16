@@ -17,6 +17,7 @@ protected:
 	RECT buttonQuitRect;
 
 	//textures
+	LPDIRECT3DTEXTURE9 titleTexture = NULL;
 	LPDIRECT3DTEXTURE9 butPlayTexture = NULL;
 	LPDIRECT3DTEXTURE9 butSettingsTexture = NULL;
 	LPDIRECT3DTEXTURE9 butCreditsTexture = NULL;
@@ -25,8 +26,11 @@ protected:
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;
+	int titleWidth;
+	int titleHeight;
 	D3DXMATRIX buttonMat; //for matrix position
-	D3DXVECTOR2 playPosition; //for matrix position
+	D3DXVECTOR2 titlePosition;
+	D3DXVECTOR2 playPosition; 
 	D3DXVECTOR2 settingsPosition;
 	D3DXVECTOR2 creditsPosition;
 	D3DXVECTOR2 quitPosition;

@@ -43,6 +43,9 @@ float Level1::CalculateAngle(Comet* comet)
 	return angle * PI / 180;
 }
 
+
+
+
 void Level1::SpawnComet()
 {
 	Comet* comet = new Comet();
@@ -89,8 +92,13 @@ void Level1::Update()
 			explosion->Initialize(explosionPos);
 			explosions.push_back(explosion);
 			comets.erase(comets.begin() + i);
+
+
+			
 		}
 	}
+
+
 
 	if (player != NULL && player->isDed) {
 		player = NULL;

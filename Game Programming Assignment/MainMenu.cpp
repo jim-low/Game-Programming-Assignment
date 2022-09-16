@@ -5,24 +5,24 @@ MainMenu::~MainMenu() {
 
 void MainMenu::Initialize() {
 
-	game = new Game();
-
 	//=====================
 	//INITIALIZE GAME TITLE
 	//=====================
-	
-	//initialize brush
-	HRESULT hr = D3DXCreateFont(d3dDevice, 80, 25, 200, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Bauhaus 93"), &fontBrush);
+
+	//initialize playbutton
+	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/game_Title.png", &titleTexture);
 	if (FAILED(hr)) {
-		std::cout << "Failed to create Menu Title.";
-		MessageBox(NULL, TEXT("Failed to create Menu Title."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+		std::cout << "Failed to create Title texture in Menu.";
+		MessageBox(NULL, TEXT("Failed to create Title texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
 	//initialize position 
-	titleRect.top = MyWindowHeight / 16; //change later
-	titleRect.bottom = titleRect.top + 400;
-	titleRect.left = (MyWindowWidth / 2 / 2) + 40;
-	titleRect.right = titleRect.left + 500;
+	titleWidth = 512;
+	titleHeight = 256;
+	titleRect.top = 0;
+	titleRect.bottom = titleHeight;
+	titleRect.left = 0;
+	titleRect.right = titleWidth;
 
 	//=====================
 	//INITIALIZE LINES
@@ -62,7 +62,7 @@ void MainMenu::Initialize() {
 	currentSelection = UNFOCUS;
 
 	//initialize Transformations on buttons
-	scaling = D3DXVECTOR2(0.7f, 0.7f); //make it smaller 
+	scaling = D3DXVECTOR2(0.9f, 0.9f); //make it smaller 
 	centre = D3DXVECTOR2(menuButtonWidth / 2, menuButtonHeight / 2);
 
 	//=====================
@@ -244,33 +244,37 @@ void MainMenu::Render() {
 	spriteBrush->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//set matrix to play button
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 22 * 3); //height follows a 20:4 ratio
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5); //height follows a 20:4 ratio
 	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, &centre, NULL, &position);
 	spriteBrush->SetTransform(&buttonMat);
 	spriteBrush->Draw(butPlayTexture, &buttonPlayRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
 	//set matrix to settings button
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 22 * 7);
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 8);
 	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, &centre, NULL, &position);
 	spriteBrush->SetTransform(&buttonMat);
 	spriteBrush->Draw(butSettingsTexture, &buttonSettingsRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
 	//set matrix the credits button
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 22 * 11);
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 11);
 	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, &centre, NULL, &position);
 	spriteBrush->SetTransform(&buttonMat);
 	spriteBrush->Draw(butCreditsTexture, &buttonCreditsRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
 	//set matrix to quit button
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 22 * 15);
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 14);
 	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, &centre, NULL, &position);
 	spriteBrush->SetTransform(&buttonMat);
 	spriteBrush->Draw(butQuitTexture, &buttonQuitRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+
+	//set matrix to title
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (titleWidth / 2), MyWindowHeight/30); //height follows a 20:4 ratio
+	centre = D3DXVECTOR2(menuButtonWidth / 2, menuButtonHeight / 2);
+	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, NULL, NULL, NULL, &position);
+	spriteBrush->SetTransform(&buttonMat);
+	spriteBrush->Draw(titleTexture, &titleRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 	
 	spriteBrush->End();
-
-	//draw Title
-	fontBrush->DrawText(NULL, "Space Game!", -1, &titleRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
 	//start line 1
 	lineBrush->Draw(l1LineVertices, 2, D3DCOLOR_XRGB(56, 175, 235));
@@ -311,4 +315,7 @@ void MainMenu::Input() {
 	if (diKeys[DIK_RETURN] & 0x80) {
 		enterPressed = true;
 	}
+
+
+
 }
