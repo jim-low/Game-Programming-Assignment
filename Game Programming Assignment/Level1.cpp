@@ -28,8 +28,9 @@ float Level1::CalculateAngle(Comet* comet)
 		}
 	}
 	else if (playerPos.x >= cometPos.x) { // check right
-		if (playerPos.y <= cometPos.y)
-		angle = 360 - angle;
+		if (playerPos.y <= cometPos.y) {
+			angle = 360 - angle;
+		}
 	}
 
 	return angle * PI / 180;
