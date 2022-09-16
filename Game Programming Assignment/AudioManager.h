@@ -13,10 +13,13 @@ public:
 	char* channelGroup;
 	FMOD::ChannelGroup* panGroup = 0;
 	FMOD::ChannelGroup* bgGroup = 0;
+	FMOD::ChannelGroup* effectsGroup = 0;
 	FMOD_RESULT result;
 	void* extraDriverData = 0;
 
 	void InitializeAudio();
+	void setEffectsVolume(float volume);
+	void setBackgroundVolume(float volume);
 	void PlayMainMenuSoundTrack();
 	void StopBackgroundSound();
 	void PlayGameplaySoundTrack();

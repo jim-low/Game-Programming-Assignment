@@ -6,11 +6,21 @@ void AudioManager::InitializeAudio()
 	result = system->init(64, FMOD_INIT_NORMAL, extraDriverData);
 	result = system->createChannelGroup(channelGroup, &bgGroup);
 	result = system->createChannelGroup(channelGroup, &panGroup);
+	result = system->createChannelGroup(channelGroup, &effectsGroup);
+
+}
+
+
+void AudioManager::setBackgroundVolume(float volume) {
+	bgGroup->setVolume(volume);
+}
+
+void AudioManager::setEffectsVolume(float volume) {
+	effectsGroup->setVolume(volume);
 }
 
 void AudioManager::PlayMainMenuSoundTrack(){
 	result = system->playSound(bgSoundTrack, bgGroup, false, &channel);
-	bgGroup->setVolume(0.03);
 	bgGroup->setPitch(1.5);
 }
 
@@ -24,13 +34,10 @@ void AudioManager::SetPanning(float panValue) {
 
 void AudioManager::PlayMemeDirectionSound() {
 	result = system->playSound(harambeSound, panGroup, false, &channel);
-	panGroup->setVolume(1);
-	panGroup->setReverbProperties(1,1);
 }
 
 void AudioManager::PlayCreditsSound(){
 	result = system->playSound(creditSoundTrack, bgGroup, false, &channel);
-	bgGroup->setVolume(0.03);
 }
 
 void AudioManager::PlayWinSoundTrack(){
@@ -50,40 +57,40 @@ void AudioManager::PlayBossSoundTrack() {
 }
 
 void AudioManager::PlayPlayerShootSound() {
-	result = system->playSound(playerShootSound, 0, false, &channel);
+	result = system->playSound(playerShootSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayEnemyShootSound() {
-	result = system->playSound(enemyShootSound, 0, false, &channel);
+	result = system->playSound(enemyShootSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayPickUpSound() {
-	result = system->playSound(pickUpSound, 0, false, &channel);
+	result = system->playSound(pickUpSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayCollisionSound() {
-	result = system->playSound(collideSound, 0, false, &channel);
+	result = system->playSound(collideSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayDamagedSound() {
-	result = system->playSound(damagedSound, 0, false, &channel);
+	result = system->playSound(damagedSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlaySwingSound() {
-	result = system->playSound(swingSound, 0, false, &channel);
+	result = system->playSound(swingSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayExplosionSound() {
-	result = system->playSound(explosionSound, 0, false, &channel);
+	result = system->playSound(explosionSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayClickSound() {
-	result = system->playSound(clickSound, 0, false, &channel);
-	channel->setVolume(0.1);
+	result = system->playSound(clickSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayHoverButtonSound() {
-	result = system->playSound(clickSound, 0, false, &channel);
+	result = system->playSound(clickSound, effectsGroup, false, &channel);
+	channel->setPosition(1000, FMOD_TIMEUNIT_MS);
 	//cut off sound after 1 sec
 }
 
