@@ -200,10 +200,12 @@ int main() {
 	MainMenu *mainMenu = new MainMenu();
 	GameOverPage* gameOver = new GameOverPage();
 	level1 = new Level1();
+	mainMenu = new MainMenu();
 	games.push(level1);
 
 	while (IfMyWindowIsRunning())
 	{
+		audioManager->UpdateSound();
 		GetInput();
 		// Update(60);
 		games.top()->Input();

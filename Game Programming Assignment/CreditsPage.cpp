@@ -1,6 +1,5 @@
 #include "CreditsPage.h"
 
-
 void CreditsPage::Initialize()
 {
 	//run the script
@@ -8,15 +7,9 @@ void CreditsPage::Initialize()
 		DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &font);
 
-	hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/harambe.png", &texture);
-
 	if (FAILED(hr)) {
-		cout << "Failed to load texture" << endl;
+		cout << "Failed to load font" << endl;
 	}
-
-	player = new Player();
-	cometSpawnRate = 0.8;
-	cometTimer = 10;
 
 	colRect.left = 50;
 	colRect.top = 0;
@@ -26,33 +19,18 @@ void CreditsPage::Initialize()
 	//centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	scaling = D3DXVECTOR2(1.0f, 1.0f);
 	direction = 0;
-	position = D3DXVECTOR2(0, 0);  //who design what mechanics coding, sound effect 
-	credits = "\n\n\nCREDITS SCENE (PRESS ENTER TO EXIT)\n\n\nMUSIC & SOUND FROM:\nTHE INTERNET\n\nLEVEL 1 & 2:\nJIM LOW LAP HONG\n\nMAIN MENU:\nLEONG WEN WEI\n\nWIN & LOSE SCREEN:\nLEONG WEN WEI\n\nDESIGN:\nLEONG WEN WEI\nBRIAN WONG YEE XIANG\nJIM LOW LAP HONG\n\nCREDITS SCREEN:\nBRIAN WONG YEE XIANG\n\nAUDIO MANAGER:\nBRIAN WONG YEE XIANG\n\nSPECIAL THANKS TO OUR TUTOR/LECTURE\nMR ANDREW\n\nSPECIAL LICENSE THAT WE DO NOT HAVE:\nSTAR WARS\n\n\nI HAVE NO IDEA WHAT TO PUT NEXT TO MAKE IT LONGER AND AT LEAST THE ENTIRE PAGE SO I'LL JUST WRITE A BUNCH OF WORDS FROM THE TOP OF MY HEAD TO FILL UP THIS END CREDITS PART.\nDON'T MIND THIS PART OF THE ESSAY BECAUSE IT'S JUST RANDOM THINGS I AM WRITING BUT HOW ARE YOU DOING ANYWAYS, I HOPE THIS PART WORKS PROPERLY. \nTHIS CREDITS PART SHOULD BE GOING UP NON-STOP BUT IF IT DOESN'T THEN I MIGHT CRY INSTEAD. \nTHE CREDITS SCREEN ALSO CONTAINS THE SOUND PANNING AND COLLISION DETECTION/ RESULTS AS WELL. \nBUT IT'S MOSTLY JUST FOR THE MEME PART. DID THE MEME PART WORK? DID HARAMBE FLEW BY ALREADY? WAS IT FUNNY AT LEAST? I HOPE IT IS. \nI SPEND MOST OF MY TIME THINKING ABOUT THIS ALTHOUGH IT PROBABLY DOES NOT GIVE ME ANY MARK. AND ALSO THIS CREDITS PART SHOULD BE CONSTANTLY REPEATING ITSELF WHEN SO IT DOES NOT BECOME EMPTY\nFEEL FREE TO IGNORE THIS PART THOUGH BECAUSE IT REPRESENTS NOTHING EXCEPT ACTING AS A BOUNDARY AGAINST THE SPACESHIP...";
+	position = D3DXVECTOR2(0, 0); 
+	credits = "\n\n\nCREDITS SCENE (PRESS ENTER TO EXIT)\n\n\nMUSIC & SOUND FROM:\nTHE INTERNET\n\nLEVEL 1 & 2:\nJIM LOW LAP HONG\n\nMAIN MENU:\nLEONG WEN WEI\n\nWIN & LOSE SCREEN:\nLEONG WEN WEI\n\nDESIGN:\nLEONG WEN WEI\nBRIAN WONG YEE XIANG\nJIM LOW LAP HONG\n\nCREDITS SCREEN:\nBRIAN WONG YEE XIANG\n\nAUDIO MANAGER:\nBRIAN WONG YEE XIANG\n\nSPECIAL THANKS TO OUR TUTOR/LECTURE\nMR ANDREW\n\nSPECIAL LICENSE THAT WE DO NOT HAVE:\nSTAR WARS\n\n\nIN THE MAIN MENU, WE HAVE HOVERING AND CLICKING SOUNDS AND SETTING VOLUMES.\n\nIN THE LEVEL 1, WE HAVE THE NEWTONIAN LAWS AND COLLISION DETECTION AND RESULTS AND PANNING.\n\nLEVEL 2 WE HAVE PEW PEW SPACE GAME.\n\nI HAVE NO IDEA WHAT TO PUT NEXT TO MAKE IT LONGER AND AT LEAST THE ENTIRE PAGE SO I'LL JUST WRITE A BUNCH OF WORDS FROM THE TOP OF MY HEAD TO FILL UP THIS END CREDITS PART.\nDON'T MIND THIS PART OF THE ESSAY BECAUSE IT'S JUST RANDOM THINGS I AM WRITING BUT HOW ARE YOU DOING ANYWAYS, I HOPE THIS PART WORKS PROPERLY. \nTHIS CREDITS PART SHOULD BE GOING UP NON-STOP.\n\nTHIS CREDITS PART SHOULD BE CONSTANTLY REPEATING ITSELF WHEN SO IT DOES NOT BECOME EMPTY\n";
 
 
-	//put player in, use harambe put panning
-	//use comet
-	//set angle fixed
-	//
-	//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	// panning and boubady
 
-	audioManager->PlayCreditsSound();
+	//audioManager->PlayCreditsSound();
 
 }
-
-void CreditsPage::SpawnComet()
-{
-	Comet* comet = new Comet();
-	comet->ApplyAngle(315.0f * PI / 180);
-	comets.push_back(comet);
-}
-
 
 void CreditsPage::Update()
 {
-	
-	player->Update();
-
 	if (clicked) {
 		audioManager->StopBackgroundSound();
 		//games.pop();
@@ -63,41 +41,13 @@ void CreditsPage::Update()
 		position.y = MyWindowHeight;
 	}
 
-	for (int i = 0; i < comets.size(); ++i) {
-		comets.at(i)->Update();
-	}
-
-	cometTimer -= cometSpawnRate;
-	if (cometTimer <= 0) {
-		SpawnComet();
-		cometTimer = 10;
-	}
-
 	clicked = false;
 }
 
 void CreditsPage::Render() {
-	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
-	d3dDevice->BeginScene();
-
-	sprite->Begin(D3DXSPRITE_ALPHABLEND);
-
-	
-	player->Render();
-
-	for (int i = 0; i < comets.size(); ++i) {
-		comets.at(i)->Render();
-	}
-
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &position);
 	sprite->SetTransform(&mat);
 	font->DrawText(sprite, credits, lstrlenA(credits), &colRect, DT_WORDBREAK, D3DCOLOR_XRGB(255, 255, 0));
-
-
-	sprite->End();
-
-	d3dDevice->EndScene();
-	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 void CreditsPage::Input()
@@ -105,16 +55,12 @@ void CreditsPage::Input()
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
-	player->Input();
-
 	if (diKeys[DIK_RETURN] & 0x80) {
 		clicked = true;
 	}
 	
 }
 
-
 CreditsPage::~CreditsPage()
 {
-	CleanUp();
 }
