@@ -7,12 +7,23 @@ void AudioManager::InitializeAudio()
 	result = system->createChannelGroup(channelGroup, &bgGroup);
 	result = system->createChannelGroup(channelGroup, &panGroup);
 	result = system->createChannelGroup(channelGroup, &effectsGroup);
-
+	bgVolume = 0.1;
+	effectVolume = 1;
+	bgGroup->setVolume(bgVolume);
 }
 
+int AudioManager::getEffectsVolume()
+{
+	return int(effectsGroup)*100;
+}
 
 void AudioManager::setBackgroundVolume(float volume) {
 	bgGroup->setVolume(volume);
+}
+
+int AudioManager::getBackgroundVolume()
+{
+	return int(bgVolume)*100;
 }
 
 void AudioManager::setEffectsVolume(float volume) {
@@ -21,6 +32,7 @@ void AudioManager::setEffectsVolume(float volume) {
 
 void AudioManager::PlayMainMenuSoundTrack(){
 	result = system->playSound(bgSoundTrack, bgGroup, false, &channel);
+	
 	bgGroup->setPitch(1.5);
 }
 
@@ -32,8 +44,8 @@ void AudioManager::SetPanning(float panValue) {
 	panGroup->setPan(panValue);
 }
 
-void AudioManager::PlayMemeDirectionSound() {
-	result = system->playSound(harambeSound, panGroup, false, &channel);
+void AudioManager::PlayCometSound() {
+	result = system->playSound(cometSound, panGroup, false, &channel);
 }
 
 void AudioManager::PlayCreditsSound(){
@@ -139,7 +151,7 @@ void AudioManager::LoadSounds()
 	result = system->createStream("../Assets/Audio/click-electronic.wav", FMOD_DEFAULT, 0, &clickSound);
 	result = clickSound->setMode(FMOD_LOOP_OFF);
 
-	result = system->createStream("../Assets/Audio/gnome.mp3", FMOD_DEFAULT, 0, &harambeSound);
+	result = system->createStream("../Assets/Audio/flyby.mp3", FMOD_DEFAULT, 0, &cometSound);
 	result = clickSound->setMode(FMOD_LOOP_OFF);
 }
 

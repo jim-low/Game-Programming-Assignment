@@ -43,6 +43,9 @@ float Level1::CalculateAngle(Comet* comet)
 	return angle * PI / 180;
 }
 
+
+
+
 void Level1::SpawnComet()
 {
 	Comet* comet = new Comet();
@@ -76,8 +79,13 @@ void Level1::Update()
 			player->Damage(comets.at(i)->GetDamage());
 			audioManager->PlayCollisionSound();
 			comets.erase(comets.begin() + i);
+
+
+			
 		}
 	}
+
+
 
 	if (player != NULL && player->isDed) {
 		player = NULL;

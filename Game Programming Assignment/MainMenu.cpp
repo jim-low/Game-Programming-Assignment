@@ -311,4 +311,7 @@ void MainMenu::Input() {
 	if (diKeys[DIK_RETURN] & 0x80) {
 		enterPressed = true;
 	}
+
+
+
 }
