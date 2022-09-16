@@ -1,6 +1,8 @@
 #include "Header.h"
 #include "Game.h"
 #include "Level1.h"
+#include "MainMenu.h"
+#include "GameOverPage.h"
 
 //Window's Global
 HWND g_hWnd = NULL;
@@ -182,7 +184,9 @@ int main() {
 	CreateMy3D();
 	CreateMyDirectInput();
 	InitializeLevel();
-
+	
+	MainMenu *mainMenu = new MainMenu();
+	GameOverPage* gameOver = new GameOverPage();
 	level1 = new Level1();
 	games.push(level1);
 

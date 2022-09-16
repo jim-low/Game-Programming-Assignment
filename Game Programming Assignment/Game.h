@@ -33,15 +33,21 @@ protected:
 	// string soundFile;
 	float soundVolume;
 
+
+	//test (Brushes)
+	LPD3DXFONT fontBrush; //Title of game
+	LPD3DXLINE lineBrush; //lines for the panel and cover
+	LPD3DXSPRITE spriteBrush; //To draw buttons in the panel
+
 public:
 	Game();
 	~Game();
 
 	virtual void Initialize();
-	virtual void Render();
+	virtual void Render(); 
 	virtual void CleanUp();
 	virtual void Update();
-	virtual void Input();
+	virtual void Input(); 
 	static boolean checkCollision(RECT a, RECT b);
 
 	RECT GetBody() {
