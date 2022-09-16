@@ -1,11 +1,6 @@
 #include "GameOverPage.h"
 
-GameOverPage::~GameOverPage() {
-}
-
 void GameOverPage::Initialize() {
-	game = new Game();
-
 	//=====================
 	//INITIALIZE LOSE TITLE
 	//=====================
@@ -13,14 +8,14 @@ void GameOverPage::Initialize() {
 	//initialize brush
 	HRESULT hr = D3DXCreateFont(d3dDevice, 100, 35, 200, 0, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, TEXT("Bauhaus 93"), &fontBrush);
 	if (FAILED(hr)) {
-		std::cout << "Failed to create Lose Title.";
+		cout << "Failed to create Lose Title." << endl;
 		MessageBox(NULL, TEXT("Failed to create Lose Title."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
 	//initialize position 
-	loseTitleRect.top = MyWindowHeight / 16; //change later
+	loseTitleRect.top = (MyWindowHeight * 0.2); //change later
+	loseTitleRect.left = (MyWindowWidth / 2) - (35);
 	loseTitleRect.bottom = loseTitleRect.top + 100;
-	loseTitleRect.left = (MyWindowWidth / 2 / 2) + 40;
 	loseTitleRect.right = loseTitleRect.left + 340;
 
 	//=====================
@@ -107,11 +102,9 @@ void GameOverPage::Update() {
 	rickRect.bottom = rickRect.top + textureHeight;
 	rickRect.left = textureWidth * (rowFrame - 1);
 	rickRect.right = rickRect.left + textureWidth;
+
 	currentFrame++;
 	rowFrame++;
-
-
-
 }
 
 void GameOverPage::Render() {
@@ -141,5 +134,7 @@ void GameOverPage::Render() {
 }
 
 void GameOverPage::Input() {
-	game->Input();
+}
+
+GameOverPage::~GameOverPage() {
 }

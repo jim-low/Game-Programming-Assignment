@@ -6,9 +6,7 @@
 
 class GameOverPage : public Game
 {
-protected:
-	Game* game;
-
+private:
 	//RECTS to pinpoint location
 	RECT rickRect;
 	RECT loseTitleRect;
@@ -29,7 +27,6 @@ protected:
 	D3DXVECTOR2 lBpos4;
 	D3DXVECTOR2 lBVertices[5];
 	int boxNTitleGap;
-
 
 public:
 	GameOverPage() : Game() { //constructor

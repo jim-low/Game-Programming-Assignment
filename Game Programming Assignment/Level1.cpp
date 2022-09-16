@@ -67,6 +67,13 @@ void Level1::Update()
 		comets.at(i)->Update();
 	}
 
+	for (int i = 0; i < explosions.size(); ++i) {
+		CometExplosion* explosion = explosions.at(i);
+		if (!explosion->ended) {
+			explosion->Update();
+		}
+	}
+
 	for (int i = 0; i < comets.size(); ++i) {
 		if (player == NULL) {
 			break;
@@ -75,6 +82,12 @@ void Level1::Update()
 		if (Level2::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
 			player->Damage(comets.at(i)->GetDamage());
 			audioManager->PlayCollisionSound();
+			D3DXVECTOR2 explosionPos = comets.at(i)->GetPos();
+			explosionPos.x -= 77;
+			explosionPos.y -= 75;
+			CometExplosion* explosion = new CometExplosion();
+			explosion->Initialize(explosionPos);
+			explosions.push_back(explosion);
 			comets.erase(comets.begin() + i);
 		}
 	}
@@ -82,6 +95,13 @@ void Level1::Update()
 	if (player != NULL && player->isDed) {
 		player = NULL;
 		// call game over here
+	}
+
+	for (int i = 0; i < explosions.size(); ++i) {
+		CometExplosion* explosion = explosions.at(i);
+		if (explosion->ended) {
+			explosions.erase(explosions.begin() + i);
+		}
 	}
 
 	cometTimer -= cometSpawnRate;
@@ -107,8 +127,11 @@ void Level1::Render()
 		comets.at(i)->Render();
 	}
 
-	if (playCredits) {
-		credits->Render();
+	for (int i = 0; i < explosions.size(); ++i) {
+		CometExplosion* explosion = explosions.at(i);
+		if (!explosion->ended) {
+			explosion->Render();
+		}
 	}
 
 	sprite->End();

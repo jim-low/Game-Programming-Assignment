@@ -29,7 +29,6 @@ LPD3DXFONT font = NULL;
 // gaem things
 stack<Game*> games;
 AudioManager* audioManager;
-CreditsPage* creditsPage;
 
 float PI = atan(1.f) * 4;
 
@@ -124,9 +123,6 @@ void InitializeSound() {
 	audioManager->LoadSounds();
 }
 
-void GetInput() {
-}
-
 void Update(int framesToUpdate) {
 	for (int i = 0; i < framesToUpdate; i++) {
 	}
@@ -191,9 +187,8 @@ int main() {
 	InitializeLevel();
 	InitializeSound();
 
-	//creditsPage = new CreditsPage();
-	//games.push(creditsPage);
-	//MainMenu *mainMenu = new MainMenu();
+	//CreditsPage* creditsPage = new CreditsPage();
+	//MainMenu* mainMenu = new MainMenu();
 	//GameOverPage* gameOver = new GameOverPage();
 	Level1* level1 = new Level1();
 	games.push(level1);
@@ -201,21 +196,15 @@ int main() {
 	while (IfMyWindowIsRunning())
 	{
 		audioManager->UpdateSound();
-		GetInput();
-		// Update(60);
 		games.top()->Input();
 		games.top()->Update();
 		games.top()->Render();
-		// Render();
-		// PlaySound();
-
 	}
+
 	CleanUpMyDirectInput();
 	CleanUpMyDirectX();
 	CleanUpLevel();
 	CleanUpMyWindow();
-
 	return 0;
-
 }
 
