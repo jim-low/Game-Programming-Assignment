@@ -28,7 +28,6 @@ LPD3DXFONT font = NULL;
 
 // gaem things
 stack<Game*> games;
-Level1* level1;
 AudioManager* audioManager;
 CreditsPage* creditsPage;
 
@@ -192,14 +191,11 @@ int main() {
 	InitializeLevel();
 	InitializeSound();
 
-	//level1 = new Level1();
-	//games.push(level1);
-	creditsPage = new CreditsPage();
-	games.push(creditsPage);
-	
-	MainMenu *mainMenu = new MainMenu();
-	GameOverPage* gameOver = new GameOverPage();
-	level1 = new Level1();
+	//creditsPage = new CreditsPage();
+	//games.push(creditsPage);
+	//MainMenu *mainMenu = new MainMenu();
+	//GameOverPage* gameOver = new GameOverPage();
+	Level1* level1 = new Level1();
 	games.push(level1);
 
 	while (IfMyWindowIsRunning())
