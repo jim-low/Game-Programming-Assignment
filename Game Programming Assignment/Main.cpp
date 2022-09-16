@@ -2,6 +2,7 @@
 #include "Header.h"
 #include "Game.h"
 #include "Level1.h"
+#include "CreditsPage.h"
 
 //Window's Global
 HWND g_hWnd = NULL;
@@ -189,10 +190,10 @@ int main() {
 	InitializeLevel();
 	InitializeSound();
 
-	level1 = new Level1();
-	games.push(level1);
-	//creditsPage = new CreditsPage();
-	//games.push(creditsPage);
+	//level1 = new Level1();
+	//games.push(level1);
+	creditsPage = new CreditsPage();
+	games.push(creditsPage);
 
 	while (IfMyWindowIsRunning())
 	{

@@ -5,7 +5,7 @@ void AudioManager::InitializeAudio()
 	result = FMOD::System_Create(&system);
 	result = system->init(64, FMOD_INIT_NORMAL, extraDriverData);
 	result = system->createChannelGroup(channelGroup, &bgGroup);
-	
+	result = system->createChannelGroup(channelGroup, &panGroup);
 }
 
 void AudioManager::PlayMainMenuSoundTrack(){
@@ -16,6 +16,16 @@ void AudioManager::PlayMainMenuSoundTrack(){
 
 void AudioManager::StopBackgroundSound() {
 	bgGroup->stop();
+}
+
+void AudioManager::SetPanning(float panValue) {
+	panGroup->setPan(panValue);
+}
+
+void AudioManager::PlayMemeDirectionSound() {
+	result = system->playSound(harambeSound, panGroup, false, &channel);
+	panGroup->setVolume(1);
+	panGroup->setReverbProperties(1,1);
 }
 
 void AudioManager::PlayCreditsSound(){
@@ -120,6 +130,9 @@ void AudioManager::LoadSounds()
 	result = bossSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/click-electronic.wav", FMOD_DEFAULT, 0, &clickSound);
+	result = clickSound->setMode(FMOD_LOOP_OFF);
+
+	result = system->createStream("../Assets/Audio/gnome.mp3", FMOD_DEFAULT, 0, &harambeSound);
 	result = clickSound->setMode(FMOD_LOOP_OFF);
 }
 
