@@ -7,6 +7,7 @@
 class MainMenu : public Game
 {
 protected: 
+	Game* game;
 
 	//RECTS to pinpoint location
 	RECT titleRect; 
@@ -16,23 +17,23 @@ protected:
 	RECT buttonQuitRect;
 
 	//textures
-	LPDIRECT3DTEXTURE9 butUnPlayTexture = NULL;
 	LPDIRECT3DTEXTURE9 butPlayTexture = NULL;
-	LPDIRECT3DTEXTURE9 butUnSettingsTexture = NULL;
 	LPDIRECT3DTEXTURE9 butSettingsTexture = NULL;
-	LPDIRECT3DTEXTURE9 butUnCreditsTexture = NULL;
 	LPDIRECT3DTEXTURE9 butCreditsTexture = NULL;
-	LPDIRECT3DTEXTURE9 butUnQuitTexture = NULL;
 	LPDIRECT3DTEXTURE9 butQuitTexture = NULL;
 
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;
+	D3DXMATRIX buttonMat; //for matrix position
+	D3DXVECTOR2 playPosition; //for matrix position
+	D3DXVECTOR2 settingsPosition;
+	D3DXVECTOR2 creditsPosition;
+	D3DXVECTOR2 quitPosition;
 
-	//brushes
-	LPD3DXFONT titleBrush; //Title of game
-	LPD3DXLINE lineBrush; //lines for the panel and cover
-	LPD3DXSPRITE buttonBrush; //To draw buttons in the panel
+	//currentSelectedButton
+	int currentSelection;
+	enum buttonFocus{UNFOCUS,PLAY,SETTINGS,CREDITS,QUIT};
 
 	//coordinates of line 1----
 	D3DXVECTOR2 l1StartPoint;
@@ -43,6 +44,15 @@ protected:
 	D3DXVECTOR2 l2StartPoint;
 	D3DXVECTOR2 l2EndPoint;
 	D3DXVECTOR2 l2LineVertices[2];
+
+	//input stuff
+	boolean upPressed;
+	boolean downPressed;
+	boolean arrowUpPressed;
+	boolean arrowDownPressed;
+	boolean mouseLeftClick;
+	boolean mouseRightClick;
+	boolean enterPressed;
 
 public:
 	MainMenu() : Game() { //constructor

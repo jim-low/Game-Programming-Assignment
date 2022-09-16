@@ -3,6 +3,8 @@
 #include "Game.h"
 #include "Level1.h"
 #include "CreditsPage.h"
+#include "MainMenu.h"
+#include "GameOverPage.h"
 
 //Window's Global
 HWND g_hWnd = NULL;
@@ -190,6 +192,13 @@ int main() {
 	InitializeLevel();
 	InitializeSound();
 
+	//level1 = new Level1();
+	//games.push(level1);
+	creditsPage = new CreditsPage();
+	games.push(creditsPage);
+	
+	MainMenu *mainMenu = new MainMenu();
+	GameOverPage* gameOver = new GameOverPage();
 	level1 = new Level1();
 	games.push(level1);
 
