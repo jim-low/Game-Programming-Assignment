@@ -9,6 +9,7 @@
 class Player : public Spaceship {
 private:
 	vector<Projectile*> bullets;
+	//Projectile* bullets;
 
 	int ammo;
 	int maxAmmo;
@@ -52,7 +53,9 @@ public:
 	void Update();
 	void Render();
 	void Input();
+
 	vector<Projectile*>* getBullets();
+	//Projectile* getBullets();
 	int GetHealth();
 	void Damage(int damage);
 };

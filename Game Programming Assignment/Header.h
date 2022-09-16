@@ -27,7 +27,6 @@
 #include "Game.h"
 #include "AudioManager.h"
 #include "FrameTimer.h"
-#include "CreditsPage.h"
 
 using namespace std;
 
