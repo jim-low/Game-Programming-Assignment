@@ -3,15 +3,20 @@
 
 void Level1::Initialize()
 {
-	credits = new CreditsPage();
-	playCredits = true;
 	player = new Player();
-	cometSpawnRate = 0.2;
+	cometSpawnRate = 0.8;
 	cometTimer = 10;
+
+	audioManager->PlayGameplaySoundTrack();
 }
 
+// this formula made me cry for 30 mins
 float Level1::CalculateAngle(Comet* comet)
 {
+	if (player == NULL) {
+		return 0;
+	}
+
 	D3DXVECTOR2 playerPos = player->GetPos();
 	D3DXVECTOR2 cometPos = comet->GetPos();
 
@@ -47,26 +52,36 @@ void Level1::SpawnComet()
 
 void Level1::Input()
 {
-	player->Input();
+	if (player != NULL) {
+		player->Input();
+	}
 }
 
 void Level1::Update()
 {
-	if (playCredits) {
-		credits->Update();
+	if (player != NULL) {
+		player->Update();
 	}
-
-	player->Update();
 
 	for (int i = 0; i < comets.size(); ++i) {
 		comets.at(i)->Update();
 	}
 
 	for (int i = 0; i < comets.size(); ++i) {
+		if (player == NULL) {
+			break;
+		}
+
 		if (Level2::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
 			player->Damage(comets.at(i)->GetDamage());
+			audioManager->PlayCollisionSound();
 			comets.erase(comets.begin() + i);
 		}
+	}
+
+	if (player != NULL && player->isDed) {
+		player = NULL;
+		// call game over here
 	}
 
 	cometTimer -= cometSpawnRate;
@@ -84,7 +99,10 @@ void Level1::Render()
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 	// render game objects
-	player->Render();
+	if (player != NULL) {
+		player->Render();
+	}
+
 	for (int i = 0; i < comets.size(); ++i) {
 		comets.at(i)->Render();
 	}

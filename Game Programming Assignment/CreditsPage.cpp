@@ -27,7 +27,7 @@ void CreditsPage::Initialize()
 	//use comet
 	//set angle fixed
 	//
-	//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 	audioManager->PlayCreditsSound();
 

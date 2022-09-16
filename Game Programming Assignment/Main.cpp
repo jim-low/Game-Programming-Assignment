@@ -195,6 +195,7 @@ int main() {
 
 	while (IfMyWindowIsRunning())
 	{
+		audioManager->UpdateSound();
 		GetInput();
 		// Update(60);
 		games.top()->Input();

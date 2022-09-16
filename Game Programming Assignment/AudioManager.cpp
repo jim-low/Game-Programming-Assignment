@@ -43,6 +43,7 @@ void AudioManager::PlayLoseSoundTrack() {
 
 void AudioManager::PlayGameplaySoundTrack() {
 	result = system->playSound(gameplaySound, bgGroup, false, &channel);
+	bgGroup->setVolume(0.03);
 }
 
 void AudioManager::PlayBossSoundTrack() {
@@ -63,10 +64,12 @@ void AudioManager::PlayPickUpSound() {
 
 void AudioManager::PlayCollisionSound() {
 	result = system->playSound(collideSound, 0, false, &channel);
+	channel->setVolume(0.05);
 }
 
 void AudioManager::PlayDamagedSound() {
 	result = system->playSound(damagedSound, 0, false, &channel);
+	channel->setVolume(0.05);
 }
 
 void AudioManager::PlaySwingSound() {
@@ -75,6 +78,7 @@ void AudioManager::PlaySwingSound() {
 
 void AudioManager::PlayExplosionSound() {
 	result = system->playSound(explosionSound, 0, false, &channel);
+	channel->setVolume(0.05);
 }
 
 void AudioManager::PlayClickSound() {
@@ -123,7 +127,7 @@ void AudioManager::LoadSounds()
 	result = system->createStream("../Assets/Audio/Ship_Explosion.wav", FMOD_DEFAULT, 0, &explosionSound);
 	result = explosionSound->setMode(FMOD_LOOP_OFF);
 
-	result = system->createStream("../Assets/Audio/Fight_Music_Loop", FMOD_DEFAULT, 0, &gameplaySound);
+	result = system->createStream("../Assets/Audio/Fight_Music_Loop.wav", FMOD_DEFAULT, 0, &gameplaySound);
 	result = gameplaySound->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/Boss_Music.mp3", FMOD_DEFAULT, 0, &bossSoundTrack);
