@@ -45,9 +45,19 @@ void CreditsPage::Update()
 }
 
 void CreditsPage::Render() {
+	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	d3dDevice->BeginScene();
+
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &position);
 	sprite->SetTransform(&mat);
 	font->DrawText(sprite, credits, lstrlenA(credits), &colRect, DT_WORDBREAK, D3DCOLOR_XRGB(255, 255, 0));
+
+	sprite->End();
+
+	d3dDevice->EndScene();
+	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 void CreditsPage::Input()
