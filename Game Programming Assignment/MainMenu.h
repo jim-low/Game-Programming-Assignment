@@ -7,7 +7,6 @@
 class MainMenu : public Game
 {
 protected: 
-	Game* game;
 
 	//RECTS to pinpoint location
 	RECT titleRect; 
@@ -17,11 +16,11 @@ protected:
 	RECT buttonQuitRect;
 
 	//textures
-	LPDIRECT3DTEXTURE9 titleTexture = NULL;
-	LPDIRECT3DTEXTURE9 butPlayTexture = NULL;
-	LPDIRECT3DTEXTURE9 butSettingsTexture = NULL;
-	LPDIRECT3DTEXTURE9 butCreditsTexture = NULL;
-	LPDIRECT3DTEXTURE9 butQuitTexture = NULL;
+	LPDIRECT3DTEXTURE9 titleTexture;
+	LPDIRECT3DTEXTURE9 butPlayTexture;
+	LPDIRECT3DTEXTURE9 butSettingsTexture;
+	LPDIRECT3DTEXTURE9 butCreditsTexture;
+	LPDIRECT3DTEXTURE9 butQuitTexture;
 
 	D3DXVECTOR2 playButtonPos;
 	D3DXVECTOR2 settingsButtonPos;
@@ -61,13 +60,7 @@ protected:
 	D3DXVECTOR2 l2LineVertices[2];
 
 	//input stuff
-	boolean upPressed;
-	boolean downPressed;
-	boolean arrowUpPressed;
-	boolean arrowDownPressed;
-	boolean mouseLeftClick;
-	boolean mouseRightClick;
-	boolean enterPressed;
+	boolean rightKeyPressed;
 
 private:
 	RECT mouse;

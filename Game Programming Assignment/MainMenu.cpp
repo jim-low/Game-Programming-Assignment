@@ -1,4 +1,6 @@
 #include "Level2.h"
+#include "Level1.h"
+#include "CreditsPage.h"
 #include "MainMenu.h"
 
 MainMenu::~MainMenu() {
@@ -139,28 +141,28 @@ void MainMenu::Initialize() {
 	buttonQuitRect.right = buttonQuitRect.left + menuButtonWidth;
 
 	playPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5);
-	playCol.left = playPosition.x;
-	playCol.top = playPosition.y;
-	playCol.right = playCol.left + menuButtonWidth;
-	playCol.bottom = playCol.top + menuButtonHeight;
+	playCol.left = playPosition.x + 15;
+	playCol.top = playPosition.y + 25;
+	playCol.right = playCol.left + menuButtonWidth - 105;
+	playCol.bottom = playCol.top + menuButtonHeight - 75;
 
 	settingsPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 8); 
-	settingsCol.left = settingsPosition.x;
-	settingsCol.top = settingsPosition.y;
-	settingsCol.right = settingsCol.left + menuButtonWidth;
-	settingsCol.bottom = settingsCol.top + menuButtonHeight;
+	settingsCol.left = settingsPosition.x + 15;
+	settingsCol.top = settingsPosition.y + 10 ;
+	settingsCol.right = settingsCol.left + menuButtonWidth - 105;
+	settingsCol.bottom = settingsCol.top + menuButtonHeight - 75;
 
 	creditsPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 11);
-	creditsCol.left = creditsPosition.x;
+	creditsCol.left = creditsPosition.x + 15;
 	creditsCol.top = creditsPosition.y;
-	creditsCol.right = creditsCol.left + menuButtonWidth;
-	creditsCol.bottom = creditsCol.top + menuButtonHeight;
+	creditsCol.right = creditsCol.left + menuButtonWidth - 105;
+	creditsCol.bottom = creditsCol.top + menuButtonHeight - 75;
 
 	quitPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 14);
-	quitCol.left = quitPosition.x;
+	quitCol.left = quitPosition.x + 15;
 	quitCol.top = quitPosition.y;
-	quitCol.right = quitCol.left + menuButtonWidth;
-	quitCol.bottom = quitCol.top + menuButtonHeight;
+	quitCol.right = quitCol.left + menuButtonWidth - 105;
+	quitCol.bottom = quitCol.top + menuButtonHeight - 80;
 
 	//audioManager->PlayMainMenuSoundTrack();
 }
@@ -173,112 +175,76 @@ void MainMenu::Update() {
 
 	if (Game::CheckCollision(mouse, playCol)) {
 		cout << "mouse has hovered over play" << endl;
+		buttonPlayRect.left = menuButtonWidth;
+		buttonPlayRect.right = menuButtonWidth * 2;
+		currentSelection = PLAY;
+	}
+
+	else {
+		buttonPlayRect.left = 0;
+		buttonPlayRect.right = menuButtonWidth;
 	}
 
 	if (Game::CheckCollision(mouse, settingsCol)) {
 		cout << "mouse has hovered over settings" << endl;
+		buttonSettingsRect.left = menuButtonWidth;
+		buttonSettingsRect.right = menuButtonWidth * 2;
+		currentSelection = SETTINGS;
+	}
+
+	else {
+		buttonSettingsRect.left = 0;
+		buttonSettingsRect.right = menuButtonWidth;
 	}
 
 	if (Game::CheckCollision(mouse, creditsCol)) {
 		cout << "mouse has hovered over credits" << endl;
+		buttonCreditsRect.left = menuButtonWidth;
+		buttonCreditsRect.right = menuButtonWidth * 2;
+		currentSelection = CREDITS;
+	}
+
+	else {
+		buttonCreditsRect.left = 0;
+		buttonCreditsRect.right = menuButtonWidth;
 	}
 
 	if (Game::CheckCollision(mouse, quitCol)) {
 		cout << "mouse has hovered over quit" << endl;
+		buttonQuitRect.left = menuButtonWidth;
+		buttonQuitRect.right = menuButtonWidth * 2;
+		currentSelection = QUIT;	
 	}
 
-	//you have to alter the sprite whenever buttons are hovered over
+	else {
+		buttonQuitRect.left = 0;
+		buttonQuitRect.right = menuButtonWidth;
+	}
 
-	//focus feature (using arrow keys to navigate through the menu, pressing enter will select the option)
+	if (!Game::CheckCollision(mouse, playCol) && !Game::CheckCollision(mouse, settingsCol) && !Game::CheckCollision(mouse, creditsCol) && !Game::CheckCollision(mouse, quitCol)) currentSelection = UNFOCUS;
 
-	if (enterPressed) { //its not updating, idk why
+	if (rightKeyPressed) {
+		rightKeyPressed = false;
 		if (currentSelection == PLAY) {
-			//IDK WHAT TO DO HERE FAK
+			games.pop();
+			games.push(new Level1());
 		}
-		else if (currentSelection == SETTINGS){
 
+		else if (currentSelection == SETTINGS) {
+			//insert settings game push here
 		}
+
 		else if (currentSelection == CREDITS) {
-		
+			games.pop();
+			games.push(new CreditsPage());
 		}
+
 		else if (currentSelection == QUIT) {
-		
+			games.pop();
+			exit(0);
 		}
-		enterPressed = false;
 	}
 
-	//...
-
-	if (currentSelection == PLAY) {
-		//highlight play
-		buttonPlayRect.left += menuButtonWidth;
-		buttonPlayRect.right += menuButtonWidth * 2;
-		//unhighlight the previous button
-		buttonSettingsRect.left = 0;
-		buttonSettingsRect.right = menuButtonWidth;
-	}
-
-	else if (currentSelection == SETTINGS) {
-		//highlight settings
-		buttonSettingsRect.left += menuButtonWidth;
-		buttonSettingsRect.right += menuButtonWidth * 2;
-		//unhighlight the previous buttons
-		buttonPlayRect.left = 0;
-		buttonPlayRect.right = menuButtonWidth;
-		buttonCreditsRect.left = 0;
-		buttonCreditsRect.right = menuButtonWidth;
-	}
-
-	else if (currentSelection == CREDITS) {
-		//highlight settings
-		buttonCreditsRect.left += menuButtonWidth;
-		buttonCreditsRect.right += menuButtonWidth * 2;
-		//unhighlight the previous buttons
-		buttonSettingsRect.left = 0;
-		buttonSettingsRect.right = menuButtonWidth;
-		buttonQuitRect.left = 0;
-		buttonQuitRect.right = menuButtonWidth;
-	}
-
-	else if (currentSelection == QUIT) {
-		//highlight play
-		buttonPlayRect.left += menuButtonWidth;
-		buttonPlayRect.right += menuButtonWidth * 2;
-		//unhighlight the previous button
-		buttonSettingsRect.left = 0;
-		buttonSettingsRect.right = menuButtonWidth;
-	}
-
-	if (upPressed || arrowUpPressed) { 
-		if (currentSelection != PLAY) currentSelection - 1;
-		else currentSelection = PLAY;
-
-
-		//highlight play
-		buttonPlayRect.left = menuButtonWidth;
-		buttonPlayRect.right = menuButtonWidth * 2;
-
-		//unhighlight the previous button
-		buttonSettingsRect.left = 0;
-		buttonSettingsRect.right = menuButtonWidth;
-		buttonCreditsRect.left = 0;
-		buttonCreditsRect.right = menuButtonWidth;
-		buttonQuitRect.left = 0;
-		buttonQuitRect.right = menuButtonWidth;
-
-
-		upPressed = false;
-		arrowUpPressed = false;
-		std::cout << "upPressed" << std::endl;
-	}
-
-	if (downPressed || arrowDownPressed) { 
-		if (currentSelection != QUIT) currentSelection + 1;
-		else currentSelection = QUIT;
-		downPressed = false;
-		arrowDownPressed = false;
-		std::cout << "downPressed" << std::endl;
-	}
 }
 
 void MainMenu::Render() {
@@ -338,29 +304,11 @@ void MainMenu::Render() {
 }
 
 void MainMenu::Input() {
-	dInputKeyboardDevice->Acquire();
-	dInputKeyboardDevice->GetDeviceState(256, diKeys);
+	dInputMouseDevice->Acquire();
+	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
 
-	// movement WASD
-	if (diKeys[DIK_W] & 0x80) {
-		upPressed = true;
-	}
-
-	if (diKeys[DIK_S] & 0x80) {
-		downPressed = true;
-	}
-
-	// movement ARROWKEYS
-	if (diKeys[DIK_UP] & 0x80) {
-		arrowUpPressed = true;
-	}
-
-	if (diKeys[DIK_DOWN] & 0x80) {
-		arrowDownPressed = true;
-	}
-
-	//Enter key
-	if (diKeys[DIK_RETURN] & 0x80) {
-		enterPressed = true;
+	if (BUTTONDOWN(mouseState, 0)) //left click
+	{
+		rightKeyPressed = true;
 	}
 }

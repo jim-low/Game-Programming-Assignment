@@ -23,7 +23,7 @@ void GameOverPage::Initialize() {
 	scaling = D3DXVECTOR2(2, 2);
 	centre = D3DXVECTOR2((spriteWidth * scaling.x) / 2, (spriteHeight * scaling.y) / 2);
 	direction = 0;
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (spriteWidth / (3 * scaling.x)), (MyWindowHeight / 4) - (spriteHeight * (scaling.y / 2)));
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (spriteWidth / (20 * scaling.x)), (MyWindowHeight / 4) - (spriteHeight * (scaling.y / 2)));
 
 	neverGonnaGiveYouUp = new RickRoll();
 
