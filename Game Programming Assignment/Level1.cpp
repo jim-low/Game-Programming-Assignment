@@ -45,9 +45,6 @@ float Level1::CalculateAngle(Comet* comet)
 	return angle * PI / 180;
 }
 
-
-
-
 void Level1::SpawnComet()
 {
 	Comet* comet = new Comet();
@@ -91,7 +88,7 @@ void Level1::Update()
 			break;
 		}
 
-		if (Level2::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
+		if (Game::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
 			player->Damage(comets.at(i)->GetDamage());
 			audioManager->PlayCollisionSound();
 			D3DXVECTOR2 explosionPos = comets.at(i)->GetPos();
