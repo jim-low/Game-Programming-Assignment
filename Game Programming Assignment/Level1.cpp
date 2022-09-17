@@ -1,9 +1,11 @@
 #include "Level1.h"
 #include "Level2.h"
+#include "GameOverPage.h"
 
 void Level1::Initialize()
 {
 	player = new Player();
+
 	cometSpawnRate = 0.8;
 	cometTimer = 10;
 
@@ -62,6 +64,13 @@ void Level1::Input()
 
 void Level1::Update()
 {
+	if (player != NULL && player->isDed) {
+		player = NULL;
+		audioManager->StopBackgroundSound();
+		games.pop();
+		games.push(new GameOverPage());
+	}
+
 	if (player != NULL) {
 		player->Update();
 	}
@@ -92,15 +101,7 @@ void Level1::Update()
 			explosion->Initialize(explosionPos);
 			explosions.push_back(explosion);
 			comets.erase(comets.begin() + i);
-
-
-			
 		}
-	}
-
-	if (player != NULL && player->isDed) {
-		player = NULL;
-		// call game over here
 	}
 
 	for (int i = 0; i < explosions.size(); ++i) {
