@@ -10,6 +10,7 @@ void AudioManager::InitializeAudio()
 	bgVolume = 0.1;
 	effectVolume = 1;
 	bgGroup->setVolume(bgVolume);
+	LoadSounds();
 }
 
 int AudioManager::getEffectsVolume()
@@ -36,7 +37,7 @@ void AudioManager::setEffectsVolume(float volume) {
 void AudioManager::PlayMainMenuSoundTrack(){
 	result = system->playSound(bgSoundTrack, bgGroup, false, &channel);
 	
-	bgGroup->setPitch(1.5);
+	bgGroup->setPitch(1);
 }
 
 void AudioManager::StopBackgroundSound() {

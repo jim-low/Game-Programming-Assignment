@@ -10,7 +10,6 @@
 class Player : public Spaceship {
 private:
 	vector<Projectile*> bullets;
-	//Projectile* bullets;
 
 	int ammo;
 	int maxAmmo;
@@ -18,7 +17,6 @@ private:
 	float reloadTimer;
 	float reloadRate;
 
-	// name probably need to change
 	boolean canShoot;
 
 	boolean upPressed;
@@ -41,7 +39,6 @@ private:
 	void Move();
 	void Shoot();
 	void CheckBoundary();
-	void Die();
 
 public:
 	Player() : Spaceship() {

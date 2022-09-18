@@ -11,8 +11,8 @@ void Comet::Initialize()
 
 	damage = 5;
 	int randomSpeed = (rand() % (12 - 8 + 1)) + 8;
-	//speed = D3DXVECTOR2(randomSpeed, randomSpeed);
-	speed = D3DXVECTOR2(5, 5);
+	speed = D3DXVECTOR2(randomSpeed, randomSpeed);
+	//speed = D3DXVECTOR2(5, 5);
 	mass = 69;
 
 	textureWidth = 77;

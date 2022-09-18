@@ -1,11 +1,7 @@
 #include "SettingsPage.h"
 #include <string> 
 
-SettingsPage::~SettingsPage() {
-}
-
 void SettingsPage::Initialize() {
-
 	//=====================
 	//INITIALIZE BUTTONS
 	//=====================
@@ -47,7 +43,6 @@ void SettingsPage::Initialize() {
 	buttonLeftEffRect.bottom = arrButtonHeight;
 	buttonLeftEffRect.left = 0;
 	buttonLeftEffRect.right = arrButtonWidth;
-
 
 	//initialize matrix
 	centre = D3DXVECTOR2(arrButtonWidth/2, arrButtonHeight/2);
@@ -128,7 +123,6 @@ void SettingsPage::Update() {
 		
 		currentSelection = MINUSBG;
 	}
-
 	else {
 		buttonLeftBGRect.left = 0;
 		buttonLeftBGRect.right = arrButtonWidth;
@@ -140,7 +134,6 @@ void SettingsPage::Update() {
 		
 		currentSelection = ADDBG;
 	}
-
 	else {
 		buttonRightBGRect.left = 0;
 		buttonRightBGRect.right = arrButtonWidth;
@@ -152,7 +145,6 @@ void SettingsPage::Update() {
 		
 		currentSelection = MINUSEFF;
 	}
-
 	else {
 		buttonLeftEffRect.left = 0;
 		buttonLeftEffRect.right = arrButtonWidth;
@@ -164,7 +156,6 @@ void SettingsPage::Update() {
 
 		currentSelection = ADDEFF;
 	}
-
 	else {
 		buttonRightEffRect.left = 0;
 		buttonRightEffRect.right = arrButtonWidth;
@@ -178,14 +169,10 @@ void SettingsPage::Update() {
 	}
 
 	if (leftKeyPressed) {
-
 		bufferTimer -= 1;
 
 		if (bufferTimer <= 0) {
-
-
 			if (currentSelection == MINUSBG) {
-				cout << "decrease BG volume!" << endl;
 				if (bGSoundCounter > 0) {
 					bGSoundCounter -= 10;
 					audioManager->setBackgroundVolume(bGSoundCounter);
@@ -193,20 +180,15 @@ void SettingsPage::Update() {
 				}
 				//decrease BG Volume
 			}
-
 			else if (currentSelection == ADDBG) {
-				cout << "increase BG volume!" << endl;
 				if (bGSoundCounter < 100) {
 					bGSoundCounter += 10; 
 					audioManager->setBackgroundVolume(bGSoundCounter);
 					audioManager->PlayClickSound();
 					//increase BG Volume
 				}
-				
 			}
-
 			else if (currentSelection == MINUSEFF) {
-				cout << "decrease Effects volume!" << endl;
 				if (effSoundCounter > 0) {
 					effSoundCounter -= 10; 
 					audioManager->setEffectsVolume(effSoundCounter);
@@ -215,23 +197,19 @@ void SettingsPage::Update() {
 				}
 				
 			}
-
 			else if (currentSelection == ADDEFF) {
-				cout << "increase Effects volume!" << endl;
 				if (effSoundCounter < 100) {
 					effSoundCounter += 10;
 					audioManager->setEffectsVolume(effSoundCounter);
 					audioManager->PlayClickSound();
 					//increase effect sound volume
 				}
-				
 			}
 
 			bufferTimer = 5;
 		}
 
 		leftKeyPressed = false;	
-		
 	}
 
 	if (escKeyPressed) {;
@@ -239,7 +217,6 @@ void SettingsPage::Update() {
 		audioManager->PlayMainMenuSoundTrack();
 		escKeyPressed = false;
 	}
-	
 }
 
 
@@ -291,7 +268,6 @@ void SettingsPage::Render() {
 	sprite->SetTransform(&buttonMat);
 	font->DrawText(sprite, to_string(effSoundCounter).c_str(), -1, &effLabelRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
-
 	sprite->End();
 
 	//	End the scene
@@ -302,7 +278,6 @@ void SettingsPage::Render() {
 }
 
 void SettingsPage::Input() {
-
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
@@ -317,4 +292,7 @@ void SettingsPage::Input() {
 	if (diKeys[DIK_ESCAPE] & 0x80) {
 		escKeyPressed = true;
 	}
+}
+
+SettingsPage::~SettingsPage() {
 }
