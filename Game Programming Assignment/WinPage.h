@@ -21,6 +21,10 @@ protected:
 
 	boolean escKeyPressed;
 
+	RECT escLabelRect;
+	D3DXVECTOR2 escLabelPos;
+	LPD3DXFONT escFont;
+
 public:
 	WinPage(int score) : Game() { //constructor
 		this->Initialize(score);

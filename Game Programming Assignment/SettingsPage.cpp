@@ -85,7 +85,16 @@ void SettingsPage::Initialize() {
 
 	//initialize label
 	hr = D3DXCreateFont(d3dDevice, 80, 30, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Tw Cen MT Condensed", &font);
-	
+	if (FAILED(hr)) {
+		cout << "Failed to create font." << endl;
+		MessageBox(NULL, TEXT("Failed to create font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	}
+
+	hr = D3DXCreateFont(d3dDevice, 30, 10, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &escFont);
+	if (FAILED(hr)) {
+		cout << "Failed to create esc font." << endl;
+		MessageBox(NULL, TEXT("Failed to create esc font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	}
 	bGLabelRect.top = 0;
 	bGLabelRect.bottom = 80;
 	bGLabelRect.left = 0;
@@ -114,6 +123,12 @@ void SettingsPage::Initialize() {
 	effCountPos = D3DXVECTOR2((MyWindowWidth / 2) - (effSoundCountRect.right / 2), (MyWindowHeight / 10) * 5.3);
 
 	bufferTimer = 5;
+
+	escLabelRect.top = 0;
+	escLabelRect.bottom = 30;
+	escLabelRect.left = 0;
+	escLabelRect.right = 500;
+	escLabelPos = D3DXVECTOR2(0, 0);
 }
 
 void SettingsPage::Update() {
@@ -291,6 +306,9 @@ void SettingsPage::Render() {
 	sprite->SetTransform(&buttonMat);
 	font->DrawText(sprite, to_string(effSoundCounter).c_str(), -1, &effLabelRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
+	D3DXMatrixTransformation2D(&buttonMat, NULL, 0.0, NULL, NULL, NULL, &escLabelPos);
+	sprite->SetTransform(&buttonMat);
+	escFont->DrawText(sprite, "Press the 'ESC' key to go back.", -1, &escLabelRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
 	sprite->End();
 

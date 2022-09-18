@@ -19,6 +19,11 @@ protected:
 	RECT bGSoundCountRect;
 	RECT effSoundCountRect;
 
+	RECT escLabelRect;
+	D3DXVECTOR2 escLabelPos;
+	LPD3DXFONT escFont;
+
+
 	//for buttons
 	RECT buttonRightBGRect;
 	RECT buttonLeftBGRect;
