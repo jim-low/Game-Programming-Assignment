@@ -28,6 +28,7 @@ public:
 	void StopBackgroundSound();
 	void PlayGameplaySoundTrack();
 	void SetPanning(float panValue);
+	void SetGroupPanning(float panValue);
 	void PlayCometSound();
 	void PlayCreditsSound();
 	void PlayWinSoundTrack();

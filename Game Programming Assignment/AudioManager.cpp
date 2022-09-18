@@ -46,6 +46,9 @@ void AudioManager::StopBackgroundSound() {
 void AudioManager::SetPanning(float panValue) {
 	panGroup->setPan(panValue);
 }
+void AudioManager::SetGroupPanning(float panValue) {
+	bgGroup->setPan(panValue);
+}
 
 void AudioManager::PlayCometSound() {
 	result = system->playSound(cometSound, panGroup, false, &channel);
