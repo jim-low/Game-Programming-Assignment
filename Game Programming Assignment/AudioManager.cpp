@@ -13,38 +13,38 @@ void AudioManager::InitializeAudio()
 	LoadSounds();
 }
 
-int AudioManager::getEffectsVolume()
+int AudioManager::getEffectsVolume()//this is to retrieve current volume set to the effects channel group
 {
 	return float(effectVolume)*100;
 }
 
-void AudioManager::setBackgroundVolume(float volume) {
+void AudioManager::setBackgroundVolume(float volume) {//this is to set a new background volume to the bg channel group
 	bgVolume = volume/100;
 	
 	bgGroup->setVolume(bgVolume);
 }
 
-int AudioManager::getBackgroundVolume()
+int AudioManager::getBackgroundVolume()//this is to retrieve current volume set to the background channel group
 {
 	return float(bgVolume)*100;
 }
 
-void AudioManager::setEffectsVolume(float volume) {
+void AudioManager::setEffectsVolume(float volume) {//this is to set a new effects volume to the effect channel group
 	effectVolume = volume/100;
 	effectsGroup->setVolume(effectVolume);
 }
 
-void AudioManager::PlayMainMenuSoundTrack(){
+void AudioManager::PlayMainMenuSoundTrack(){ 
 	result = system->playSound(bgSoundTrack, bgGroup, false, &channel);
 	
 	bgGroup->setPitch(1);
 }
 
-void AudioManager::StopBackgroundSound() {
+void AudioManager::StopBackgroundSound() {//stops the background sound track
 	bgGroup->stop();
 }
 
-void AudioManager::SetPanning(float panValue) {
+void AudioManager::SetPanning(float panValue) {//sets a pan value from the pass in value
 	panGroup->setPan(panValue);
 }
 void AudioManager::SetGroupPanning(float panValue) {

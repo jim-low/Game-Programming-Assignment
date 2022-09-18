@@ -40,8 +40,8 @@ void CreditsPage::Update()
 	mouse.left = mouseX;
 	mouse.bottom = mouse.top + 24;
 	mouse.right = mouse.left + 24;
-
-	if (mouse.left > MyWindowWidth / 2 && mouse.left < MyWindowWidth/2 + MyWindowWidth/4) {
+	//sets the panning value depending on the mouse position by cutting the screen into four parts
+	if (mouse.left > MyWindowWidth / 2 && mouse.left < MyWindowWidth/2 + MyWindowWidth/4) { 
 		audioManager->SetGroupPanning(0.5);
 	}
 	if (mouse.left > MyWindowWidth / 2 + MyWindowWidth / 4) {
@@ -54,14 +54,14 @@ void CreditsPage::Update()
 		audioManager->SetGroupPanning(-1);
 	}
 
-	if (exit) {
+	if (exit) {	//when player exits, stop current bg sound and play main menu music
 		audioManager->StopBackgroundSound();
 		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
 	}
 	position.y -= textSpeed;
 
-	if (position.y + 1800 <= 0) {
+	if (position.y + 1800 <= 0) {//makes the credits replay again on screen after passing through
 		position.y = MyWindowHeight;
 	}
 
@@ -89,7 +89,7 @@ void CreditsPage::Input()
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
-	if (diKeys[DIK_ESCAPE] & 0x80) {
+	if (diKeys[DIK_ESCAPE] & 0x80) {//detect for escape key pressed
 
 		exit = true;
 	}
