@@ -19,6 +19,7 @@ protected:
 	RECT bGSoundCountRect;
 	RECT effSoundCountRect;
 
+	//for "Press ESC to go back"
 	RECT escLabelRect;
 	D3DXVECTOR2 escLabelPos;
 	LPD3DXFONT escFont;

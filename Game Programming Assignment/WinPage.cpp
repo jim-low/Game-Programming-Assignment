@@ -3,12 +3,14 @@
 #include "MainMenu.h"
 
 void WinPage::Initialize(int score) {
+	//img
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/win_Title.png", &winTexture);
 	if (FAILED(hr)) {
 		std::cout << "Failed to create Title texture in Menu.";
 		MessageBox(NULL, TEXT("Failed to create Title texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
+	//fonts
 	hr = D3DXCreateFont(d3dDevice, 40, 0, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &font);
 	if (FAILED(hr)) {
 		std::cout << "Failed to create font.";
@@ -21,6 +23,7 @@ void WinPage::Initialize(int score) {
 		MessageBox(NULL, TEXT("Failed to create esc font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
+	//score
 	this->score = score;
 	tempStr = "Your score: " + to_string(score);
 	scoreStr = tempStr.c_str();

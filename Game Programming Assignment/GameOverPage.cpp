@@ -2,12 +2,15 @@
 #include "GameOverPage.h"
 
 void GameOverPage::Initialize(int score) {
+
+	//Lose title img
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/you-lose.png", &texture);
 	if (FAILED(hr)) {
 		cout << "Failed to create Lose Title." << endl;
 		MessageBox(NULL, TEXT("Failed to create Lose Title."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
+	//fonts
 	hr = D3DXCreateFontA(d3dDevice, 20, 0, FW_BOLD, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &font);
 	if (FAILED(hr)) {
 		cout << "Failed to create font." << endl;
@@ -20,6 +23,7 @@ void GameOverPage::Initialize(int score) {
 		MessageBox(NULL, TEXT("Failed to create esc font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
+	//display score
 	this->score = score;
 	tempStr = "Your score: " + to_string(score);
 	scoreStr = tempStr.c_str();
@@ -29,6 +33,7 @@ void GameOverPage::Initialize(int score) {
 	scoreRect.bottom = scoreRect.top + 100;
 	scoreRect.right = scoreRect.left + 420;
 
+	//defining the rickroll animation
 	textureWidth = 281;
 	textureHeight = 94;
 
@@ -42,6 +47,7 @@ void GameOverPage::Initialize(int score) {
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
+	//matrix
 	scaling = D3DXVECTOR2(2, 2);
 	centre = D3DXVECTOR2((spriteWidth * scaling.x) / 2, (spriteHeight * scaling.y) / 2);
 	direction = 0;

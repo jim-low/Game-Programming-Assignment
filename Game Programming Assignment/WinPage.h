@@ -6,6 +6,7 @@
 class WinPage : public Game
 {
 protected:
+	//for win png
 	RECT winRect;
 	LPDIRECT3DTEXTURE9 winTexture;
 	D3DXVECTOR2 winPos;
@@ -13,14 +14,17 @@ protected:
 	int winHeight;
 	D3DXMATRIX winMat; //for matrix position
 
+	//score
 	string tempStr;
 	LPCSTR scoreStr;
 	RECT scoreRect;
 	D3DXVECTOR2 scorePos;
 	int score;
 
+	//input
 	boolean escKeyPressed;
 
+	//for "Press ESC to go back"
 	RECT escLabelRect;
 	D3DXVECTOR2 escLabelPos;
 	LPD3DXFONT escFont;

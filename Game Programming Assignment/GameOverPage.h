@@ -7,6 +7,7 @@
 class GameOverPage : public Game
 {
 protected:
+	//for score
 	int score;
 	RECT scoreRect;
 	D3DXVECTOR2 scorePos;
@@ -14,6 +15,7 @@ protected:
 	LPCSTR scoreStr;
 	boolean escKeyPressed;
 
+	//for "Press ESC to go back"
 	RECT escLabelRect;
 	D3DXVECTOR2 escLabelPos;
 	LPD3DXFONT escFont;
