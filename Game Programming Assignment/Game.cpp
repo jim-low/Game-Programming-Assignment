@@ -17,3 +17,27 @@ void Game::CleanUp()
 	texture->Release();
 	texture = NULL;
 }
+
+Game::Game() {
+
+}
+
+Game::~Game() {
+
+}
+
+void Game::Initialize() {
+
+}
+
+void Game::Render() {
+
+}
+
+void Game::Update() {
+
+}
+
+void Game::Input() {
+
+}

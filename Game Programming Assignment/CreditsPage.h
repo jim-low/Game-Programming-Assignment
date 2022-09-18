@@ -13,6 +13,7 @@ private:
 	LPCSTR credits;
 	float textSpeed;
 	RECT mouse; // mouse rectangle for collision
+	D3DXMATRIX mat; // mat for transformation
 
 public:
 	CreditsPage() : Game() {

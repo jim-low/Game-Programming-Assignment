@@ -14,7 +14,7 @@ void CreditsPage::Initialize()
 	colRect.top = 0;
 	colRect.right = 600;
 	colRect.bottom = 1800;
-	textSpeed = 0.5;
+	textSpeed = 3;
 
 	// mouse collision area
 	mouse.top = mouseY;
