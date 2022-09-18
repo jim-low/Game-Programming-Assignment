@@ -1,4 +1,3 @@
-#include "Level2.h"
 #include "Level1.h"
 #include "CreditsPage.h"
 #include "MainMenu.h"
@@ -18,7 +17,7 @@ void MainMenu::Initialize() {
 		std::cout << "Failed to create Title texture in Menu.";
 		MessageBox(NULL, TEXT("Failed to create Title texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
-
+	audioManager->SetGroupPanning(0);
 	//initialize position 
 	titleWidth = 512;
 	titleHeight = 256;

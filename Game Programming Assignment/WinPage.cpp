@@ -2,11 +2,7 @@
 #include "WinPage.h"
 #include "MainMenu.h"
 
-WinPage::~WinPage() {
-}
-
 void WinPage::Initialize(int score) {
-
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/win_Title.png", &winTexture);
 	if (FAILED(hr)) {
 		std::cout << "Failed to create Title texture in Menu.";
@@ -93,6 +89,7 @@ void WinPage::Render() {
 void WinPage::Update() {
 	if (escKeyPressed) {
 		audioManager->StopBackgroundSound();
+		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
 		escKeyPressed = false;
 	}
@@ -105,4 +102,7 @@ void WinPage::Input() {
 	if (diKeys[DIK_ESCAPE] & 0x80) {
 		escKeyPressed = true;
 	}
+}
+
+WinPage::~WinPage() {
 }

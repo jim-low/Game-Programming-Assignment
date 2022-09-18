@@ -64,6 +64,7 @@ void GameOverPage::Update() {
 
 	if (escKeyPressed) {
 		audioManager->StopBackgroundSound();
+		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
 		escKeyPressed = false;
 	}
