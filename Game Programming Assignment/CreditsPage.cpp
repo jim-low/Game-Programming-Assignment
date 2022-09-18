@@ -30,7 +30,7 @@ void CreditsPage::Initialize()
 
 void CreditsPage::Update()
 {
-	if (clicked) {
+	if (exit) {
 		audioManager->StopBackgroundSound();
 		games.pop();
 	}
@@ -40,7 +40,7 @@ void CreditsPage::Update()
 		position.y = MyWindowHeight;
 	}
 
-	clicked = false;
+	exit = false;
 }
 
 void CreditsPage::Render() {
@@ -65,7 +65,7 @@ void CreditsPage::Input()
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
 	if (diKeys[DIK_RETURN] & 0x80) {
-		clicked = true;
+		exit = true;
 	}
 }
 

@@ -9,12 +9,10 @@
 
 class CreditsPage : public Game {
 private:
-	boolean clicked;
-	boolean hover;
+	boolean exit;
 	LPCSTR credits;
 	D3DXMATRIX mat;
 	float textSpeed;
-	LPDIRECT3DTEXTURE9 harambe;
 
 public:
 	CreditsPage() : Game() {

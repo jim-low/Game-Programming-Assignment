@@ -7,8 +7,7 @@
 class AudioManager {
 public:
 	FMOD::System* system;
-	FMOD::Sound* winSoundTrack, * loseSoundTrack, * bgSoundTrack, * creditSoundTrack, * playerShootSound, * enemyShootSound, * pickUpSound,
-		* collideSound, * damagedSound, * swingSound, * explosionSound, * gameplaySound, * bossSoundTrack, * clickSound, * cometSound;
+	FMOD::Sound* winSoundTrack, * loseSoundTrack, * bgSoundTrack, * creditSoundTrack,  * collideSound, * damagedSound, * explosionSound, * gameplaySound,  * clickSound, * cometSound;
 	FMOD::Channel* channel = 0;
 	char* channelGroup;
 	FMOD::ChannelGroup* panGroup = 0;
@@ -33,16 +32,10 @@ public:
 	void PlayCreditsSound();
 	void PlayWinSoundTrack();
 	void PlayLoseSoundTrack();
-	void PlayBossSoundTrack();
-	void PlayPlayerShootSound();
-	void PlayEnemyShootSound();
-	void PlayPickUpSound();
 	void PlayCollisionSound();
 	void PlayDamagedSound();
-	void PlaySwingSound();
 	void PlayExplosionSound();
 	void PlayClickSound();
-	void PlayHoverButtonSound();
 	void LoadSounds();
 	void UpdateSound();
 
