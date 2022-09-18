@@ -13,6 +13,7 @@ private:
 	LPCSTR credits;
 	D3DXMATRIX mat;
 	float textSpeed;
+	RECT mouse;
 
 public:
 	CreditsPage() : Game() {
