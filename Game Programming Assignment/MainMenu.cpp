@@ -3,9 +3,6 @@
 #include "MainMenu.h"
 #include "SettingsPage.h"
 
-MainMenu::~MainMenu() {
-}
-
 void MainMenu::Initialize() {
 	//=====================
 	//INITIALIZE GAME TITLE
@@ -314,4 +311,7 @@ void MainMenu::Input() {
 	{
 		leftKeyPressed = true;
 	}
+}
+
+MainMenu::~MainMenu() {
 }
