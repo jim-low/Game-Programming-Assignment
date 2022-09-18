@@ -14,20 +14,23 @@ void AudioManager::InitializeAudio()
 
 int AudioManager::getEffectsVolume()
 {
-	return int(effectVolume)*100;
+	return float(effectVolume)*100;
 }
 
 void AudioManager::setBackgroundVolume(float volume) {
-	bgGroup->setVolume(volume);
+	bgVolume = volume/100;
+	
+	bgGroup->setVolume(bgVolume);
 }
 
 int AudioManager::getBackgroundVolume()
 {
-	return int(bgVolume)*100;
+	return float(bgVolume)*100;
 }
 
 void AudioManager::setEffectsVolume(float volume) {
-	effectsGroup->setVolume(volume);
+	effectVolume = volume/100;
+	effectsGroup->setVolume(effectVolume);
 }
 
 void AudioManager::PlayMainMenuSoundTrack(){

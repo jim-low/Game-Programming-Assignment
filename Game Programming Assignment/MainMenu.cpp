@@ -165,7 +165,7 @@ void MainMenu::Initialize() {
 	quitCol.right = quitCol.left + menuButtonWidth - 105;
 	quitCol.bottom = quitCol.top + menuButtonHeight - 80;
 
-	//audioManager->PlayMainMenuSoundTrack();
+	audioManager->PlayMainMenuSoundTrack();
 }
 
 void MainMenu::Update() {
@@ -228,14 +228,19 @@ void MainMenu::Update() {
 	if (leftKeyPressed) {
 		leftKeyPressed = false;
 		if (currentSelection == PLAY) {
+			audioManager->PlayClickSound();
+			audioManager->StopBackgroundSound();
 			games.push(new Level1());
 		}
 
 		else if (currentSelection == SETTINGS) {
+			audioManager->PlayClickSound();
 			games.push(new SettingsPage());
 		}
 
 		else if (currentSelection == CREDITS) {
+			audioManager->PlayClickSound();
+			audioManager->StopBackgroundSound();
 			games.push(new CreditsPage());
 		}
 

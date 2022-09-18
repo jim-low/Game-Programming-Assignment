@@ -32,6 +32,7 @@ void CreditsPage::Update()
 {
 	if (exit) {
 		audioManager->StopBackgroundSound();
+		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
 	}
 	position.y -= textSpeed;
@@ -65,6 +66,7 @@ void CreditsPage::Input()
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
 	if (diKeys[DIK_ESCAPE] & 0x80) {
+
 		exit = true;
 	}
 }

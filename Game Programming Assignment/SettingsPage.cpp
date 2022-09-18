@@ -98,8 +98,8 @@ void SettingsPage::Initialize() {
 	effLabelRect.right = 420;
 	effLabelPos = D3DXVECTOR2((MyWindowWidth / 2) - (effLabelRect.right / 2), (MyWindowHeight / 10) * 4);
 	
-	bGSoundCounter = 100; //TO BE CHANGED
-	effSoundCounter = 100; //TO BE CHANGED
+	bGSoundCounter = audioManager->getBackgroundVolume(); //TO BE CHANGED
+	effSoundCounter = audioManager->getEffectsVolume(); //TO BE CHANGED
 
 	bGSoundCountRect.top = 0;
 	bGSoundCountRect.bottom = 80;
@@ -188,14 +188,18 @@ void SettingsPage::Update() {
 				cout << "decrease BG volume!" << endl;
 				if (bGSoundCounter > 0) {
 					bGSoundCounter -= 10;
+					audioManager->setBackgroundVolume(bGSoundCounter);
+					audioManager->PlayClickSound();
 				}
 				//decrease BG Volume
 			}
 
 			else if (currentSelection == ADDBG) {
 				cout << "increase BG volume!" << endl;
-				if (bGSoundCounter < 100) { 
+				if (bGSoundCounter < 100) {
 					bGSoundCounter += 10; 
+					audioManager->setBackgroundVolume(bGSoundCounter);
+					audioManager->PlayClickSound();
 					//increase BG Volume
 				}
 				
@@ -203,8 +207,10 @@ void SettingsPage::Update() {
 
 			else if (currentSelection == MINUSEFF) {
 				cout << "decrease Effects volume!" << endl;
-				if (effSoundCounter > 0) { 
+				if (effSoundCounter > 0) {
 					effSoundCounter -= 10; 
+					audioManager->setEffectsVolume(effSoundCounter);
+					audioManager->PlayClickSound();
 					//decrease effect sound volume
 				}
 				
@@ -214,6 +220,8 @@ void SettingsPage::Update() {
 				cout << "increase Effects volume!" << endl;
 				if (effSoundCounter < 100) {
 					effSoundCounter += 10;
+					audioManager->setEffectsVolume(effSoundCounter);
+					audioManager->PlayClickSound();
 					//increase effect sound volume
 				}
 				
@@ -228,6 +236,7 @@ void SettingsPage::Update() {
 
 	if (escKeyPressed) {;
 		games.pop();
+		audioManager->PlayMainMenuSoundTrack();
 		escKeyPressed = false;
 	}
 	
