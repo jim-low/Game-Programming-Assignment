@@ -21,6 +21,8 @@ void GameOverPage::Initialize(int score) {
 	}
 
 	this->score = score;
+
+	// initializing score text
 	tempStr = "Your score: " + to_string(score);
 	scoreStr = tempStr.c_str();
 	scorePos = D3DXVECTOR2(0, 0);
@@ -29,6 +31,7 @@ void GameOverPage::Initialize(int score) {
 	scoreRect.bottom = scoreRect.top + 100;
 	scoreRect.right = scoreRect.left + 420;
 
+	// lose logo initialization
 	textureWidth = 281;
 	textureHeight = 94;
 
@@ -47,6 +50,7 @@ void GameOverPage::Initialize(int score) {
 	direction = 0;
 	position = D3DXVECTOR2((MyWindowWidth / 2) - (spriteWidth / (20 * scaling.x)), (MyWindowHeight / 4) - (spriteHeight * (scaling.y / 2)));
 
+	// appropriate naming
 	neverGonnaGiveYouUp = new RickRoll();
 
 	audioManager->PlayLoseSoundTrack();
@@ -60,9 +64,15 @@ void GameOverPage::Initialize(int score) {
 }
 
 void GameOverPage::Update() {
+	// update will never gonna let you down
 	neverGonnaGiveYouUp->Update();
 
 	if (escKeyPressed) {
+		/*
+		stop game over background music
+		play main menu sound track
+		remove game over scene from game stack to render main menu
+		*/
 		audioManager->StopBackgroundSound();
 		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
@@ -76,6 +86,7 @@ void GameOverPage::Render() {
 
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
+	// hes never gonna run around and desert you
 	neverGonnaGiveYouUp->Render();
 
 	D3DXMATRIX mat;

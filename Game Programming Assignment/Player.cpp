@@ -64,6 +64,7 @@ void Player::Initialize()
 
 void Player::Render()
 {
+	// no need to render if player ded
 	if (isDed) {
 		return;
 	}
@@ -79,6 +80,7 @@ void Player::Render()
 }
 
 void Player::Update() {
+	// no need to update if player ded
 	if (isDed) {
 		return;
 	}
@@ -103,6 +105,7 @@ void Player::Update() {
 		}
 	}
 
+	// fire rate update
 	if (spacePressed && !canShoot) {
 		fireRateTimer -= fireRate;
 		if (fireRateTimer <= 0) {
@@ -112,7 +115,7 @@ void Player::Update() {
 		}
 	}
 
-	// sprite update
+	// sprite and collision update
 	animRect.top = currentFrame * spriteHeight;
 	animRect.bottom = animRect.top + spriteHeight;
 	animRect.left = currentFrame * spriteWidth;
@@ -137,9 +140,11 @@ void Player::Update() {
 }
 
 void Player::Input() {
+	// no need read input if player ded
 	if (isDed) {
 		return;
 	}
+
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
@@ -177,7 +182,7 @@ int Player::GetHealth()
 	return health;
 }
 
-void Player::CheckBoundary()
+void Player::CheckBoundary() // bounce player back if player has collided with window boundary
 {
 	float width = spriteWidth * scaling.x;
 	float height = spriteHeight * scaling.y;
@@ -213,6 +218,7 @@ void Player::Damage(int damage)
 	}
 }
 
+// newton third law of motion
 void Player::KnockBack(Comet* comet)
 {
 	int cx1 = this->position.x;
@@ -259,6 +265,7 @@ void Player::Move() {
 	acceleration = D3DXVECTOR2(0, 0);
 }
 
+// pew pew
 void Player::Shoot()
 {
 	Projectile* bullet = new Projectile();

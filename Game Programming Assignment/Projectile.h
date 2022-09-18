@@ -12,14 +12,14 @@ protected:
 public:
 	boolean outOfBounds;
 
-	Projectile() : Game() {
-		//this->Initialization();
-	}
+	Projectile() : Game() {}
 	~Projectile();
 
 	void Initialization(D3DXVECTOR2 startPos);
 	void Update();
 	void Render();
+
+	// getter
 	int GetDamage();
 };
 

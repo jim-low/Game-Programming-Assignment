@@ -79,7 +79,9 @@ void MainMenu::Initialize() {
 		MessageBox(NULL, TEXT("Failed to create Play Button texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
-	//A AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Jim 16 September 2022
+	// dont mind this normal comment
+	// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Jim 16 September 2022
+
 	//initialize rectangle
 	buttonPlayRect.top = 0;
 	buttonPlayRect.bottom = buttonPlayRect.top + menuButtonHeight;
@@ -137,6 +139,7 @@ void MainMenu::Initialize() {
 	buttonQuitRect.left = 0;
 	buttonQuitRect.right = buttonQuitRect.left + menuButtonWidth;
 
+	// initialize collision RECT position
 	playPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5);
 	playCol.left = playPosition.x + 15;
 	playCol.top = playPosition.y + 25;

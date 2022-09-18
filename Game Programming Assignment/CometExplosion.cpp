@@ -49,6 +49,7 @@ void CometExplosion::Update()
 	animRect.right = animRect.left + spriteWidth;
 	animRect.bottom = animRect.top + spriteHeight;
 
+	// change animation frame after certain amount of time
 	timer -= counter;
 	if (timer <= 0) {
 		++currentCol;

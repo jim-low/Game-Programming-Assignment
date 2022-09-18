@@ -42,6 +42,7 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 	switch (message)
 	{
 	case WM_MOUSEMOVE:
+		// get absolute mouse position
 		mouseX = (short)LOWORD(lParam);
 		mouseY = (short)HIWORD(lParam);
 		break;
@@ -89,9 +90,6 @@ int CreateMy3D() {
 	hr = direct3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dPP, &d3dDevice);
 
 	hr = D3DXCreateSprite(d3dDevice, &sprite);
-
-	//	Create sprite. Study the documentation. 
-
 
 	if (FAILED(hr)) {
 		cout << "sprite creation error" << endl;

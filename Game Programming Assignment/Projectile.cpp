@@ -10,7 +10,7 @@ void Projectile::Initialization(D3DXVECTOR2 startPos) {
 
 	speed = D3DXVECTOR2(0, -15.f);
 	damage = 10;
-	outOfBounds = false;
+	outOfBounds = false; // indicator to remove from bullets vector in Player.cpp
 
 	textureWidth = 35;
 	textureHeight = 64;
@@ -71,5 +71,4 @@ int Projectile::GetDamage()
 }
 
 Projectile::~Projectile() {
-	cout << "Projectile is deleted" << endl;
 }

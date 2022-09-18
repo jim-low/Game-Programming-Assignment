@@ -10,10 +10,10 @@ void Comet::Initialize()
 	}
 
 	damage = 5;
-	int randomSpeed = (rand() % (12 - 8 + 1)) + 8;
+	int randomSpeed = (rand() % (12 - 8 + 1)) + 8; // calculate random speed
 	speed = D3DXVECTOR2(randomSpeed, randomSpeed);
 	//speed = D3DXVECTOR2(5, 5);
-	mass = 69;
+	mass = 69; // this is an appropriate mass value
 
 	textureWidth = 77;
 	textureHeight = 75;
@@ -46,7 +46,9 @@ void Comet::Initialize()
 
 void Comet::ApplyAngle(float radian)
 {
-	this->radian = radian;
+	this->radian = radian; // set radian value
+
+	// apply radian angle to speed to achieve trajectory towards player
 	speed.x = speed.x * cos(radian);
 	speed.y = speed.y * sin(radian);
 }
@@ -103,20 +105,20 @@ D3DXVECTOR2 Comet::RandomPositionOutsideScreen()
 	float x = 0;
 	float y = 0;
 
-	if (rand() % 2 == 0) {
+	if (rand() % 2 == 0) { // comet will appear on left side
 		x = (rand() % (-10 + 1));
 		
 		audioManager->SetPanning(-1);
 		audioManager->PlayCometSound();
 
 	}
-	else {
+	else { // comet will appear on right side
 		x = (rand() % ((MyWindowWidth + 10) - MyWindowWidth) + 1) + MyWindowWidth;
 
 		audioManager->SetPanning(1);
 		audioManager->PlayCometSound();
 	}
-	y = (rand() % (max - min + 1) + min);
+	y = (rand() % (max - min + 1) + min); // random y position between min and max variables
 
 	return D3DXVECTOR2(x, y);
 }

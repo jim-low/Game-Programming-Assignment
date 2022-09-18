@@ -102,8 +102,8 @@ void SettingsPage::Initialize() {
 	effLabelRect.right = 420;
 	effLabelPos = D3DXVECTOR2((MyWindowWidth / 2) - (effLabelRect.right / 2), (MyWindowHeight / 10) * 4);
 	
-	bGSoundCounter = audioManager->getBackgroundVolume(); //TO BE CHANGED
-	effSoundCounter = audioManager->getEffectsVolume(); //TO BE CHANGED
+	bGSoundCounter = audioManager->getBackgroundVolume();
+	effSoundCounter = audioManager->getEffectsVolume();
 
 	bGSoundCountRect.top = 0;
 	bGSoundCountRect.bottom = 80;
@@ -183,7 +183,7 @@ void SettingsPage::Update() {
 		currentSelection = UNFOCUS;
 	}
 
-	if (leftKeyPressed) {//if left key pressed, check if mouse position is on the button texture
+	if (leftKeyPressed) { //if left key pressed, check if mouse position is on the button texture
 		bufferTimer -= 1;
 
 		if (bufferTimer <= 0) {
@@ -227,7 +227,7 @@ void SettingsPage::Update() {
 		leftKeyPressed = false;	
 	}
 
-	if (escKeyPressed) {; //if escape key is pressed
+	if (escKeyPressed) { //if escape key is pressed
 		games.pop();
 		audioManager->PlayMainMenuSoundTrack();
 		escKeyPressed = false;

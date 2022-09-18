@@ -1,6 +1,5 @@
 #include <sstream>
 #include "Level1.h"
-#include "Level2.h"
 #include "WinPage.h"
 #include "GameOverPage.h"
 
@@ -14,6 +13,7 @@ void Level1::Initialize()
 
 	player = new Player();
 
+	// health text initialize
 	tempHealth = "";
 	healthStr = LPTSTR("");
 	healthRect.top = 10;
@@ -27,6 +27,7 @@ void Level1::Initialize()
 	cometSpawnRate = 0.8;
 	cometTimer = 10;
 
+	// score text initialize
 	scorePos = D3DXVECTOR2(0, 0);
 	scoreCounter = 0.15;
 	scoreTimer = 10;
@@ -41,22 +42,27 @@ void Level1::Initialize()
 	audioManager->PlayGameplaySoundTrack();
 }
 
-// this formula made me cry for 30 mins
+// this formula made me cry for 30 mins - Jim
 float Level1::CalculateAngle(Comet* comet)
 {
 	if (player == NULL) {
 		return 0;
 	}
 
+	// To calculate trajectory angle:-
+
 	D3DXVECTOR2 playerPos = player->GetPos();
 	D3DXVECTOR2 cometPos = comet->GetPos();
 
+	// 1. get difference in x and y position coordinates
 	float dx = abs(playerPos.x - cometPos.x);
 	float dy = abs(playerPos.y - cometPos.y);
 
+	// 2. get angle in first quadrant using atan function
+	// 3. convert result to degree for easier calculation (and to save sanity)
 	float angle = atan(dy / dx) * 180 / PI;
 
-	// check which quadrant player is in relative to the comet
+	// 4. determine actual quadrant of player relative to comet
 	if (playerPos.x <= cometPos.x) { // check left
 		if (playerPos.y >= cometPos.y) { // check bottom (second quadrant)
 			angle += 90;
@@ -71,14 +77,16 @@ float Level1::CalculateAngle(Comet* comet)
 		}
 	}
 
+	// 5. convert angle back to radian
+	// 6. boom boom
 	return angle * PI / 180;
 }
 
-void Level1::SpawnComet()
+void Level1::SpawnComet() // instantiate comet object
 {
 	Comet* comet = new Comet();
 	comet->ApplyAngle(CalculateAngle(comet));
-	comets.push_back(comet);
+	comets.push_back(comet); // add comet object to vector
 }
 
 void Level1::Input()
@@ -91,13 +99,13 @@ void Level1::Input()
 void Level1::Update()
 {
 	if (player != NULL && player->isDed) {
-		player = NULL;
-		audioManager->StopBackgroundSound();
-		games.pop();
-		if (score == 69) {
+		player = NULL; // deallocate player pointer
+		audioManager->StopBackgroundSound(); // shhhhhhh
+		games.pop(); // remove level 1 from game stack
+		if (score == 69) { // winning condition is only 69
 			games.push(new WinPage(score));
 		}
-		else {
+		else { // other numbers you lose
 			games.push(new GameOverPage(score));
 		}
 	}
@@ -106,10 +114,12 @@ void Level1::Update()
 		player->Update();
 	}
 
+	// update each comets
 	for (int i = 0; i < comets.size(); ++i) {
 		comets.at(i)->Update();
 	}
 
+	// update each comet explosion animation
 	for (int i = 0; i < explosions.size(); ++i) {
 		CometExplosion* explosion = explosions.at(i);
 		if (!explosion->ended) {
@@ -122,6 +132,15 @@ void Level1::Update()
 			break;
 		}
 
+		/*
+		if player collided with comet:-
+		1. player receive damage from comet
+		2. apply knockback to player following newton's third law of motion
+		3. calculate comet explosion animation position
+		4. instantiate comet explosion object
+		5. push object to vector
+		6. deallocate collided comet from vector
+		*/
 		if (Game::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
 			player->Damage(comets.at(i)->GetDamage());
 			player->KnockBack(comets.at(i));
@@ -136,6 +155,7 @@ void Level1::Update()
 		}
 	}
 
+	// remove any explosion animation after lifespan ended
 	for (int i = 0; i < explosions.size(); ++i) {
 		CometExplosion* explosion = explosions.at(i);
 		if (explosion->ended) {
@@ -149,11 +169,13 @@ void Level1::Update()
 		cometTimer = 10;
 	}
 
+	// update health indicator text
 	if (player != NULL) {
 		tempHealth = "Health: " + to_string(player->GetHealth());
 		healthStr = tempHealth.c_str();
 	}
 
+	// update score indicator text
 	scoreTimer -= scoreCounter;
 	if (scoreTimer <= 0) {
 		score += 1;

@@ -5,6 +5,7 @@
 
 // include perpustakaan
 #define WIN32_LEAN_AND_MEAN
+#define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80)
 
 #define MyWindowWidth 1600
 #define MyWindowHeight 900

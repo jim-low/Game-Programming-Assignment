@@ -88,9 +88,9 @@ void WinPage::Render() {
 
 void WinPage::Update() {
 	if (escKeyPressed) {
-		audioManager->StopBackgroundSound();
-		audioManager->PlayMainMenuSoundTrack();
-		games.pop();
+		audioManager->StopBackgroundSound(); // shhhhhhh
+		audioManager->PlayMainMenuSoundTrack(); // play main menu mooosik
+		games.pop(); // render main menu
 		escKeyPressed = false;
 	}
 }
