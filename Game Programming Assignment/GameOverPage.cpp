@@ -48,6 +48,12 @@ void GameOverPage::Initialize(int score) {
 
 void GameOverPage::Update() {
 	neverGonnaGiveYouUp->Update();
+
+	if (escKeyPressed) {
+		audioManager->StopBackgroundSound();
+		games.pop();
+		escKeyPressed = false;
+	}
 }
 
 void GameOverPage::Render() {
@@ -73,6 +79,12 @@ void GameOverPage::Render() {
 }
 
 void GameOverPage::Input() {
+	dInputKeyboardDevice->Acquire();
+	dInputKeyboardDevice->GetDeviceState(256, diKeys);
+
+	if (diKeys[DIK_ESCAPE] & 0x80) {
+		escKeyPressed = true;
+	}
 }
 
 GameOverPage::~GameOverPage() {

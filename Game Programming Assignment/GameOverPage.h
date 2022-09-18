@@ -12,6 +12,7 @@ protected:
 	D3DXVECTOR2 scorePos;
 	string tempStr;
 	LPCSTR scoreStr;
+	boolean escKeyPressed;
 
 private:
 	RickRoll* neverGonnaGiveYouUp;

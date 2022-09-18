@@ -1,5 +1,6 @@
 #include <sstream>
 #include "WinPage.h"
+#include "MainMenu.h"
 
 WinPage::~WinPage() {
 }
@@ -73,9 +74,18 @@ void WinPage::Render() {
 }
 
 void WinPage::Update() {
-
+	if (escKeyPressed) {
+		audioManager->StopBackgroundSound();
+		games.pop();
+		escKeyPressed = false;
+	}
 }
 
 void WinPage::Input() {
+	dInputKeyboardDevice->Acquire();
+	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
+	if (diKeys[DIK_ESCAPE] & 0x80) {
+		escKeyPressed = true;
+	}
 }

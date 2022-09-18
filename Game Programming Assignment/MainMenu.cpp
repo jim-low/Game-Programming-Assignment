@@ -2,6 +2,7 @@
 #include "Level1.h"
 #include "CreditsPage.h"
 #include "MainMenu.h"
+#include "SettingsPage.h"
 
 MainMenu::~MainMenu() {
 }
@@ -227,7 +228,7 @@ void MainMenu::Update() {
 		}
 
 		else if (currentSelection == SETTINGS) {
-			//insert settings game push here
+			games.push(new SettingsPage());
 		}
 
 		else if (currentSelection == CREDITS) {

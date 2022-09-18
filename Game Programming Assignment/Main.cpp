@@ -6,6 +6,7 @@
 #include "MainMenu.h"
 #include "WinPage.h"
 #include "GameOverPage.h"
+#include "SettingsPage.h"
 
 //Window's Global
 HWND g_hWnd = NULL;
@@ -200,6 +201,7 @@ int main() {
 	//GameOverPage* gameOver = new GameOverPage(69);
 	//Level1* level1 = new Level1();
 	//WinPage* winPage = new WinPage();
+	//SettingsPage* settingsPage = new SettingsPage();
 	games.push(mainMenu);
 
 	while (IfMyWindowIsRunning())

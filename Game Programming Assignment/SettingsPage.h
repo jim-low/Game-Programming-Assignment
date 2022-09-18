@@ -19,7 +19,6 @@ protected:
 	RECT bGSoundCountRect;
 	RECT effSoundCountRect;
 
-
 	//for buttons
 	RECT buttonRightBGRect;
 	RECT buttonLeftBGRect;
@@ -51,7 +50,9 @@ protected:
 	enum buttonFocus { UNFOCUS, ADDBG, MINUSBG, ADDEFF, MINUSEFF };
 
 	//input stuff
+	boolean escKeyPressed;
 	boolean leftKeyPressed;
+	float bufferTimer;
 
 private:
 	RECT mouse;

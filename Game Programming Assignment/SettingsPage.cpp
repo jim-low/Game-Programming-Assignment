@@ -1,5 +1,6 @@
 #include "SettingsPage.h"
 #include <string> 
+
 SettingsPage::~SettingsPage() {
 }
 
@@ -111,6 +112,8 @@ void SettingsPage::Initialize() {
 	effSoundCountRect.left = 0;
 	effSoundCountRect.right = 100;
 	effCountPos = D3DXVECTOR2((MyWindowWidth / 2) - (effSoundCountRect.right / 2), (MyWindowHeight / 10) * 5.3);
+
+	bufferTimer = 5;
 }
 
 void SettingsPage::Update() {
@@ -171,33 +174,58 @@ void SettingsPage::Update() {
 
 	if (leftKeyPressed) {
 
-		if (currentSelection == MINUSBG) {
-			cout << "decrease BG volume!" << endl;
-			bGSoundCounter -= 10;
-			//decrease BG Volume
+		bufferTimer -= 1;
+
+		if (bufferTimer <= 0) {
+
+
+			if (currentSelection == MINUSBG) {
+				cout << "decrease BG volume!" << endl;
+				if (bGSoundCounter > 0) {
+					bGSoundCounter -= 10;
+				}
+				//decrease BG Volume
+			}
+
+			else if (currentSelection == ADDBG) {
+				cout << "increase BG volume!" << endl;
+				if (bGSoundCounter < 100) { 
+					bGSoundCounter += 10; 
+					//increase BG Volume
+				}
+				
+			}
+
+			else if (currentSelection == MINUSEFF) {
+				cout << "decrease Effects volume!" << endl;
+				if (effSoundCounter > 0) { 
+					effSoundCounter -= 10; 
+					//decrease effect sound volume
+				}
+				
+			}
+
+			else if (currentSelection == ADDEFF) {
+				cout << "increase Effects volume!" << endl;
+				if (effSoundCounter < 100) {
+					effSoundCounter += 10;
+					//increase effect sound volume
+				}
+				
+			}
+
+			bufferTimer = 5;
 		}
 
-		else if (currentSelection == ADDBG) {
-			cout << "increase BG volume!" << endl;
-			bGSoundCounter += 10;
-			//increase BG Volume
-		}
-
-		else if (currentSelection == MINUSEFF) {
-			cout << "decrease Effects volume!" << endl;
-			effSoundCounter -= 10;
-			//decrease effect sound volume
-		}
-
-		else if (currentSelection == ADDEFF) {
-			cout << "increase Effects volume!" << endl;
-			effSoundCounter += 10;
-			//increase effect sound volume
-		}
+		leftKeyPressed = false;	
 		
 	}
+
+	if (escKeyPressed) {;
+		games.pop();
+		escKeyPressed = false;
+	}
 	
-	leftKeyPressed = false;
 }
 
 
@@ -260,11 +288,19 @@ void SettingsPage::Render() {
 }
 
 void SettingsPage::Input() {
+
+	dInputKeyboardDevice->Acquire();
+	dInputKeyboardDevice->GetDeviceState(256, diKeys);
+
 	dInputMouseDevice->Acquire();
 	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
 
 	if (BUTTONDOWN(mouseState, 0)) //left click
 	{
 		leftKeyPressed = true;
+	}
+
+	if (diKeys[DIK_ESCAPE] & 0x80) {
+		escKeyPressed = true;
 	}
 }

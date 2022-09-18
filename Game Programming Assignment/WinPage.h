@@ -19,6 +19,8 @@ protected:
 	D3DXVECTOR2 scorePos;
 	int score;
 
+	boolean escKeyPressed;
+
 public:
 	WinPage(int score) : Game() { //constructor
 		this->Initialize(score);
