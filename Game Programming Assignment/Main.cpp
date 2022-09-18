@@ -129,7 +129,6 @@ void InitializeLevel() {
 void InitializeSound() {
 	audioManager = new AudioManager();
 	audioManager->InitializeAudio();
-	audioManager->LoadSounds();
 }
 
 void Update(int framesToUpdate) {
@@ -196,12 +195,7 @@ int main() {
 	InitializeLevel();
 	InitializeSound();
 
-	//CreditsPage* creditsPage = new CreditsPage();
 	MainMenu* mainMenu = new MainMenu();
-	//GameOverPage* gameOver = new GameOverPage(69);
-	//Level1* level1 = new Level1();
-	//WinPage* winPage = new WinPage();
-	//SettingsPage* settingsPage = new SettingsPage();
 	games.push(mainMenu);
 
 	while (IfMyWindowIsRunning())

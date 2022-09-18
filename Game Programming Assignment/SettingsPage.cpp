@@ -1,11 +1,7 @@
 #include "SettingsPage.h"
 #include <string> 
 
-SettingsPage::~SettingsPage() {
-}
-
 void SettingsPage::Initialize() {
-
 	//=====================
 	//INITIALIZE BUTTONS
 	//=====================
@@ -48,7 +44,6 @@ void SettingsPage::Initialize() {
 	buttonLeftEffRect.left = 0;
 	buttonLeftEffRect.right = arrButtonWidth;
 
-
 	//initialize matrix
 	centre = D3DXVECTOR2(arrButtonWidth/2, arrButtonHeight/2);
 	scaling = D3DXVECTOR2(1.0f, 1.0f);
@@ -85,7 +80,16 @@ void SettingsPage::Initialize() {
 
 	//initialize label
 	hr = D3DXCreateFont(d3dDevice, 80, 30, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Tw Cen MT Condensed", &font);
-	
+	if (FAILED(hr)) {
+		cout << "Failed to create font." << endl;
+		MessageBox(NULL, TEXT("Failed to create font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	}
+
+	hr = D3DXCreateFont(d3dDevice, 30, 10, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &escFont);
+	if (FAILED(hr)) {
+		cout << "Failed to create esc font." << endl;
+		MessageBox(NULL, TEXT("Failed to create esc font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	}
 	bGLabelRect.top = 0;
 	bGLabelRect.bottom = 80;
 	bGLabelRect.left = 0;
@@ -114,6 +118,12 @@ void SettingsPage::Initialize() {
 	effCountPos = D3DXVECTOR2((MyWindowWidth / 2) - (effSoundCountRect.right / 2), (MyWindowHeight / 10) * 5.3);
 
 	bufferTimer = 5;
+
+	escLabelRect.top = 0;
+	escLabelRect.bottom = 30;
+	escLabelRect.left = 0;
+	escLabelRect.right = 500;
+	escLabelPos = D3DXVECTOR2(0, 0);
 }
 
 void SettingsPage::Update() {
@@ -128,7 +138,6 @@ void SettingsPage::Update() {
 		
 		currentSelection = MINUSBG;
 	}
-
 	else {
 		buttonLeftBGRect.left = 0;
 		buttonLeftBGRect.right = arrButtonWidth;
@@ -140,7 +149,6 @@ void SettingsPage::Update() {
 		
 		currentSelection = ADDBG;
 	}
-
 	else {
 		buttonRightBGRect.left = 0;
 		buttonRightBGRect.right = arrButtonWidth;
@@ -152,7 +160,6 @@ void SettingsPage::Update() {
 		
 		currentSelection = MINUSEFF;
 	}
-
 	else {
 		buttonLeftEffRect.left = 0;
 		buttonLeftEffRect.right = arrButtonWidth;
@@ -164,7 +171,6 @@ void SettingsPage::Update() {
 
 		currentSelection = ADDEFF;
 	}
-
 	else {
 		buttonRightEffRect.left = 0;
 		buttonRightEffRect.right = arrButtonWidth;
@@ -178,14 +184,10 @@ void SettingsPage::Update() {
 	}
 
 	if (leftKeyPressed) {
-
 		bufferTimer -= 1;
 
 		if (bufferTimer <= 0) {
-
-
 			if (currentSelection == MINUSBG) {
-				cout << "decrease BG volume!" << endl;
 				if (bGSoundCounter > 0) {
 					bGSoundCounter -= 10;
 					audioManager->setBackgroundVolume(bGSoundCounter);
@@ -193,20 +195,15 @@ void SettingsPage::Update() {
 				}
 				//decrease BG Volume
 			}
-
 			else if (currentSelection == ADDBG) {
-				cout << "increase BG volume!" << endl;
 				if (bGSoundCounter < 100) {
 					bGSoundCounter += 10; 
 					audioManager->setBackgroundVolume(bGSoundCounter);
 					audioManager->PlayClickSound();
 					//increase BG Volume
 				}
-				
 			}
-
 			else if (currentSelection == MINUSEFF) {
-				cout << "decrease Effects volume!" << endl;
 				if (effSoundCounter > 0) {
 					effSoundCounter -= 10; 
 					audioManager->setEffectsVolume(effSoundCounter);
@@ -215,23 +212,19 @@ void SettingsPage::Update() {
 				}
 				
 			}
-
 			else if (currentSelection == ADDEFF) {
-				cout << "increase Effects volume!" << endl;
 				if (effSoundCounter < 100) {
 					effSoundCounter += 10;
 					audioManager->setEffectsVolume(effSoundCounter);
 					audioManager->PlayClickSound();
 					//increase effect sound volume
 				}
-				
 			}
 
 			bufferTimer = 5;
 		}
 
 		leftKeyPressed = false;	
-		
 	}
 
 	if (escKeyPressed) {;
@@ -239,7 +232,6 @@ void SettingsPage::Update() {
 		audioManager->PlayMainMenuSoundTrack();
 		escKeyPressed = false;
 	}
-	
 }
 
 
@@ -291,6 +283,9 @@ void SettingsPage::Render() {
 	sprite->SetTransform(&buttonMat);
 	font->DrawText(sprite, to_string(effSoundCounter).c_str(), -1, &effLabelRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
+	D3DXMatrixTransformation2D(&buttonMat, NULL, 0.0, NULL, NULL, NULL, &escLabelPos);
+	sprite->SetTransform(&buttonMat);
+	escFont->DrawText(sprite, "Press the 'ESC' key to go back.", -1, &escLabelRect, 0, D3DCOLOR_XRGB(255, 255, 255));
 
 	sprite->End();
 
@@ -302,7 +297,6 @@ void SettingsPage::Render() {
 }
 
 void SettingsPage::Input() {
-
 	dInputKeyboardDevice->Acquire();
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
@@ -317,4 +311,7 @@ void SettingsPage::Input() {
 	if (diKeys[DIK_ESCAPE] & 0x80) {
 		escKeyPressed = true;
 	}
+}
+
+SettingsPage::~SettingsPage() {
 }

@@ -14,6 +14,10 @@ protected:
 	LPCSTR scoreStr;
 	boolean escKeyPressed;
 
+	RECT escLabelRect;
+	D3DXVECTOR2 escLabelPos;
+	LPD3DXFONT escFont;
+
 private:
 	RickRoll* neverGonnaGiveYouUp;
 

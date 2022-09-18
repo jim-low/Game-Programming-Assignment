@@ -22,11 +22,6 @@ protected:
 	LPDIRECT3DTEXTURE9 butCreditsTexture;
 	LPDIRECT3DTEXTURE9 butQuitTexture;
 
-	D3DXVECTOR2 playButtonPos;
-	D3DXVECTOR2 settingsButtonPos;
-	D3DXVECTOR2 creditsButtonPos;
-	D3DXVECTOR2 quitButtonPos;
-
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;

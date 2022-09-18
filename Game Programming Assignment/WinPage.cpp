@@ -2,11 +2,7 @@
 #include "WinPage.h"
 #include "MainMenu.h"
 
-WinPage::~WinPage() {
-}
-
 void WinPage::Initialize(int score) {
-
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/win_Title.png", &winTexture);
 	if (FAILED(hr)) {
 		std::cout << "Failed to create Title texture in Menu.";
@@ -17,6 +13,12 @@ void WinPage::Initialize(int score) {
 	if (FAILED(hr)) {
 		std::cout << "Failed to create font.";
 		MessageBox(NULL, TEXT("Failed to create font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	}
+
+	hr = D3DXCreateFont(d3dDevice, 30, 10, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &escFont);
+	if (FAILED(hr)) {
+		cout << "Failed to create esc font." << endl;
+		MessageBox(NULL, TEXT("Failed to create esc font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
 	this->score = score;
@@ -41,6 +43,13 @@ void WinPage::Initialize(int score) {
 	scaling = D3DXVECTOR2(1.8f, 1.8f);
 
 	audioManager->PlayWinSoundTrack();
+
+	//esc label initialize
+	escLabelRect.top = 0;
+	escLabelRect.bottom = 30;
+	escLabelRect.left = 0;
+	escLabelRect.right = 500;
+	escLabelPos = D3DXVECTOR2(0, 0);
 }
 
 void WinPage::Render() {
@@ -64,6 +73,10 @@ void WinPage::Render() {
 	sprite->SetTransform(&mat);
 	font->DrawText(sprite, scoreStr, tempStr.length(), &scoreRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, NULL, NULL, NULL, &escLabelPos);
+	sprite->SetTransform(&mat);
+	escFont->DrawText(sprite, "Press the 'ESC' key to go back.", -1, &escLabelRect, 0, D3DCOLOR_XRGB(255, 255, 255));
+
 	sprite->End();
 
 	//	End the scene
@@ -76,6 +89,7 @@ void WinPage::Render() {
 void WinPage::Update() {
 	if (escKeyPressed) {
 		audioManager->StopBackgroundSound();
+		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
 		escKeyPressed = false;
 	}
@@ -88,4 +102,7 @@ void WinPage::Input() {
 	if (diKeys[DIK_ESCAPE] & 0x80) {
 		escKeyPressed = true;
 	}
+}
+
+WinPage::~WinPage() {
 }
