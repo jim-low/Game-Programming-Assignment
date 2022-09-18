@@ -5,6 +5,7 @@
 #include "Header.h"
 #include "Spaceship.h"
 #include "Projectile.h"
+#include "Comet.h"
 
 class Player : public Spaceship {
 private:
@@ -58,6 +59,7 @@ public:
 	vector<Projectile*>* getBullets();
 	int GetHealth();
 	void Damage(int damage);
+	void KnockBack(Comet* comet);
 };
 
 #endif

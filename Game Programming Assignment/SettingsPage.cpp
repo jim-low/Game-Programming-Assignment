@@ -170,7 +170,12 @@ void SettingsPage::Update() {
 		buttonRightEffRect.right = arrButtonWidth;
 	}
 
-	if (!Game::CheckCollision(mouse, leftBGButtonCol) && !Game::CheckCollision(mouse, rightBGButtonCol) && !Game::CheckCollision(mouse, leftEffButtonCol) && !Game::CheckCollision(mouse, rightEffButtonCol)) currentSelection = UNFOCUS;
+	if (!Game::CheckCollision(mouse, leftBGButtonCol) &&
+		!Game::CheckCollision(mouse, rightBGButtonCol) &&
+		!Game::CheckCollision(mouse, leftEffButtonCol) &&
+		!Game::CheckCollision(mouse, rightEffButtonCol)) {
+		currentSelection = UNFOCUS;
+	}
 
 	if (leftKeyPressed) {
 

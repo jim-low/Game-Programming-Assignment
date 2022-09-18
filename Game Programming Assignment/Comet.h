@@ -9,6 +9,7 @@ protected:
 	float radian;
 	int damage;
 	D3DXVECTOR2 speed;
+	int mass;
 
 private:
 	D3DXVECTOR2 RandomPositionOutsideScreen();
@@ -25,6 +26,8 @@ public:
 
 	void ApplyAngle(float radian);
 	int GetDamage();
+	D3DXVECTOR2 GetSpeed();
+	int GetMass();
 };
 
 #endif

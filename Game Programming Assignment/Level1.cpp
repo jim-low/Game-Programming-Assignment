@@ -124,6 +124,7 @@ void Level1::Update()
 
 		if (Game::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
 			player->Damage(comets.at(i)->GetDamage());
+			player->KnockBack(comets.at(i));
 			audioManager->PlayCollisionSound();
 			D3DXVECTOR2 explosionPos = comets.at(i)->GetPos();
 			explosionPos.x -= 77;

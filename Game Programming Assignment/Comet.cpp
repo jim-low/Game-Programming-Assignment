@@ -9,9 +9,10 @@ void Comet::Initialize()
 		cout << "Failed to load texture" << endl;
 	}
 
-	damage = 10;
+	damage = 5;
 	int randomSpeed = (rand() % (12 - 8 + 1)) + 8;
 	speed = D3DXVECTOR2(randomSpeed, randomSpeed);
+	mass = 69;
 
 	textureWidth = 77;
 	textureHeight = 75;
@@ -52,6 +53,16 @@ void Comet::ApplyAngle(float radian)
 int Comet::GetDamage()
 {
 	return damage;
+}
+
+D3DXVECTOR2 Comet::GetSpeed()
+{
+	return speed;
+}
+
+int Comet::GetMass()
+{
+	return mass;
 }
 
 void Comet::Update()

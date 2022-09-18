@@ -221,6 +221,10 @@ void MainMenu::Update() {
 		currentSelection = UNFOCUS;
 	}
 
+	if (currentSelection != UNFOCUS && leftKeyPressed) {
+		audioManager->PlayClickSound();
+	}
+
 	if (leftKeyPressed) {
 		leftKeyPressed = false;
 		if (currentSelection == PLAY) {

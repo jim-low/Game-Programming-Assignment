@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Player.h"
 
 void Player::Initialize()
@@ -176,7 +177,8 @@ int Player::GetHealth()
 	return health;
 }
 
-void Player::CheckBoundary() {
+void Player::CheckBoundary()
+{
 	float width = spriteWidth * scaling.x;
 	float height = spriteHeight * scaling.y;
 
@@ -211,6 +213,27 @@ void Player::Damage(int damage)
 	}
 }
 
+void Player::KnockBack(Comet* comet)
+{
+	int cx1 = this->position.x;
+	int cx2 = comet->GetPos().x;
+
+	int cy1 = this->position.y;
+	int cy2 = comet->GetPos().y;
+
+	D3DXVECTOR2 cometVelocity = comet->GetSpeed();
+	int cometMass = comet->GetMass();
+
+	double d = sqrt(pow(cx1 - cx2, 2) + pow(cy1 - cy2, 2));
+	double nx = (cx2 - cx1) / d;
+	double ny = (cy2 - cy1) / d;
+	double p = 2 * (velocity.x * nx + velocity.y * ny - cometVelocity.x * nx - cometVelocity.y * ny) / (mass + cometMass);
+	velocity.x += velocity.x - p * cometMass * nx;
+	velocity.y += velocity.y - p * cometMass * ny;
+	//vx2 = circle2.vx - p * circle2.mass * nx;
+	//vy2 = circle2.vy - p * circle2.mass * ny;
+}
+
 void Player::Move() {
 	CheckBoundary();
 
@@ -236,7 +259,8 @@ void Player::Move() {
 	acceleration = D3DXVECTOR2(0, 0);
 }
 
-void Player::Shoot() {
+void Player::Shoot()
+{
 	Projectile* bullet = new Projectile();
 	bullet->Initialization(D3DXVECTOR2(position.x + (spriteWidth / 5), position.y - (spriteHeight/2)));
 	bullets.push_back(bullet);
