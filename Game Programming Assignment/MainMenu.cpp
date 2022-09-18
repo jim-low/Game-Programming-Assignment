@@ -60,8 +60,10 @@ void MainMenu::Initialize() {
 		MessageBox(NULL, TEXT("Failed to create the Button Brush."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
+	//define button size
 	menuButtonWidth = 351;
 	menuButtonHeight = 163;
+	//define the current selection
 	currentSelection = UNFOCUS;
 
 	//initialize Transformations on buttons
@@ -99,7 +101,7 @@ void MainMenu::Initialize() {
 		MessageBox(NULL, TEXT("Failed to create Settings Button texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
-	//initialize position 
+	//initialize rect 
 	buttonSettingsRect.top = 0;
 	buttonSettingsRect.bottom = buttonSettingsRect.top + menuButtonHeight;
 	buttonSettingsRect.left = 0;
@@ -116,7 +118,7 @@ void MainMenu::Initialize() {
 		MessageBox(NULL, TEXT("Failed to create Credits Button texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
-	//initialize position
+	//initialize rect
 	buttonCreditsRect.top = 0;
 	buttonCreditsRect.bottom = buttonCreditsRect.top + menuButtonHeight;
 	buttonCreditsRect.left = 0;
@@ -133,13 +135,13 @@ void MainMenu::Initialize() {
 		MessageBox(NULL, TEXT("Failed to create Quit Button texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
-	//initialize position 
+	//initialize rect 
 	buttonQuitRect.top = 0;
 	buttonQuitRect.bottom = buttonQuitRect.top + menuButtonHeight;
 	buttonQuitRect.left = 0;
 	buttonQuitRect.right = buttonQuitRect.left + menuButtonWidth;
 
-	// initialize collision RECT position
+	//initialize the collision rectangles and positions
 	playPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5);
 	playCol.left = playPosition.x + 15;
 	playCol.top = playPosition.y + 25;
@@ -173,12 +175,15 @@ void MainMenu::Update() {
 	mouse.bottom = mouse.top + 24;
 	mouse.right = mouse.left + 24;
 
+	//check if its in collision
 	if (Game::CheckCollision(mouse, playCol)) {
+		//when hovered, light up the button and set to a selection based on the hovered button
 		buttonPlayRect.left = menuButtonWidth;
 		buttonPlayRect.right = menuButtonWidth * 2;
 		currentSelection = PLAY;
 	}
 	else {
+		//else, dim button
 		buttonPlayRect.left = 0;
 		buttonPlayRect.right = menuButtonWidth;
 	}
@@ -213,6 +218,7 @@ void MainMenu::Update() {
 		buttonQuitRect.right = menuButtonWidth;
 	}
 
+	//if its not hovered on any button, reset the selection to UNFOCUSED
 	if (!Game::CheckCollision(mouse, playCol) &&
 		!Game::CheckCollision(mouse, settingsCol) &&
 		!Game::CheckCollision(mouse, creditsCol) &&
@@ -220,6 +226,7 @@ void MainMenu::Update() {
 		currentSelection = UNFOCUS;
 	}
 
+	//sound effect
 	if (currentSelection != UNFOCUS && leftKeyPressed) {
 		audioManager->PlayClickSound();
 	}
@@ -228,8 +235,8 @@ void MainMenu::Update() {
 		leftKeyPressed = false;
 		if (currentSelection == PLAY) {
 			audioManager->PlayClickSound();
-			audioManager->StopBackgroundSound();
-			games.push(new Level1());
+			audioManager->StopBackgroundSound(); //stop the BG
+			games.push(new Level1()); //push selected GAME
 		}
 
 		else if (currentSelection == SETTINGS) {
