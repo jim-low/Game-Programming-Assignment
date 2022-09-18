@@ -11,18 +11,21 @@
 class Level1 : public Game
 {
 protected:
-	vector<CometExplosion*> explosions;
-	vector<Comet*> comets;
+	vector<CometExplosion*> explosions; // comet explosion animation vector
+	vector<Comet*> comets; // comet projectiles
 	Player* player;
 
+	// health indicator string variable
 	string tempHealth;
 	LPCSTR healthStr;
 	RECT healthRect;
 	D3DXVECTOR2 healthPos;
 
+	// comet spawn variables
 	float cometSpawnRate;
 	float cometTimer;
 
+	// score indicator string variable
 	string tempScore;
 	LPCSTR scoreStr;
 	RECT scoreRect;

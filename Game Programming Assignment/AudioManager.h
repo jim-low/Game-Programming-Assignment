@@ -6,6 +6,7 @@
 
 class AudioManager {
 public:
+	// sound variables for AudioManager
 	FMOD::System* system;
 	FMOD::Sound* winSoundTrack, * loseSoundTrack, * bgSoundTrack, * creditSoundTrack,  * collideSound, * damagedSound, * explosionSound, * gameplaySound,  * clickSound, * cometSound;
 	FMOD::Channel* channel = 0;
@@ -14,21 +15,27 @@ public:
 	FMOD::ChannelGroup* bgGroup = 0;
 	FMOD::ChannelGroup* effectsGroup = 0;
 	FMOD_RESULT result;
+
+	// sound variables for settings
 	float effectVolume;
 	float bgVolume;
 	void* extraDriverData = 0;
 
 	void InitializeAudio();
-	void setEffectsVolume(float volume);
 
+	// getters
 	int getEffectsVolume();
-	void setBackgroundVolume(float volume);
 	int getBackgroundVolume();
-	void PlayMainMenuSoundTrack();
-	void StopBackgroundSound();
-	void PlayGameplaySoundTrack();
+
+	// setters
+	void setBackgroundVolume(float volume);
 	void SetPanning(float panValue);
 	void SetGroupPanning(float panValue);
+	void setEffectsVolume(float volume);
+
+	// play methods
+	void PlayMainMenuSoundTrack();
+	void PlayGameplaySoundTrack();
 	void PlayCometSound();
 	void PlayCreditsSound();
 	void PlayWinSoundTrack();
@@ -37,8 +44,11 @@ public:
 	void PlayDamagedSound();
 	void PlayExplosionSound();
 	void PlayClickSound();
+
+	// utilities
 	void LoadSounds();
 	void UpdateSound();
+	void StopBackgroundSound();
 
 	AudioManager();
 	~AudioManager();

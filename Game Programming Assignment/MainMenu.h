@@ -35,6 +35,7 @@ protected:
 	D3DXVECTOR2 creditsPosition;
 	D3DXVECTOR2 quitPosition;
 
+	// button collision rectangles
 	RECT playCol;
 	RECT settingsCol;
 	RECT creditsCol;
@@ -54,11 +55,10 @@ protected:
 	D3DXVECTOR2 l2EndPoint;
 	D3DXVECTOR2 l2LineVertices[2];
 
-	//input stuff
 	boolean leftKeyPressed;
 
 private:
-	RECT mouse;
+	RECT mouse; // mouse position for collision detection
 
 public:
 	MainMenu() : Game() { //constructor

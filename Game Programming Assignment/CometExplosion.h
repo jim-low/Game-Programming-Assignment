@@ -12,6 +12,7 @@ private:
 	int currentCol;
 	int maxCol;
 
+	// animation variables
 	float timer;
 	float counter;
 

@@ -7,19 +7,22 @@
 class GameOverPage : public Game
 {
 protected:
-	int score;
+	int score; // final score of player
+
+	// render score text variables
 	RECT scoreRect;
 	D3DXVECTOR2 scorePos;
 	string tempStr;
 	LPCSTR scoreStr;
 	boolean escKeyPressed;
 
+	// render escape label variables
 	RECT escLabelRect;
 	D3DXVECTOR2 escLabelPos;
 	LPD3DXFONT escFont;
 
 private:
-	RickRoll* neverGonnaGiveYouUp;
+	RickRoll* neverGonnaGiveYouUp; // unique animation sprite variables
 
 public:
 	GameOverPage(int score) : Game() { //constructor

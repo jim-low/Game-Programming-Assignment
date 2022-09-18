@@ -5,7 +5,6 @@
 
 // include perpustakaan
 #define WIN32_LEAN_AND_MEAN
-#define BUTTONDOWN(name, key) (name.rgbButtons[key] & 0x80)
 
 #define MyWindowWidth 1600
 #define MyWindowHeight 900
@@ -31,17 +30,19 @@
 using namespace std;
 
 // externs
-extern stack<Game*> games;
-extern IDirect3DDevice9* d3dDevice;
-extern LPD3DXSPRITE sprite;
-extern LPDIRECTINPUT8 dInput;
-extern LPDIRECTINPUTDEVICE8 dInputKeyboardDevice;
-extern BYTE diKeys[256];
-extern LPDIRECTINPUTDEVICE8 dInputMouseDevice;
+extern stack<Game*> games; // game stack
+extern IDirect3DDevice9* d3dDevice; // DirectX device
+extern LPD3DXSPRITE sprite; // sprite brush
+extern LPDIRECTINPUT8 dInput; // DirectX input
+extern LPDIRECTINPUTDEVICE8 dInputKeyboardDevice; // DirectX Keyboard Device
+extern BYTE diKeys[256]; // snapshot of keyboard
+extern LPDIRECTINPUTDEVICE8 dInputMouseDevice; // DirectX Mouse Device
 extern DIMOUSESTATE mouseState;
 extern AudioManager* audioManager;
-extern LPD3DXFONT font;
-extern float PI;
+extern LPD3DXFONT font; // font brush
+extern float PI; // value of PI (used for angle calculation)
+
+// absolute mouse position values
 extern int mouseX;
 extern int mouseY;
 

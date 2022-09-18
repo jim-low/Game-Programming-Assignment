@@ -9,11 +9,10 @@
 
 class CreditsPage : public Game {
 private:
-	boolean exit;
+	boolean exit; // whether to exit back to main menu or not
 	LPCSTR credits;
-	D3DXMATRIX mat;
 	float textSpeed;
-	RECT mouse;
+	RECT mouse; // mouse rectangle for collision
 
 public:
 	CreditsPage() : Game() {
