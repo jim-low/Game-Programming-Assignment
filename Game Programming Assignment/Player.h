@@ -56,7 +56,6 @@ public:
 	void Input();
 
 	vector<Projectile*>* getBullets();
-	//Projectile* getBullets();
 	int GetHealth();
 	void Damage(int damage);
 };

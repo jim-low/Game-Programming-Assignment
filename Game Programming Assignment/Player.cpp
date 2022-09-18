@@ -176,7 +176,7 @@ int Player::GetHealth()
 	return health;
 }
 
-void Player::CheckBoundary() { // TODO: fix this shit
+void Player::CheckBoundary() {
 	float width = spriteWidth * scaling.x;
 	float height = spriteHeight * scaling.y;
 

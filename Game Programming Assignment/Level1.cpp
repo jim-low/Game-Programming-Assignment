@@ -1,11 +1,42 @@
+#include <sstream>
 #include "Level1.h"
 #include "Level2.h"
+#include "WinPage.h"
+#include "GameOverPage.h"
 
 void Level1::Initialize()
 {
+	HRESULT hr = D3DXCreateFont(d3dDevice, 40, 0, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &font);
+
+	if (FAILED(hr)) {
+		cout << "Failed to lead font" << endl;
+	}
+
 	player = new Player();
+
+	suibian = "";
+	healthStr = LPTSTR("");
+	healthRect.top = 10;
+	healthRect.left = 10;
+	healthRect.bottom = healthRect.top + 69;
+	healthRect.right = healthRect.left + 420;
+	healthPos = D3DXVECTOR2(0, 0);
+	scaling = D3DXVECTOR2(1, 1);
+	direction = 0;
+
 	cometSpawnRate = 0.8;
 	cometTimer = 10;
+
+	scorePos = D3DXVECTOR2(0, 0);
+	scoreCounter = 0.15;
+	scoreTimer = 10;
+	score = 0;
+	suibian2 = "Score: 0";
+	scoreStr = suibian2.c_str();
+	scoreRect.top = 10;
+	scoreRect.right = MyWindowWidth - 10;
+	scoreRect.left = scoreRect.right - 150;
+	scoreRect.bottom = scoreRect.top + 69;
 
 	audioManager->PlayGameplaySoundTrack();
 }
@@ -43,9 +74,6 @@ float Level1::CalculateAngle(Comet* comet)
 	return angle * PI / 180;
 }
 
-
-
-
 void Level1::SpawnComet()
 {
 	Comet* comet = new Comet();
@@ -62,6 +90,18 @@ void Level1::Input()
 
 void Level1::Update()
 {
+	if (player != NULL && player->isDed) {
+		player = NULL;
+		audioManager->StopBackgroundSound();
+		games.pop();
+		if (score == 69) {
+			games.push(new WinPage(score));
+		}
+		else {
+			games.push(new GameOverPage(score));
+		}
+	}
+
 	if (player != NULL) {
 		player->Update();
 	}
@@ -82,7 +122,7 @@ void Level1::Update()
 			break;
 		}
 
-		if (Level2::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
+		if (Game::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
 			player->Damage(comets.at(i)->GetDamage());
 			audioManager->PlayCollisionSound();
 			D3DXVECTOR2 explosionPos = comets.at(i)->GetPos();
@@ -92,15 +132,7 @@ void Level1::Update()
 			explosion->Initialize(explosionPos);
 			explosions.push_back(explosion);
 			comets.erase(comets.begin() + i);
-
-
-			
 		}
-	}
-
-	if (player != NULL && player->isDed) {
-		player = NULL;
-		// call game over here
 	}
 
 	for (int i = 0; i < explosions.size(); ++i) {
@@ -114,6 +146,19 @@ void Level1::Update()
 	if (cometTimer <= 0) {
 		SpawnComet();
 		cometTimer = 10;
+	}
+
+	if (player != NULL) {
+		suibian = "Health: " + to_string(player->GetHealth());
+		healthStr = suibian.c_str();
+	}
+
+	scoreTimer -= scoreCounter;
+	if (scoreTimer <= 0) {
+		score += 1;
+		scoreTimer = 10;
+		suibian2 = "Score: " + to_string(score);
+		scoreStr = suibian2.c_str();
 	}
 }
 
@@ -139,6 +184,15 @@ void Level1::Render()
 			explosion->Render();
 		}
 	}
+
+	D3DXMATRIX mat;
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &healthPos);
+	sprite->SetTransform(&mat);
+	font->DrawText(sprite, healthStr, suibian.length(), &healthRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &scorePos);
+	sprite->SetTransform(&mat);
+	font->DrawText(sprite, scoreStr, suibian2.length(), &scoreRect, DT_RIGHT, D3DCOLOR_XRGB(255, 255, 255));
 
 	sprite->End();
 

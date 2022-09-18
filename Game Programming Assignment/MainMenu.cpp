@@ -174,59 +174,55 @@ void MainMenu::Update() {
 	mouse.right = mouse.left + 24;
 
 	if (Game::CheckCollision(mouse, playCol)) {
-		cout << "mouse has hovered over play" << endl;
 		buttonPlayRect.left = menuButtonWidth;
 		buttonPlayRect.right = menuButtonWidth * 2;
 		currentSelection = PLAY;
 	}
-
 	else {
 		buttonPlayRect.left = 0;
 		buttonPlayRect.right = menuButtonWidth;
 	}
 
 	if (Game::CheckCollision(mouse, settingsCol)) {
-		cout << "mouse has hovered over settings" << endl;
 		buttonSettingsRect.left = menuButtonWidth;
 		buttonSettingsRect.right = menuButtonWidth * 2;
 		currentSelection = SETTINGS;
 	}
-
 	else {
 		buttonSettingsRect.left = 0;
 		buttonSettingsRect.right = menuButtonWidth;
 	}
 
 	if (Game::CheckCollision(mouse, creditsCol)) {
-		cout << "mouse has hovered over credits" << endl;
 		buttonCreditsRect.left = menuButtonWidth;
 		buttonCreditsRect.right = menuButtonWidth * 2;
 		currentSelection = CREDITS;
 	}
-
 	else {
 		buttonCreditsRect.left = 0;
 		buttonCreditsRect.right = menuButtonWidth;
 	}
 
 	if (Game::CheckCollision(mouse, quitCol)) {
-		cout << "mouse has hovered over quit" << endl;
 		buttonQuitRect.left = menuButtonWidth;
 		buttonQuitRect.right = menuButtonWidth * 2;
 		currentSelection = QUIT;	
 	}
-
 	else {
 		buttonQuitRect.left = 0;
 		buttonQuitRect.right = menuButtonWidth;
 	}
 
-	if (!Game::CheckCollision(mouse, playCol) && !Game::CheckCollision(mouse, settingsCol) && !Game::CheckCollision(mouse, creditsCol) && !Game::CheckCollision(mouse, quitCol)) currentSelection = UNFOCUS;
+	if (!Game::CheckCollision(mouse, playCol) &&
+		!Game::CheckCollision(mouse, settingsCol) &&
+		!Game::CheckCollision(mouse, creditsCol) &&
+		!Game::CheckCollision(mouse, quitCol)) {
+		currentSelection = UNFOCUS;
+	}
 
-	if (rightKeyPressed) {
-		rightKeyPressed = false;
+	if (leftKeyPressed) {
+		leftKeyPressed = false;
 		if (currentSelection == PLAY) {
-			games.pop();
 			games.push(new Level1());
 		}
 
@@ -235,12 +231,10 @@ void MainMenu::Update() {
 		}
 
 		else if (currentSelection == CREDITS) {
-			games.pop();
 			games.push(new CreditsPage());
 		}
 
 		else if (currentSelection == QUIT) {
-			games.pop();
 			exit(0);
 		}
 	}
@@ -309,6 +303,6 @@ void MainMenu::Input() {
 
 	if (BUTTONDOWN(mouseState, 0)) //left click
 	{
-		rightKeyPressed = true;
+		leftKeyPressed = true;
 	}
 }

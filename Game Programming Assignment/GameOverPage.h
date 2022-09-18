@@ -6,16 +6,23 @@
 
 class GameOverPage : public Game
 {
+protected:
+	int score;
+	RECT scoreRect;
+	D3DXVECTOR2 scorePos;
+	string tempStr;
+	LPCSTR scoreStr;
+
 private:
 	RickRoll* neverGonnaGiveYouUp;
 
 public:
-	GameOverPage() : Game() { //constructor
-		this->Initialize();
+	GameOverPage(int score) : Game() { //constructor
+		this->Initialize(score);
 	}
 	~GameOverPage();
 
-	void Initialize();
+	void Initialize(int score);
 	void Update();
 	void Render();
 	void Input();

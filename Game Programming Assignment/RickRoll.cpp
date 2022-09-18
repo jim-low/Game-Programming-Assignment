@@ -26,7 +26,7 @@ void RickRoll::Initialize()
 	rowFrame = 1;
 	scaling = D3DXVECTOR2(1, 1); //make it smaller 
 	centre = D3DXVECTOR2((spriteWidth * scaling.x) / 2, (spriteHeight * scaling.y) / 2);
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (spriteWidth / (scaling.x * 2)), ((MyWindowHeight / 2) - (spriteHeight / (scaling.y * 3))));
+	position = D3DXVECTOR2((MyWindowWidth / 2) - (spriteWidth / (scaling.x * 2)), ((MyWindowHeight / 2) - (spriteHeight / (scaling.y * 3))) - 80);
 
 	currentFrame = 1;
 	animRect.top = 0;

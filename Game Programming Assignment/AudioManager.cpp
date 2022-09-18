@@ -14,7 +14,7 @@ void AudioManager::InitializeAudio()
 
 int AudioManager::getEffectsVolume()
 {
-	return int(effectsGroup)*100;
+	return int(effectVolume)*100;
 }
 
 void AudioManager::setBackgroundVolume(float volume) {
@@ -64,32 +64,12 @@ void AudioManager::PlayGameplaySoundTrack() {
 	result = system->playSound(gameplaySound, bgGroup, false, &channel);
 }
 
-void AudioManager::PlayBossSoundTrack() {
-	result = system->playSound(bossSoundTrack, bgGroup, false, &channel);
-}
-
-void AudioManager::PlayPlayerShootSound() {
-	result = system->playSound(playerShootSound, effectsGroup, false, &channel);
-}
-
-void AudioManager::PlayEnemyShootSound() {
-	result = system->playSound(enemyShootSound, effectsGroup, false, &channel);
-}
-
-void AudioManager::PlayPickUpSound() {
-	result = system->playSound(pickUpSound, effectsGroup, false, &channel);
-}
-
 void AudioManager::PlayCollisionSound() {
 	result = system->playSound(collideSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayDamagedSound() {
 	result = system->playSound(damagedSound, effectsGroup, false, &channel);
-}
-
-void AudioManager::PlaySwingSound() {
-	result = system->playSound(swingSound, effectsGroup, false, &channel);
 }
 
 void AudioManager::PlayExplosionSound() {
@@ -99,13 +79,6 @@ void AudioManager::PlayExplosionSound() {
 void AudioManager::PlayClickSound() {
 	result = system->playSound(clickSound, effectsGroup, false, &channel);
 }
-
-void AudioManager::PlayHoverButtonSound() {
-	result = system->playSound(clickSound, effectsGroup, false, &channel);
-	channel->setPosition(1000, FMOD_TIMEUNIT_MS);
-	//cut off sound after 1 sec
-}
-
 void AudioManager::LoadSounds()
 {
 
@@ -121,32 +94,17 @@ void AudioManager::LoadSounds()
 	result = system->createStream("../Assets/Audio/Lose_Music.mp3", FMOD_DEFAULT, 0, &loseSoundTrack);
 	result = loseSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
-	result = system->createStream("../Assets/Audio/Player_Shoot.wav", FMOD_DEFAULT, 0, &playerShootSound);
-	result = playerShootSound->setMode(FMOD_LOOP_OFF);
-
-	result = system->createStream("../Assets/Audio/Enemy_Shoot.wav", FMOD_DEFAULT, 0, &enemyShootSound);
-	result = enemyShootSound->setMode(FMOD_LOOP_OFF);
-
-	result = system->createStream("../Assets/Audio/Power_Up_Collect.wav", FMOD_DEFAULT, 0, &pickUpSound);
-	result = pickUpSound->setMode(FMOD_LOOP_OFF);
-
 	result = system->createStream("../Assets/Audio/Enemy_Damaged.wav", FMOD_DEFAULT, 0, &collideSound);
 	result = collideSound->setMode(FMOD_LOOP_OFF);
 
 	result = system->createStream("../Assets/Audio/Player_Damaged.wav", FMOD_DEFAULT, 0, &damagedSound);
 	result = damagedSound->setMode(FMOD_LOOP_OFF);
 
-	result = system->createStream("../Assets/Audio/Sword_Swing.wav", FMOD_DEFAULT, 0, &swingSound);
-	result = swingSound->setMode(FMOD_LOOP_OFF);
-
 	result = system->createStream("../Assets/Audio/Ship_Explosion.wav", FMOD_DEFAULT, 0, &explosionSound);
 	result = explosionSound->setMode(FMOD_LOOP_OFF);
 
 	result = system->createStream("../Assets/Audio/Fight_Music_Loop.wav", FMOD_DEFAULT, 0, &gameplaySound);
 	result = gameplaySound->setMode(FMOD_LOOP_NORMAL);
-
-	result = system->createStream("../Assets/Audio/Boss_Music.mp3", FMOD_DEFAULT, 0, &bossSoundTrack);
-	result = bossSoundTrack->setMode(FMOD_LOOP_NORMAL);
 
 	result = system->createStream("../Assets/Audio/click-electronic.wav", FMOD_DEFAULT, 0, &clickSound);
 	result = clickSound->setMode(FMOD_LOOP_OFF);

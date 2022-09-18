@@ -15,8 +15,21 @@ protected:
 	vector<Comet*> comets;
 	Player* player;
 
+	string suibian;
+	LPCSTR healthStr;
+	RECT healthRect;
+	D3DXVECTOR2 healthPos;
+
 	float cometSpawnRate;
 	float cometTimer;
+
+	string suibian2;
+	LPCSTR scoreStr;
+	RECT scoreRect;
+	D3DXVECTOR2 scorePos;
+	float scoreTimer;
+	float scoreCounter;
+	int score;
 
 private:
 	float CalculateAngle(Comet* comet); // calculate angle between comet and player

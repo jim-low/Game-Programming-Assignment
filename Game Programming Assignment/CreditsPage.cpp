@@ -25,15 +25,14 @@ void CreditsPage::Initialize()
 
 	// panning and boubady
 
-	//audioManager->PlayCreditsSound();
-
+	audioManager->PlayCreditsSound();
 }
 
 void CreditsPage::Update()
 {
-	if (clicked) {
+	if (exit) {
 		audioManager->StopBackgroundSound();
-		//games.pop();
+		games.pop();
 	}
 	position.y -= textSpeed;
 
@@ -41,13 +40,23 @@ void CreditsPage::Update()
 		position.y = MyWindowHeight;
 	}
 
-	clicked = false;
+	exit = false;
 }
 
 void CreditsPage::Render() {
+	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	d3dDevice->BeginScene();
+
+	sprite->Begin(D3DXSPRITE_ALPHABLEND);
+
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &position);
 	sprite->SetTransform(&mat);
 	font->DrawText(sprite, credits, lstrlenA(credits), &colRect, DT_WORDBREAK, D3DCOLOR_XRGB(255, 255, 0));
+
+	sprite->End();
+
+	d3dDevice->EndScene();
+	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
 void CreditsPage::Input()
@@ -56,9 +65,8 @@ void CreditsPage::Input()
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 
 	if (diKeys[DIK_RETURN] & 0x80) {
-		clicked = true;
+		exit = true;
 	}
-	
 }
 
 CreditsPage::~CreditsPage()
