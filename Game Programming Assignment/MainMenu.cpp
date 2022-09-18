@@ -220,8 +220,8 @@ void MainMenu::Update() {
 		currentSelection = UNFOCUS;
 	}
 
-	if (rightKeyPressed) {
-		rightKeyPressed = false;
+	if (leftKeyPressed) {
+		leftKeyPressed = false;
 		if (currentSelection == PLAY) {
 			games.push(new Level1());
 		}
@@ -303,6 +303,6 @@ void MainMenu::Input() {
 
 	if (BUTTONDOWN(mouseState, 0)) //left click
 	{
-		rightKeyPressed = true;
+		leftKeyPressed = true;
 	}
 }

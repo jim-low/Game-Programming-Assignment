@@ -60,7 +60,7 @@ protected:
 	D3DXVECTOR2 l2LineVertices[2];
 
 	//input stuff
-	boolean rightKeyPressed;
+	boolean leftKeyPressed;
 
 private:
 	RECT mouse;

@@ -25,15 +25,14 @@ void CreditsPage::Initialize()
 
 	// panning and boubady
 
-	//audioManager->PlayCreditsSound();
-
+	audioManager->PlayCreditsSound();
 }
 
 void CreditsPage::Update()
 {
 	if (clicked) {
 		audioManager->StopBackgroundSound();
-		//games.pop();
+		games.pop();
 	}
 	position.y -= textSpeed;
 
@@ -68,7 +67,6 @@ void CreditsPage::Input()
 	if (diKeys[DIK_RETURN] & 0x80) {
 		clicked = true;
 	}
-	
 }
 
 CreditsPage::~CreditsPage()

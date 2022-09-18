@@ -1,11 +1,27 @@
+#include <sstream>
 #include "GameOverPage.h"
 
-void GameOverPage::Initialize() {
+void GameOverPage::Initialize(int score) {
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/you-lose.png", &texture);
 	if (FAILED(hr)) {
 		cout << "Failed to create Lose Title." << endl;
 		MessageBox(NULL, TEXT("Failed to create Lose Title."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
+
+	hr = D3DXCreateFontA(d3dDevice, 20, 0, FW_BOLD, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "News Gothic", &font);
+	if (FAILED(hr)) {
+		cout << "Failed to create font." << endl;
+		MessageBox(NULL, TEXT("Failed to create font."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	}
+
+	this->score = score;
+	tempStr = "Your score: " + to_string(score);
+	scoreStr = tempStr.c_str();
+	scorePos = D3DXVECTOR2(0, 0);
+	scoreRect.top = MyWindowHeight / 14 * 6;
+	scoreRect.left = MyWindowWidth / 14 * 3;
+	scoreRect.bottom = scoreRect.top + 100;
+	scoreRect.right = scoreRect.left + 420;
 
 	textureWidth = 281;
 	textureHeight = 94;
@@ -46,6 +62,10 @@ void GameOverPage::Render() {
 	D3DXMatrixTransformation2D(&mat, &centre, 0.0, &scaling, &centre, direction, &position);
 	sprite->SetTransform(&mat);
 	sprite->Draw(texture, &animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+
+	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &scorePos);
+	sprite->SetTransform(&mat);
+	font->DrawText(sprite, scoreStr, tempStr.length(), &scoreRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 	sprite->End();
 	d3dDevice->EndScene();

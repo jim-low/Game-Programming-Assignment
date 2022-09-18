@@ -13,13 +13,19 @@ protected:
 	int winHeight;
 	D3DXMATRIX winMat; //for matrix position
 
+	string tempStr;
+	LPCSTR scoreStr;
+	RECT scoreRect;
+	D3DXVECTOR2 scorePos;
+	int score;
+
 public:
-	WinPage() : Game() { //constructor
-		this->Initialize();
+	WinPage(int score) : Game() { //constructor
+		this->Initialize(score);
 	}
 	~WinPage();
 
-	void Initialize();
+	void Initialize(int score);
 	void Update();
 	void Render();
 	void Input();

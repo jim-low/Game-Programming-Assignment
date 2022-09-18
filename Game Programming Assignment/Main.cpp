@@ -4,6 +4,7 @@
 #include "Level1.h"
 #include "CreditsPage.h"
 #include "MainMenu.h"
+#include "WinPage.h"
 #include "GameOverPage.h"
 
 //Window's Global
@@ -196,8 +197,9 @@ int main() {
 
 	//CreditsPage* creditsPage = new CreditsPage();
 	MainMenu* mainMenu = new MainMenu();
-	//GameOverPage* gameOver = new GameOverPage();
+	//GameOverPage* gameOver = new GameOverPage(69);
 	//Level1* level1 = new Level1();
+	//WinPage* winPage = new WinPage();
 	games.push(mainMenu);
 
 	while (IfMyWindowIsRunning())
