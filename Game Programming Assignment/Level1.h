@@ -15,7 +15,7 @@ protected:
 	vector<Comet*> comets;
 	Player* player;
 
-	string suibian;
+	string tempHealth;
 	LPCSTR healthStr;
 	RECT healthRect;
 	D3DXVECTOR2 healthPos;
@@ -23,7 +23,7 @@ protected:
 	float cometSpawnRate;
 	float cometTimer;
 
-	string suibian2;
+	string tempScore;
 	LPCSTR scoreStr;
 	RECT scoreRect;
 	D3DXVECTOR2 scorePos;

@@ -14,7 +14,7 @@ void Level1::Initialize()
 
 	player = new Player();
 
-	suibian = "";
+	tempHealth = "";
 	healthStr = LPTSTR("");
 	healthRect.top = 10;
 	healthRect.left = 10;
@@ -31,8 +31,8 @@ void Level1::Initialize()
 	scoreCounter = 0.15;
 	scoreTimer = 10;
 	score = 0;
-	suibian2 = "Score: 0";
-	scoreStr = suibian2.c_str();
+	tempScore = "Score: 0";
+	scoreStr = tempScore.c_str();
 	scoreRect.top = 10;
 	scoreRect.right = MyWindowWidth - 10;
 	scoreRect.left = scoreRect.right - 150;
@@ -150,16 +150,16 @@ void Level1::Update()
 	}
 
 	if (player != NULL) {
-		suibian = "Health: " + to_string(player->GetHealth());
-		healthStr = suibian.c_str();
+		tempHealth = "Health: " + to_string(player->GetHealth());
+		healthStr = tempHealth.c_str();
 	}
 
 	scoreTimer -= scoreCounter;
 	if (scoreTimer <= 0) {
 		score += 1;
 		scoreTimer = 10;
-		suibian2 = "Score: " + to_string(score);
-		scoreStr = suibian2.c_str();
+		tempScore = "Score: " + to_string(score);
+		scoreStr = tempScore.c_str();
 	}
 }
 
@@ -189,11 +189,11 @@ void Level1::Render()
 	D3DXMATRIX mat;
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &healthPos);
 	sprite->SetTransform(&mat);
-	font->DrawText(sprite, healthStr, suibian.length(), &healthRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	font->DrawText(sprite, healthStr, tempHealth.length(), &healthRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &scorePos);
 	sprite->SetTransform(&mat);
-	font->DrawText(sprite, scoreStr, suibian2.length(), &scoreRect, DT_RIGHT, D3DCOLOR_XRGB(255, 255, 255));
+	font->DrawText(sprite, scoreStr, tempScore.length(), &scoreRect, DT_RIGHT, D3DCOLOR_XRGB(255, 255, 255));
 
 	sprite->End();
 
