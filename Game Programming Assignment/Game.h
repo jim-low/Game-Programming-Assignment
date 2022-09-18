@@ -30,8 +30,6 @@ protected:
 
 	LPDIRECT3DTEXTURE9 texture;
 	int backgroundMovement;
-	// string soundFile;
-	float soundVolume;
 
 	//test (Brushes)
 	LPD3DXFONT fontBrush; //Title of game
