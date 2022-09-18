@@ -132,7 +132,7 @@ void SettingsPage::Update() {
 	mouse.bottom = mouse.top + 24;
 	mouse.right = mouse.left + 24;
 
-	if (Game::CheckCollision(mouse, leftBGButtonCol)) {
+	if (Game::CheckCollision(mouse, leftBGButtonCol)) { //check collision with button textures
 		buttonLeftBGRect.left = arrButtonWidth;
 		buttonLeftBGRect.right = arrButtonWidth * 2;
 		
@@ -183,7 +183,7 @@ void SettingsPage::Update() {
 		currentSelection = UNFOCUS;
 	}
 
-	if (leftKeyPressed) {
+	if (leftKeyPressed) {//if left key pressed, check if mouse position is on the button texture
 		bufferTimer -= 1;
 
 		if (bufferTimer <= 0) {
@@ -227,7 +227,7 @@ void SettingsPage::Update() {
 		leftKeyPressed = false;	
 	}
 
-	if (escKeyPressed) {;
+	if (escKeyPressed) {; //if escape key is pressed
 		games.pop();
 		audioManager->PlayMainMenuSoundTrack();
 		escKeyPressed = false;
