@@ -188,8 +188,10 @@ void CleanUpMyDirectInput() {
 
 int main() {
 	CreateMyWindow();
+	// make this class
 	CreateMy3D();
 	CreateMyDirectInput();
+	// make this class
 	InitializeLevel();
 	InitializeSound();
 

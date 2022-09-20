@@ -231,8 +231,10 @@ void Player::KnockBack(Comet* comet)
 	int cometMass = comet->GetMass();
 
 	double d = sqrt(pow(cx1 - cx2, 2) + pow(cy1 - cy2, 2));
+	// normal to the tangent (should do this in vector)
 	double nx = (cx2 - cx1) / d;
 	double ny = (cy2 - cy1) / d;
+	// impulse energy (to know how long the vector should be)
 	double p = 2 * (velocity.x * nx + velocity.y * ny - cometVelocity.x * nx - cometVelocity.y * ny) / (mass + cometMass);
 	velocity.x += velocity.x - p * cometMass * nx;
 	velocity.y += velocity.y - p * cometMass * ny;
