@@ -221,25 +221,21 @@ void Player::Damage(int damage)
 // newton third law of motion
 void Player::KnockBack(Comet* comet)
 {
-	int cx1 = this->position.x;
-	int cx2 = comet->GetPos().x;
-
-	int cy1 = this->position.y;
-	int cy2 = comet->GetPos().y;
-
+	D3DXVECTOR2 cometPos = comet->GetPos();
 	D3DXVECTOR2 cometVelocity = comet->GetSpeed();
 	int cometMass = comet->GetMass();
 
-	double d = sqrt(pow(cx1 - cx2, 2) + pow(cy1 - cy2, 2));
+	double distance = sqrt(pow(this->position.x - cometPos.x, 2) + pow(this->position.y - cometPos.y, 2));
+
 	// normal to the tangent (should do this in vector)
-	double nx = (cx2 - cx1) / d;
-	double ny = (cy2 - cy1) / d;
+	D3DXVECTOR2 normal = D3DXVECTOR2((cometPos.x - this->position.x) / distance, (cometPos.y - this->position.y) / distance);
+
 	// impulse energy (to know how long the vector should be)
-	double p = 2 * (velocity.x * nx + velocity.y * ny - cometVelocity.x * nx - cometVelocity.y * ny) / (mass + cometMass);
-	velocity.x += velocity.x - p * cometMass * nx;
-	velocity.y += velocity.y - p * cometMass * ny;
-	//vx2 = circle2.vx - p * circle2.mass * nx;
-	//vy2 = circle2.vy - p * circle2.mass * ny;
+	double p = 2 * (velocity.x * normal.x + velocity.y * normal.y - cometVelocity.x * normal.x - cometVelocity.y * normal.y) / (mass + cometMass);
+
+	// apply the impulse force to the existing velocity
+	velocity.x -= p * cometMass * normal.x;
+	velocity.y -= p * cometMass * normal.y;
 }
 
 void Player::Move() {
