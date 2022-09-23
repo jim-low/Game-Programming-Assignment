@@ -9,13 +9,7 @@ DirectX::~DirectX()
 	d3dDevice = NULL;
 }
 
-void DirectX::Initialize()
-{
-
-
-}
-
-int DirectX::CreateMy3D()
+int DirectX::Initialize()
 {
 	//	Define Direct3D 9. create direct 3d object
 	IDirect3D9* direct3D9 = Direct3DCreate9(D3D_SDK_VERSION);
@@ -43,8 +37,8 @@ int DirectX::CreateMy3D()
 	//	To Do: Cout out the message to indicate the failure.
 	if (FAILED(hr)) {
 		cout << "sprite error" << endl;
-		return 0;
+		return 1;
 	}
 
-	return 1;
+	return 0;
 }

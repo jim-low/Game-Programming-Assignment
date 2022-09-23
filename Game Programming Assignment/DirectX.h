@@ -1,7 +1,7 @@
 #pragma once
 #ifndef DIRECTX_H
 #define DIRECTX_H
-#include "header.h"
+#include "Header.h"
 
 class DirectX
 {
@@ -12,8 +12,7 @@ public:
 	}
 	~DirectX();
 
-	void Initialize();
-	int CreateMy3D();
+	int Initialize();
 };
 
 

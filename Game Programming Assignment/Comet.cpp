@@ -10,15 +10,12 @@ void Comet::Initialize()
 	}
 
 	damage = 5;
-	int min = 15;
-	int max = 45;
-	mass = (rand() % (max + min - 1) + min);
-	speed = D3DXVECTOR2(mass, mass) * 2 / 10;
-
-	cout << mass << endl;
-	cout << speed.x << endl;
-	cout << speed.y << endl;
-	cout << endl;
+	int min = 10;
+	int max = 90;
+	mass = (rand() % (max - min + 1)) + min;
+	float massToScale = ((float)mass / 100) + 1;
+	int speedFactor = 10;
+	speed = D3DXVECTOR2(1, 1) * speedFactor * ((max - min)/2 * (1/(float)mass));
 
 	textureWidth = 77;
 	textureHeight = 75;
@@ -36,7 +33,7 @@ void Comet::Initialize()
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(1, 1);
+	scaling = D3DXVECTOR2(1.f, 1.f) * massToScale;
 	centre = D3DXVECTOR2(spriteWidth / 2, spriteHeight / 2);
 	direction = 0;
 	position = RandomPositionOutsideScreen();

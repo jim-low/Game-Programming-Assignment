@@ -13,7 +13,6 @@ public:
 	~DirectInput();
 
 	void Initialize();
-	void CreateMyDirectInput();
 };
 
 

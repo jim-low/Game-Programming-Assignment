@@ -24,11 +24,8 @@
 
 
 // classes
-#include "DirectX.h"
-#include "DirectInput.h"
 #include "Game.h"
 #include "AudioManager.h"
-#include "FrameTimer.h"
 
 using namespace std;
 

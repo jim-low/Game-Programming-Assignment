@@ -18,12 +18,6 @@ DirectInput::~DirectInput()
 
 void DirectInput::Initialize()
 {
-
-
-}
-
-void DirectInput::CreateMyDirectInput()
-{
 	hr = DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
 
 	hr = dInput->CreateDevice(GUID_SysKeyboard, &dInputKeyboardDevice, NULL);

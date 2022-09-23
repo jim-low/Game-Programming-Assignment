@@ -59,6 +59,10 @@ public:
 	D3DXVECTOR2 GetPos() {
 		return position;
 	}
+
+	D3DXVECTOR2 GetScaling() {
+		return scaling;
+	}
 };
 
 #endif
