@@ -8,11 +8,12 @@
 #include "GameOverPage.h"
 #include "SettingsPage.h"
 
+
+HRESULT hr;
+
 //Window's Global
 HWND g_hWnd = NULL;
 WNDCLASS wndClass;
-HRESULT hr;
-
 //DX Global
 IDirect3DDevice9* d3dDevice;
 
@@ -20,9 +21,9 @@ IDirect3DDevice9* d3dDevice;
 LPDIRECTINPUT8 dInput;
 LPDIRECTINPUTDEVICE8 dInputKeyboardDevice;
 BYTE diKeys[256];
-
 LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 DIMOUSESTATE mouseState;
+
 
 // drawing things
 LPD3DXSPRITE sprite = NULL;
@@ -31,6 +32,8 @@ LPD3DXFONT font = NULL;
 // gaem things
 stack<Game*> games;
 AudioManager* audioManager;
+DirectX* directX;
+DirectInput* directInput;
 
 float PI = atan(1.f) * 4;
 
@@ -71,47 +74,6 @@ void CreateMyWindow() {
 
 	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Spaceship Game", WS_OVERLAPPEDWINDOW, 150, 80, MyWindowWidth, MyWindowHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
 	ShowWindow(g_hWnd, 1);
-}
-
-int CreateMy3D() {
-	IDirect3D9* direct3D9 = Direct3DCreate9(D3D_SDK_VERSION);
-
-	D3DPRESENT_PARAMETERS d3dPP;
-	ZeroMemory(&d3dPP, sizeof(d3dPP));
-
-	d3dPP.Windowed = true;
-	d3dPP.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dPP.BackBufferFormat = D3DFMT_X8R8G8B8;
-	d3dPP.BackBufferCount = 1;
-	d3dPP.BackBufferWidth = MyWindowWidth;
-	d3dPP.BackBufferHeight = MyWindowHeight;
-	d3dPP.hDeviceWindow = g_hWnd;
-
-	hr = direct3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dPP, &d3dDevice);
-
-	hr = D3DXCreateSprite(d3dDevice, &sprite);
-
-	if (FAILED(hr)) {
-		cout << "sprite creation error" << endl;
-		return 0;
-	}
-
-	return 1;
-}
-
-void CreateMyDirectInput() {
-
-	hr = DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
-
-	hr = dInput->CreateDevice(GUID_SysKeyboard, &dInputKeyboardDevice, NULL);
-
-	hr = dInput->CreateDevice(GUID_SysMouse, &dInputMouseDevice, NULL);
-
-	dInputKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
-	dInputMouseDevice->SetDataFormat(&c_dfDIMouse);
-
-	dInputKeyboardDevice->SetCooperativeLevel(g_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-	dInputMouseDevice->SetCooperativeLevel(g_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 }
 
 void InitializeLevel() {
@@ -160,37 +122,11 @@ void CleanUpMyWindow() {
 	UnregisterClass(wndClass.lpszClassName, GetModuleHandle(NULL));
 }
 
-void CleanUpLevel() {
-	
-}
-
-void CleanUpMyDirectX() {
-	sprite->Release();
-	sprite = NULL;
-
-	d3dDevice->Release();
-	d3dDevice = NULL;
-}
-
-void CleanUpMyDirectInput() {
-	dInputKeyboardDevice->Unacquire();
-	dInputKeyboardDevice->Release();
-	dInputKeyboardDevice = NULL;
-
-	dInputMouseDevice->Unacquire();
-	dInputMouseDevice->Release();
-	dInputMouseDevice = NULL;
-
-	dInput->Release();
-	dInput = NULL;
-
-}
-
 int main() {
 	CreateMyWindow();
 	// make this class
-	CreateMy3D();
-	CreateMyDirectInput();
+	directX->CreateMy3D();
+	directInput->CreateMyDirectInput();
 	// make this class
 	InitializeLevel();
 	InitializeSound();
@@ -205,10 +141,8 @@ int main() {
 		games.top()->Update();
 		games.top()->Render();
 	}
-
-	CleanUpMyDirectInput();
-	CleanUpMyDirectX();
-	CleanUpLevel();
+	directInput->~DirectInput();
+	directX->~DirectX();
 	CleanUpMyWindow();
 	return 0;
 }

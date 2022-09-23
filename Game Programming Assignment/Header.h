@@ -9,7 +9,6 @@
 
 #define MyWindowWidth 1600
 #define MyWindowHeight 900
-
 #include <iostream>
 #include <Windows.h>
 #include <d3d9.h>
@@ -23,7 +22,10 @@
 #pragma comment (lib, "dxguid.lib")
 #pragma comment (lib, "fmod_vc.lib")
 
+
 // classes
+#include "DirectX.h"
+#include "DirectInput.h"
 #include "Game.h"
 #include "AudioManager.h"
 #include "FrameTimer.h"
@@ -31,6 +33,9 @@
 using namespace std;
 
 // externs
+extern HWND g_hWnd;
+extern HRESULT hr;
+extern WNDCLASS wndClass;
 extern stack<Game*> games; // game stack
 extern IDirect3DDevice9* d3dDevice; // DirectX device
 extern LPD3DXSPRITE sprite; // sprite brush
