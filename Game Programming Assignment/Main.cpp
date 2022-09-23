@@ -1,5 +1,7 @@
 #include <math.h>
 #include "Header.h"
+#include "DirectX.h"
+#include "DirectInput.h"
 #include "Game.h"
 #include "Level1.h"
 #include "CreditsPage.h"
@@ -7,7 +9,6 @@
 #include "WinPage.h"
 #include "GameOverPage.h"
 #include "SettingsPage.h"
-
 
 HRESULT hr;
 
@@ -124,11 +125,8 @@ void CleanUpMyWindow() {
 
 int main() {
 	CreateMyWindow();
-	// make this class
-	directX->CreateMy3D();
-	directInput->CreateMyDirectInput();
-	// make this class
-	InitializeLevel();
+	directX = new DirectX();
+	directInput = new DirectInput();
 	InitializeSound();
 
 	MainMenu* mainMenu = new MainMenu();
