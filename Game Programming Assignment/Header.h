@@ -26,7 +26,6 @@
 // classes
 #include "Game.h"
 #include "AudioManager.h"
-#include "FrameTimer.h"
 
 using namespace std;
 

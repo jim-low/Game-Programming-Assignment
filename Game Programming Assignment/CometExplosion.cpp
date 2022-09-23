@@ -1,6 +1,6 @@
 #include "CometExplosion.h"
 
-void CometExplosion::Initialize(D3DXVECTOR2 startPos)
+void CometExplosion::Initialize(D3DXVECTOR2 startPos, D3DXVECTOR2 scaling)
 {
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/comet-explosion.png", &texture);
 
@@ -32,7 +32,7 @@ void CometExplosion::Initialize(D3DXVECTOR2 startPos)
 	animRect.left = currentFrame * spriteWidth;
 	animRect.right = animRect.left + spriteWidth;
 
-	scaling = D3DXVECTOR2(1, 1);
+	this->scaling = scaling;
 	centre = D3DXVECTOR2((spriteWidth * scaling.x) / 2, (spriteHeight * scaling.y) / 2);
 	direction = 0;
 	position = startPos;

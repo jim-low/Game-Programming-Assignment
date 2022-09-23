@@ -22,7 +22,7 @@ public:
 
 	boolean ended;
 
-	void Initialize(D3DXVECTOR2 startPos);
+	void Initialize(D3DXVECTOR2 startPos, D3DXVECTOR2 scaling);
 	void Update();
 	void Render();
 };

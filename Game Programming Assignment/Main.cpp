@@ -2,6 +2,7 @@
 #include "Header.h"
 #include "DirectX.h"
 #include "DirectInput.h"
+#include "FrameTimer.h"
 #include "Game.h"
 #include "Level1.h"
 #include "CreditsPage.h"
@@ -35,6 +36,7 @@ stack<Game*> games;
 AudioManager* audioManager;
 DirectX* directX;
 DirectInput* directInput;
+FrameTimer* frameTimer;
 
 float PI = atan(1.f) * 4;
 
@@ -94,6 +96,7 @@ void InitializeSound() {
 
 void Update(int framesToUpdate) {
 	for (int i = 0; i < framesToUpdate; i++) {
+		games.top()->Update();
 	}
 }
 
@@ -129,6 +132,9 @@ int main() {
 	directInput = new DirectInput();
 	InitializeSound();
 
+	frameTimer = new FrameTimer();
+	frameTimer->Init(69);
+
 	MainMenu* mainMenu = new MainMenu();
 	games.push(mainMenu);
 
@@ -136,7 +142,7 @@ int main() {
 	{
 		audioManager->UpdateSound();
 		games.top()->Input();
-		games.top()->Update();
+		Update(frameTimer->FramesToUpdate());
 		games.top()->Render();
 	}
 	directInput->~DirectInput();

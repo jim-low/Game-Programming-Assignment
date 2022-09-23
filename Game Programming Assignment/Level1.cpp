@@ -141,15 +141,16 @@ void Level1::Update()
 		5. push object to vector
 		6. deallocate collided comet from vector
 		*/
-		if (Game::CheckCollision(comets.at(i)->GetBody(), player->GetBody())) {
-			player->Damage(comets.at(i)->GetDamage());
-			player->KnockBack(comets.at(i));
+		Comet* comet = comets.at(i);
+		if (Game::CheckCollision(comet->GetBody(), player->GetBody())) {
+			player->Damage(comet->GetDamage());
+			player->KnockBack(comet);
 			audioManager->PlayCollisionSound();
-			D3DXVECTOR2 explosionPos = comets.at(i)->GetPos();
+			D3DXVECTOR2 explosionPos = comet->GetPos();
 			explosionPos.x -= 77;
 			explosionPos.y -= 75;
 			CometExplosion* explosion = new CometExplosion();
-			explosion->Initialize(explosionPos);
+			explosion->Initialize(explosionPos, comet->GetScaling());
 			explosions.push_back(explosion);
 			comets.erase(comets.begin() + i);
 		}
