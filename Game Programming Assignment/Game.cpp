@@ -9,6 +9,14 @@ boolean Game::CheckCollision(RECT a, RECT b) {
 	return true;
 }
 
+void Game::UpdateMouse()
+{
+	mouse.top = mouseY;
+	mouse.left = mouseX;
+	mouse.bottom = mouse.top + 24;
+	mouse.right = mouse.left + 24;
+}
+
 void Game::CleanUp()
 {
 	font->Release();

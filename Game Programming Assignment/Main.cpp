@@ -32,8 +32,11 @@ LPD3DXFONT font = NULL;
 stack<Game*> games;
 AudioManager* audioManager;
 
+
 float PI = atan(1.f) * 4;
 
+//mouse stuff
+RECT mouse;
 int mouseX = 0;
 int mouseY = 0;
 
@@ -71,6 +74,13 @@ void CreateMyWindow() {
 
 	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Spaceship Game", WS_OVERLAPPEDWINDOW, 150, 80, MyWindowWidth, MyWindowHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
 	ShowWindow(g_hWnd, 1);
+}
+
+void CreateMyMouse() {
+	mouse.top = mouseY;
+	mouse.left = mouseX;
+	mouse.bottom = mouse.top + 24;
+	mouse.right = mouse.left + 24;
 }
 
 int CreateMy3D() {
@@ -130,7 +140,9 @@ void InitializeSound() {
 }
 
 void Update(int framesToUpdate) {
+	Game::UpdateMouse();
 	for (int i = 0; i < framesToUpdate; i++) {
+
 	}
 }
 
@@ -188,6 +200,7 @@ void CleanUpMyDirectInput() {
 
 int main() {
 	CreateMyWindow();
+	CreateMyMouse();
 	CreateMy3D();
 	CreateMyDirectInput();
 	InitializeLevel();

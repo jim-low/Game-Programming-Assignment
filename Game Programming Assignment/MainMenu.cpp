@@ -2,26 +2,28 @@
 #include "CreditsPage.h"
 #include "MainMenu.h"
 #include "SettingsPage.h"
+#include "Button.h"
 
 void MainMenu::Initialize() {
 	//=====================
 	//INITIALIZE GAME TITLE
 	//=====================
 
+	
 	//initialize playbutton
-	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/game-title.png", &titleTexture);
+	/*HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/game-title.png", &titleTexture);
 	if (FAILED(hr)) {
 		std::cout << "Failed to create Title texture in Menu.";
 		MessageBox(NULL, TEXT("Failed to create Title texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
-	}
+	}*/
 	audioManager->SetGroupPanning(0);
 	//initialize position 
-	titleWidth = 512;
-	titleHeight = 256;
-	titleRect.top = 0;
-	titleRect.bottom = titleHeight;
-	titleRect.left = 0;
-	titleRect.right = titleWidth;
+	//titleWidth = 512;
+	//titleHeight = 256;
+	//titleRect.top = 0;
+	//titleRect.bottom = titleHeight;
+	//titleRect.left = 0;
+	//titleRect.right = titleWidth;
 
 	mouse.top = mouseY;
 	mouse.left = mouseX;
@@ -31,7 +33,7 @@ void MainMenu::Initialize() {
 	//=====================
 	//INITIALIZE LINES
 	//=====================
-	hr = D3DXCreateLine(d3dDevice, &lineBrush);
+	HRESULT hr = D3DXCreateLine(d3dDevice, &lineBrush);
 	if (FAILED(hr)) {
 		std::cout << "Failed to create LineBrush for Main menu (left).";
 		MessageBox(NULL, TEXT("Failed to create LineBrush for Main menu (left)."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
@@ -74,21 +76,24 @@ void MainMenu::Initialize() {
 	//INITIALIZE PLAY BUTTON
 	//=====================
 
-	//initialize playbutton
-	hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/Buttons/playButton.png", &butPlayTexture);
-	if (FAILED(hr)) {
-		std::cout << "Failed to create Play Button texture in Menu.";
-		MessageBox(NULL, TEXT("Failed to create Play Button texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
-	}
+	//try to create a button obj of playButton
+	playButton = new Button(351, 163, D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5), "../Assets/Buttons/playButton.png");
 
-	// dont mind this normal comment
-	// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Jim 16 September 2022
+	////initialize playbutton
+	//hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/Buttons/playButton.png", &butPlayTexture);
+	//if (FAILED(hr)) {
+	//	std::cout << "Failed to create Play Button texture in Menu.";
+	//	MessageBox(NULL, TEXT("Failed to create Play Button texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	//}
 
-	//initialize rectangle
-	buttonPlayRect.top = 0;
-	buttonPlayRect.bottom = buttonPlayRect.top + menuButtonHeight;
-	buttonPlayRect.left = 0;
-	buttonPlayRect.right = buttonPlayRect.left + menuButtonWidth;
+	//// dont mind this normal comment
+	//// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Jim 16 September 2022
+
+	////initialize rectangle
+	//buttonPlayRect.top = 0;
+	//buttonPlayRect.bottom = buttonPlayRect.top + menuButtonHeight;
+	//buttonPlayRect.left = 0;
+	//buttonPlayRect.right = buttonPlayRect.left + menuButtonWidth;
 
 	//=====================
 	//INITIALIZE SETTINGS BUTTON
@@ -142,11 +147,11 @@ void MainMenu::Initialize() {
 	buttonQuitRect.right = buttonQuitRect.left + menuButtonWidth;
 
 	//initialize the collision rectangles and positions
-	playPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5);
-	playCol.left = playPosition.x + 15;
-	playCol.top = playPosition.y + 25;
-	playCol.right = playCol.left + menuButtonWidth - 105;
-	playCol.bottom = playCol.top + menuButtonHeight - 75;
+	//playPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5);
+	//playCol.left = playPosition.x + 15;
+	//playCol.top = playPosition.y + 25;
+	//playCol.right = playCol.left + menuButtonWidth - 105;
+	//playCol.bottom = playCol.top + menuButtonHeight - 75;
 
 	settingsPosition = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 8); 
 	settingsCol.left = settingsPosition.x + 15;
@@ -170,23 +175,20 @@ void MainMenu::Initialize() {
 }
 
 void MainMenu::Update() {
-	mouse.top = mouseY;
-	mouse.left = mouseX;
-	mouse.bottom = mouse.top + 24;
-	mouse.right = mouse.left + 24;
 
 	//check if its in collision
-	if (Game::CheckCollision(mouse, playCol)) {
-		//when hovered, light up the button and set to a selection based on the hovered button
-		buttonPlayRect.left = menuButtonWidth;
-		buttonPlayRect.right = menuButtonWidth * 2;
-		currentSelection = PLAY;
-	}
-	else {
-		//else, dim button
-		buttonPlayRect.left = 0;
-		buttonPlayRect.right = menuButtonWidth;
-	}
+	//if (Game::CheckCollision(mouse, playButton->GetBody())) {
+	//	//when hovered, light up the button and set to a selection based on the hovered button
+	//	buttonPlayRect.left = menuButtonWidth;
+	//	buttonPlayRect.right = menuButtonWidth * 2;
+	//	currentSelection = PLAY;
+	//}
+	//else {
+	//	//else, dim button
+	//	buttonPlayRect.left = 0;
+	//	buttonPlayRect.right = menuButtonWidth;
+	//}
+	playButton->Update();
 
 	if (Game::CheckCollision(mouse, settingsCol)) {
 		buttonSettingsRect.left = menuButtonWidth;
@@ -268,10 +270,11 @@ void MainMenu::Render() {
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//set matrix to play button
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5); //height follows a 20:4 ratio
-	D3DXMatrixTransformation2D(&buttonMat, NULL, 0.0, &scaling, &centre, NULL, &position);
-	sprite->SetTransform(&buttonMat);
-	sprite->Draw(butPlayTexture, &buttonPlayRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	//position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 5); //height follows a 20:4 ratio
+	//D3DXMatrixTransformation2D(&buttonMat, NULL, 0.0, &scaling, &centre, NULL, &position);
+	//sprite->SetTransform(&buttonMat);
+	//sprite->Draw(butPlayTexture, &buttonPlayRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	playButton->Render();
 
 	//set matrix to settings button
 	position = D3DXVECTOR2((MyWindowWidth / 2) - (menuButtonWidth / 2), MyWindowHeight / 20 * 8);

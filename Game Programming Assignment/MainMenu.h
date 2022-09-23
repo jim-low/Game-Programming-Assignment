@@ -2,6 +2,7 @@
 #define MAINMENU_H
 #include "Header.h"
 #include "Game.h"
+#include "Button.h"
 
 
 class MainMenu : public Game
@@ -9,6 +10,9 @@ class MainMenu : public Game
 protected: 
 
 	//RECTS to pinpoint location
+
+	Button* playButton; //test
+
 	RECT titleRect; 
 	RECT buttonPlayRect;
 	RECT buttonSettingsRect;
@@ -56,9 +60,6 @@ protected:
 	D3DXVECTOR2 l2LineVertices[2];
 
 	boolean leftKeyPressed;
-
-private:
-	RECT mouse; // mouse position for collision detection
 
 public:
 	MainMenu() : Game() { //constructor
