@@ -69,7 +69,7 @@ void GameOverPage::Initialize(int score) {
 }
 
 void GameOverPage::Update() {
-	// update will never gonna let you down
+	// update is never gonna let you down
 	neverGonnaGiveYouUp->Update();
 
 	if (escKeyPressed) {

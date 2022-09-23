@@ -8,11 +8,12 @@
 #include "GameOverPage.h"
 #include "SettingsPage.h"
 
+
+HRESULT hr;
+
 //Window's Global
 HWND g_hWnd = NULL;
 WNDCLASS wndClass;
-HRESULT hr;
-
 //DX Global
 IDirect3DDevice9* d3dDevice;
 
@@ -20,9 +21,9 @@ IDirect3DDevice9* d3dDevice;
 LPDIRECTINPUT8 dInput;
 LPDIRECTINPUTDEVICE8 dInputKeyboardDevice;
 BYTE diKeys[256];
-
 LPDIRECTINPUTDEVICE8 dInputMouseDevice;
 DIMOUSESTATE mouseState;
+
 
 // drawing things
 LPD3DXSPRITE sprite = NULL;
@@ -31,6 +32,8 @@ LPD3DXFONT font = NULL;
 // gaem things
 stack<Game*> games;
 AudioManager* audioManager;
+DirectX* directX;
+DirectInput* directInput;
 
 
 float PI = atan(1.f) * 4;
@@ -74,13 +77,6 @@ void CreateMyWindow() {
 
 	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Spaceship Game", WS_OVERLAPPEDWINDOW, 150, 80, MyWindowWidth, MyWindowHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
 	ShowWindow(g_hWnd, 1);
-}
-
-void CreateMyMouse() {
-	mouse.top = mouseY;
-	mouse.left = mouseX;
-	mouse.bottom = mouse.top + 24;
-	mouse.right = mouse.left + 24;
 }
 
 int CreateMy3D() {
@@ -172,37 +168,12 @@ void CleanUpMyWindow() {
 	UnregisterClass(wndClass.lpszClassName, GetModuleHandle(NULL));
 }
 
-void CleanUpLevel() {
-	
-}
-
-void CleanUpMyDirectX() {
-	sprite->Release();
-	sprite = NULL;
-
-	d3dDevice->Release();
-	d3dDevice = NULL;
-}
-
-void CleanUpMyDirectInput() {
-	dInputKeyboardDevice->Unacquire();
-	dInputKeyboardDevice->Release();
-	dInputKeyboardDevice = NULL;
-
-	dInputMouseDevice->Unacquire();
-	dInputMouseDevice->Release();
-	dInputMouseDevice = NULL;
-
-	dInput->Release();
-	dInput = NULL;
-
-}
-
 int main() {
 	CreateMyWindow();
-	CreateMyMouse();
-	CreateMy3D();
-	CreateMyDirectInput();
+	// make this class
+	directX->CreateMy3D();
+	directInput->CreateMyDirectInput();
+	// make this class
 	InitializeLevel();
 	InitializeSound();
 
@@ -216,10 +187,8 @@ int main() {
 		games.top()->Update();
 		games.top()->Render();
 	}
-
-	CleanUpMyDirectInput();
-	CleanUpMyDirectX();
-	CleanUpLevel();
+	directInput->~DirectInput();
+	directX->~DirectX();
 	CleanUpMyWindow();
 	return 0;
 }
