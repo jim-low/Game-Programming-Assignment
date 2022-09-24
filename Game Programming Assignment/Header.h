@@ -48,6 +48,7 @@ extern LPD3DXFONT font; // font brush
 extern float PI; // value of PI (used for angle calculation)
 
 // absolute mouse position values
+extern RECT mouse;
 extern int mouseX;
 extern int mouseY;
 

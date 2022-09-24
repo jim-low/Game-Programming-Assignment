@@ -2,44 +2,31 @@
 #define MAINMENU_H
 #include "Header.h"
 #include "Game.h"
+#include "Button.h"
 
 
 class MainMenu : public Game
 {
 protected: 
 
-	//RECTS to pinpoint location
+	//Buttons needed
+	Button* playButton; 
+	Button* settingsButton;
+	Button* creditsButton;
+	Button* quitButton;
+
 	RECT titleRect; 
-	RECT buttonPlayRect;
-	RECT buttonSettingsRect;
-	RECT buttonCreditsRect;
-	RECT buttonQuitRect;
 
 	//textures
 	LPDIRECT3DTEXTURE9 titleTexture;
-	LPDIRECT3DTEXTURE9 butPlayTexture;
-	LPDIRECT3DTEXTURE9 butSettingsTexture;
-	LPDIRECT3DTEXTURE9 butCreditsTexture;
-	LPDIRECT3DTEXTURE9 butQuitTexture;
 
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;
 	int titleWidth;
 	int titleHeight;
-	D3DXMATRIX buttonMat; //for matrix position
+	D3DXMATRIX mat; //for matrix position
 	D3DXVECTOR2 titlePosition;
-
-	D3DXVECTOR2 playPosition; 
-	D3DXVECTOR2 settingsPosition;
-	D3DXVECTOR2 creditsPosition;
-	D3DXVECTOR2 quitPosition;
-
-	// button collision rectangles
-	RECT playCol;
-	RECT settingsCol;
-	RECT creditsCol;
-	RECT quitCol;
 
 	//currentSelectedButton
 	int currentSelection;

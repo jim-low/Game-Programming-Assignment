@@ -36,8 +36,11 @@ DirectX* directX;
 DirectInput* directInput;
 FrameTimer* frameTimer;
 
+
 float PI = atan(1.f) * 4;
 
+//mouse stuff
+RECT mouse;
 int mouseX = 0;
 int mouseY = 0;
 
@@ -77,6 +80,47 @@ void CreateMyWindow() {
 	ShowWindow(g_hWnd, 1);
 }
 
+int CreateMy3D() {
+	IDirect3D9* direct3D9 = Direct3DCreate9(D3D_SDK_VERSION);
+
+	D3DPRESENT_PARAMETERS d3dPP;
+	ZeroMemory(&d3dPP, sizeof(d3dPP));
+
+	d3dPP.Windowed = true;
+	d3dPP.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3dPP.BackBufferFormat = D3DFMT_X8R8G8B8;
+	d3dPP.BackBufferCount = 1;
+	d3dPP.BackBufferWidth = MyWindowWidth;
+	d3dPP.BackBufferHeight = MyWindowHeight;
+	d3dPP.hDeviceWindow = g_hWnd;
+
+	hr = direct3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, g_hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dPP, &d3dDevice);
+
+	hr = D3DXCreateSprite(d3dDevice, &sprite);
+
+	if (FAILED(hr)) {
+		cout << "sprite creation error" << endl;
+		return 0;
+	}
+
+	return 1;
+}
+
+void CreateMyDirectInput() {
+
+	hr = DirectInput8Create(GetModuleHandle(NULL), 0x0800, IID_IDirectInput8, (void**)&dInput, NULL);
+
+	hr = dInput->CreateDevice(GUID_SysKeyboard, &dInputKeyboardDevice, NULL);
+
+	hr = dInput->CreateDevice(GUID_SysMouse, &dInputMouseDevice, NULL);
+
+	dInputKeyboardDevice->SetDataFormat(&c_dfDIKeyboard);
+	dInputMouseDevice->SetDataFormat(&c_dfDIMouse);
+
+	dInputKeyboardDevice->SetCooperativeLevel(g_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	dInputMouseDevice->SetCooperativeLevel(g_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+}
+
 void InitializeLevel() {
 
 	srand(time(0));
@@ -93,8 +137,10 @@ void InitializeSound() {
 }
 
 void Update(int framesToUpdate) {
+	Game::UpdateMouse();
 	for (int i = 0; i < framesToUpdate; i++) {
 		games.top()->Update();
+
 	}
 }
 

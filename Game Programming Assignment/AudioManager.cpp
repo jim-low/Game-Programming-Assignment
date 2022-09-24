@@ -7,8 +7,8 @@ void AudioManager::InitializeAudio()
 	result = system->createChannelGroup(channelGroup, &bgGroup);
 	result = system->createChannelGroup(channelGroup, &panGroup);
 	result = system->createChannelGroup(channelGroup, &effectsGroup);
-	bgVolume = 0;
-	effectVolume = 0;
+	bgVolume = 0.1;
+	effectVolume = 0.9;
 	bgGroup->setVolume(bgVolume);
 	effectsGroup->setVolume(effectVolume);
 	LoadSounds();

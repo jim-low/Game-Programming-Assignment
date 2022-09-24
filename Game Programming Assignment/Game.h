@@ -50,6 +50,7 @@ public:
 	virtual void Update();
 	virtual void Input();
 	static boolean CheckCollision(RECT a, RECT b); // collision detection method
+	static void UpdateMouse();
 
 	RECT GetBody() {
 		return colRect;
