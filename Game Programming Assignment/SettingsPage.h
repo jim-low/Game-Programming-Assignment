@@ -2,10 +2,16 @@
 #define SETTINGSPAGE_H
 #include "Header.h"
 #include "Game.h"
+#include "Button.h"
 
 class SettingsPage : public Game
 {
 protected:
+	//Buttons needed
+	Button* incBGVol;
+	Button* decBGVol;
+	Button* incEffVol;
+	Button* decEffVol;
 
 	//for labels
 	RECT bGLabelRect;

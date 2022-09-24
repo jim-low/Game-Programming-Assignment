@@ -2,11 +2,16 @@
 
 
 void Button::Update() {
-	//idk wtf to do here
 	if (Game::CheckCollision(mouse, colRect)) {
 		//when hovered, light up the button and set to a selection based on the hovered button
 		animRect.left = buttonWidth;
 		animRect.right = buttonWidth * 2;
+
+		if (BUTTONDOWN(mouseState, 0)) //left click
+		{
+			audioManager->PlayClickSound();
+			this->clickResponse();
+		}
 	}
 
 	else {
@@ -14,6 +19,8 @@ void Button::Update() {
 		animRect.left = 0;
 		animRect.right = buttonWidth;
 	}	
+
+
 }
 
 void Button::Render() {

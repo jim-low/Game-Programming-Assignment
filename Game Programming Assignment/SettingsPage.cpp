@@ -1,10 +1,32 @@
 #include "SettingsPage.h"
 #include <string> 
 
+void incBGClick() {
+
+}
+
+void decBGClick() {
+	
+	if (bGSoundCounter > 0) {
+		bGSoundCounter -= 10;
+		audioManager->setBackgroundVolume(bGSoundCounter);
+		audioManager->PlayClickSound();
+	}
+}
+
+void incEffClick() {
+
+}
+
+void decEffClick() {
+
+}
+
 void SettingsPage::Initialize() {
 	//=====================
 	//INITIALIZE BUTTONS
 	//=====================
+	
 
 	//initialize left button
 	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/Buttons/leftButton.png", &butLeftTexture);
@@ -20,36 +42,41 @@ void SettingsPage::Initialize() {
 		MessageBox(NULL, TEXT("Failed to create right Button texture."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 	}
 
-	//initialize location
+	//initialize button format
 	arrButtonWidth = 110;
 	arrButtonHeight = 130;
 
-	buttonRightBGRect.top = 0;
-	buttonRightBGRect.bottom = arrButtonHeight;
-	buttonRightBGRect.left = 0;
-	buttonRightBGRect.right = arrButtonWidth;
+	incBGVol = new Button(arrButtonWidth, arrButtonHeight, D3DXVECTOR2((MyWindowWidth / 2) - (arrButtonWidth / 2) + 200, (MyWindowHeight / 10) * 2), "../Assets/Buttons/rightButton.png", &incBGClick);
+	decBGVol = new Button(arrButtonWidth, arrButtonHeight, D3DXVECTOR2((MyWindowWidth / 2) - (arrButtonWidth / 2) - 200, (MyWindowHeight / 10) * 2), "../Assets/Buttons/leftButton.png", &decBGClick);
+	incEffVol = new Button(arrButtonWidth, arrButtonHeight, D3DXVECTOR2((MyWindowWidth / 2) - (arrButtonWidth / 2) + 200, (MyWindowHeight / 10) * 5), "../Assets/Buttons/rightButton.png", &incEffClick);
+	decEffVol = new Button(arrButtonWidth, arrButtonHeight, D3DXVECTOR2((MyWindowWidth / 2) - (arrButtonWidth / 2) - 200, (MyWindowHeight / 10) * 5), "../Assets/Buttons/leftButton.png", &decEffClick);
 
-	buttonLeftBGRect.top = 0;
-	buttonLeftBGRect.bottom = arrButtonHeight;
-	buttonLeftBGRect.left = 0;
-	buttonLeftBGRect.right = arrButtonWidth;
+	//buttonRightBGRect.top = 0;
+	//buttonRightBGRect.bottom = arrButtonHeight;
+	//buttonRightBGRect.left = 0;
+	//buttonRightBGRect.right = arrButtonWidth;
 
-	buttonRightEffRect.top = 0;
-	buttonRightEffRect.bottom = arrButtonHeight;
-	buttonRightEffRect.left = 0;
-	buttonRightEffRect.right = arrButtonWidth;
+	//buttonLeftBGRect.top = 0;
+	//buttonLeftBGRect.bottom = arrButtonHeight;
+	//buttonLeftBGRect.left = 0;
+	//buttonLeftBGRect.right = arrButtonWidth;
 
-	buttonLeftEffRect.top = 0;
-	buttonLeftEffRect.bottom = arrButtonHeight;
-	buttonLeftEffRect.left = 0;
-	buttonLeftEffRect.right = arrButtonWidth;
+	//buttonRightEffRect.top = 0;
+	//buttonRightEffRect.bottom = arrButtonHeight;
+	//buttonRightEffRect.left = 0;
+	//buttonRightEffRect.right = arrButtonWidth;
+
+	//buttonLeftEffRect.top = 0;
+	//buttonLeftEffRect.bottom = arrButtonHeight;
+	//buttonLeftEffRect.left = 0;
+	//buttonLeftEffRect.right = arrButtonWidth;
 
 	//initialize matrix
-	centre = D3DXVECTOR2(arrButtonWidth/2, arrButtonHeight/2);
-	scaling = D3DXVECTOR2(1.0f, 1.0f);
+	//centre = D3DXVECTOR2(arrButtonWidth/2, arrButtonHeight/2);
+	//scaling = D3DXVECTOR2(1.0f, 1.0f);
 
 	//initialize collision rectangles
-	leftBGPos = D3DXVECTOR2((MyWindowWidth / 2) - (arrButtonWidth / 2) - 200 , (MyWindowHeight / 10) * 2);
+	/*leftBGPos = D3DXVECTOR2((MyWindowWidth / 2) - (arrButtonWidth / 2) - 200 , (MyWindowHeight / 10) * 2);
 	leftBGButtonCol.top = leftBGPos.y;
 	leftBGButtonCol.bottom = leftBGButtonCol.top + arrButtonHeight;
 	leftBGButtonCol.left = leftBGPos.x;
@@ -71,12 +98,12 @@ void SettingsPage::Initialize() {
 	rightEffButtonCol.top = rightEffPos.y;
 	rightEffButtonCol.bottom = rightEffButtonCol.top + arrButtonHeight;
 	rightEffButtonCol.left = rightEffPos.x;
-	rightEffButtonCol.right = rightEffButtonCol.left + arrButtonWidth;
+	rightEffButtonCol.right = rightEffButtonCol.left + arrButtonWidth;*/
 
-	mouse.top = mouseY;
-	mouse.left = mouseX;
-	mouse.bottom = mouse.top + 24;
-	mouse.right = mouse.bottom + 24;
+	//mouse.top = mouseY;
+	//mouse.left = mouseX;
+	//mouse.bottom = mouse.top + 24;
+	//mouse.right = mouse.bottom + 24;
 
 	//initialize label
 	hr = D3DXCreateFont(d3dDevice, 80, 30, 0, 1, false, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Tw Cen MT Condensed", &font);
@@ -127,61 +154,66 @@ void SettingsPage::Initialize() {
 }
 
 void SettingsPage::Update() {
-	mouse.top = mouseY;
-	mouse.left = mouseX;
-	mouse.bottom = mouse.top + 24;
-	mouse.right = mouse.left + 24;
+	//mouse.top = mouseY;
+	//mouse.left = mouseX;
+	//mouse.bottom = mouse.top + 24;
+	//mouse.right = mouse.left + 24;
 
-	if (Game::CheckCollision(mouse, leftBGButtonCol)) { //check collision with button textures
-		buttonLeftBGRect.left = arrButtonWidth;
-		buttonLeftBGRect.right = arrButtonWidth * 2;
-		
-		currentSelection = MINUSBG;
-	}
-	else {
-		buttonLeftBGRect.left = 0;
-		buttonLeftBGRect.right = arrButtonWidth;
-	}
+	//if (Game::CheckCollision(mouse, leftBGButtonCol)) { //check collision with button textures
+	//	buttonLeftBGRect.left = arrButtonWidth;
+	//	buttonLeftBGRect.right = arrButtonWidth * 2;
+	//	
+	//	currentSelection = MINUSBG;
+	//}
+	//else {
+	//	buttonLeftBGRect.left = 0;
+	//	buttonLeftBGRect.right = arrButtonWidth;
+	//}
 
-	if (Game::CheckCollision(mouse, rightBGButtonCol)) {
-		buttonRightBGRect.left = arrButtonWidth;
-		buttonRightBGRect.right = arrButtonWidth * 2;
-		
-		currentSelection = ADDBG;
-	}
-	else {
-		buttonRightBGRect.left = 0;
-		buttonRightBGRect.right = arrButtonWidth;
-	}
+	//if (Game::CheckCollision(mouse, rightBGButtonCol)) {
+	//	buttonRightBGRect.left = arrButtonWidth;
+	//	buttonRightBGRect.right = arrButtonWidth * 2;
+	//	
+	//	currentSelection = ADDBG;
+	//}
+	//else {
+	//	buttonRightBGRect.left = 0;
+	//	buttonRightBGRect.right = arrButtonWidth;
+	//}
 
-	if (Game::CheckCollision(mouse, leftEffButtonCol)) {
-		buttonLeftEffRect.left = arrButtonWidth;
-		buttonLeftEffRect.right = arrButtonWidth * 2;
-		
-		currentSelection = MINUSEFF;
-	}
-	else {
-		buttonLeftEffRect.left = 0;
-		buttonLeftEffRect.right = arrButtonWidth;
-	}
+	//if (Game::CheckCollision(mouse, leftEffButtonCol)) {
+	//	buttonLeftEffRect.left = arrButtonWidth;
+	//	buttonLeftEffRect.right = arrButtonWidth * 2;
+	//	
+	//	currentSelection = MINUSEFF;
+	//}
+	//else {
+	//	buttonLeftEffRect.left = 0;
+	//	buttonLeftEffRect.right = arrButtonWidth;
+	//}
 
-	if (Game::CheckCollision(mouse, rightEffButtonCol)) {
-		buttonRightEffRect.left = arrButtonWidth;
-		buttonRightEffRect.right = arrButtonWidth * 2;
+	//if (Game::CheckCollision(mouse, rightEffButtonCol)) {
+	//	buttonRightEffRect.left = arrButtonWidth;
+	//	buttonRightEffRect.right = arrButtonWidth * 2;
 
-		currentSelection = ADDEFF;
-	}
-	else {
-		buttonRightEffRect.left = 0;
-		buttonRightEffRect.right = arrButtonWidth;
-	}
+	//	currentSelection = ADDEFF;
+	//}
+	//else {
+	//	buttonRightEffRect.left = 0;
+	//	buttonRightEffRect.right = arrButtonWidth;
+	//}
 
-	if (!Game::CheckCollision(mouse, leftBGButtonCol) &&
-		!Game::CheckCollision(mouse, rightBGButtonCol) &&
-		!Game::CheckCollision(mouse, leftEffButtonCol) &&
-		!Game::CheckCollision(mouse, rightEffButtonCol)) {
-		currentSelection = UNFOCUS;
-	}
+	//if (!Game::CheckCollision(mouse, leftBGButtonCol) &&
+	//	!Game::CheckCollision(mouse, rightBGButtonCol) &&
+	//	!Game::CheckCollision(mouse, leftEffButtonCol) &&
+	//	!Game::CheckCollision(mouse, rightEffButtonCol)) {
+	//	currentSelection = UNFOCUS;
+	//}
+
+	incBGVol->Update();
+	decBGVol->Update();
+	incEffVol->Update();
+	decEffVol->Update();
 
 	if (leftKeyPressed) { //if left key pressed, check if mouse position is on the button texture
 		bufferTimer -= 1;
@@ -246,25 +278,30 @@ void SettingsPage::Render() {
 	//draw sprite
 	sprite->Begin(D3DXSPRITE_ALPHABLEND);
 
-	//set matrix
-	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &leftBGPos);
-	sprite->SetTransform(&buttonMat);
-	sprite->Draw(butLeftTexture, &buttonLeftBGRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	////set matrix
+	//D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &leftBGPos);
+	//sprite->SetTransform(&buttonMat);
+	//sprite->Draw(butLeftTexture, &buttonLeftBGRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
-	//set matrix
-	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &rightBGPos);
-	sprite->SetTransform(&buttonMat);
-	sprite->Draw(butRightTexture, &buttonRightBGRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	////set matrix
+	//D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &rightBGPos);
+	//sprite->SetTransform(&buttonMat);
+	//sprite->Draw(butRightTexture, &buttonRightBGRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
-	//set matrix
-	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &leftEffPos);
-	sprite->SetTransform(&buttonMat);
-	sprite->Draw(butLeftTexture, &buttonLeftEffRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	////set matrix
+	//D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &leftEffPos);
+	//sprite->SetTransform(&buttonMat);
+	//sprite->Draw(butLeftTexture, &buttonLeftEffRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 
-	//set matrix
-	D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &rightEffPos);
-	sprite->SetTransform(&buttonMat);
-	sprite->Draw(butRightTexture, &buttonRightEffRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	////set matrix
+	//D3DXMatrixTransformation2D(&buttonMat, &centre, 0.0, &scaling, NULL, NULL, &rightEffPos);
+	//sprite->SetTransform(&buttonMat);
+	//sprite->Draw(butRightTexture, &buttonRightEffRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+
+	incBGVol->Render();
+	decBGVol->Render();
+	incEffVol->Render();
+	decEffVol->Render();
 
 	//labels
 	D3DXMatrixTransformation2D(&buttonMat, NULL, 0.0, NULL, NULL, NULL, &bGLabelPos);
@@ -303,10 +340,10 @@ void SettingsPage::Input() {
 	dInputMouseDevice->Acquire();
 	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
 
-	if (BUTTONDOWN(mouseState, 0)) //left click
-	{
-		leftKeyPressed = true;
-	}
+	//if (BUTTONDOWN(mouseState, 0)) //left click
+	//{
+	//	leftKeyPressed = true;
+	//}
 
 	if (diKeys[DIK_ESCAPE] & 0x80) {
 		escKeyPressed = true;

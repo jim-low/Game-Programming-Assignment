@@ -5,6 +5,10 @@
 #include "Header.h"
 
 class Button : public Game{
+
+private:
+	void (*clickResponse)(void); //function pointer
+
 protected:
 
 	//contain components of a button (Buttons used are as png files, when hovered, the texture alters from the sprite sheet.)
@@ -24,8 +28,8 @@ protected:
 public:
 	//constructor
 
-	Button(int buttonWidth, int buttonHeight, D3DXVECTOR2 buttonPos, string fileName ) { 
-		 
+	Button(int buttonWidth, int buttonHeight, D3DXVECTOR2 buttonPos, string fileName, void (*clickResponse)(void)) {
+		
 		//initialize texture from the spriteSheet file. (ASSUME that the button spritesheets are located in Assets)
 		HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, fileName.c_str(), &texture);
 		if (FAILED(hr)) {
@@ -33,6 +37,7 @@ public:
 			MessageBox(NULL, TEXT(("Could not find " + fileName).c_str()), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 		}
 		
+		this->clickResponse = clickResponse;
 		this->buttonWidth = buttonWidth;
 		this->buttonHeight = buttonHeight;
 
@@ -63,6 +68,13 @@ public:
 
 	RECT getColRect() {
 		return colRect;
+	}
+
+	void presetColRect(int addTop, int addBottom, int addLeft, int addRight) {
+		colRect.top += addTop;
+		colRect.bottom += addBottom;
+		colRect.left += addLeft;
+		colRect.right += addRight;
 	}
 
 };
