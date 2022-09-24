@@ -14,7 +14,6 @@ protected:
 	D3DXVECTOR2 scorePos;
 	string tempStr;
 	LPCSTR scoreStr;
-	boolean escKeyPressed;
 
 	// render escape label variables
 	RECT escLabelRect;
@@ -33,7 +32,6 @@ public:
 	void Initialize(int score);
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

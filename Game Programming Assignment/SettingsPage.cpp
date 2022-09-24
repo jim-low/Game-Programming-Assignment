@@ -183,7 +183,7 @@ void SettingsPage::Update() {
 		currentSelection = UNFOCUS;
 	}
 
-	if (leftKeyPressed) { //if left key pressed, check if mouse position is on the button texture
+	if (DirectInput::isMouseDown(0)) { //if left key pressed, check if mouse position is on the button texture
 		bufferTimer -= 1;
 
 		if (bufferTimer <= 0) {
@@ -223,14 +223,11 @@ void SettingsPage::Update() {
 
 			bufferTimer = 5;
 		}
-
-		leftKeyPressed = false;	
 	}
 
-	if (escKeyPressed) { //if escape key is pressed
+	if (DirectInput::IsKeyDown(DIK_ESCAPE)) { //if escape key is pressed
 		games.pop();
 		audioManager->PlayMainMenuSoundTrack();
-		escKeyPressed = false;
 	}
 }
 
@@ -294,23 +291,6 @@ void SettingsPage::Render() {
 
 	//	Present the back buffer to screen
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
-}
-
-void SettingsPage::Input() {
-	dInputKeyboardDevice->Acquire();
-	dInputKeyboardDevice->GetDeviceState(256, diKeys);
-
-	dInputMouseDevice->Acquire();
-	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
-
-	if (BUTTONDOWN(mouseState, 0)) //left click
-	{
-		leftKeyPressed = true;
-	}
-
-	if (diKeys[DIK_ESCAPE] & 0x80) {
-		escKeyPressed = true;
-	}
 }
 
 SettingsPage::~SettingsPage() {

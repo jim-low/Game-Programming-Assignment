@@ -56,8 +56,6 @@ protected:
 	enum buttonFocus { UNFOCUS, ADDBG, MINUSBG, ADDEFF, MINUSEFF };
 
 	//input stuff
-	boolean escKeyPressed;
-	boolean leftKeyPressed;
 	float bufferTimer;
 
 private:
@@ -72,7 +70,6 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

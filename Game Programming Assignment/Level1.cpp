@@ -89,13 +89,6 @@ void Level1::SpawnComet() // instantiate comet object
 	comets.push_back(comet); // add comet object to vector
 }
 
-void Level1::Input()
-{
-	if (player != NULL) {
-		player->Input();
-	}
-}
-
 void Level1::Update()
 {
 	if (player != NULL && player->isDed) {

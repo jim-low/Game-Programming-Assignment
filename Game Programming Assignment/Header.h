@@ -25,6 +25,8 @@
 
 // classes
 #include "Game.h"
+#include "DirectX.h"
+#include "DirectInput.h"
 #include "AudioManager.h"
 
 using namespace std;

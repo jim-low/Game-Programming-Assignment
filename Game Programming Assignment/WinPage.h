@@ -21,9 +21,6 @@ protected:
 	D3DXVECTOR2 scorePos;
 	int score;
 
-	// input
-	boolean escKeyPressed;
-
 	// escapet to go back variables
 	RECT escLabelRect;
 	D3DXVECTOR2 escLabelPos;
@@ -38,7 +35,6 @@ public:
 	void Initialize(int score);
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

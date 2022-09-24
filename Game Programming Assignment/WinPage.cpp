@@ -90,20 +90,10 @@ void WinPage::Render() {
 }
 
 void WinPage::Update() {
-	if (escKeyPressed) {
+	if (DirectInput::IsKeyDown(DIK_ESCAPE)) {
 		audioManager->StopBackgroundSound(); // shhhhhhh
 		audioManager->PlayMainMenuSoundTrack(); // play main menu mooosik
 		games.pop(); // render main menu
-		escKeyPressed = false;
-	}
-}
-
-void WinPage::Input() {
-	dInputKeyboardDevice->Acquire();
-	dInputKeyboardDevice->GetDeviceState(256, diKeys);
-
-	if (diKeys[DIK_ESCAPE] & 0x80) {
-		escKeyPressed = true;
 	}
 }
 

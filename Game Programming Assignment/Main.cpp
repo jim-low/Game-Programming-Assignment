@@ -1,7 +1,5 @@
 #include <math.h>
 #include "Header.h"
-#include "DirectX.h"
-#include "DirectInput.h"
 #include "FrameTimer.h"
 #include "Game.h"
 #include "Level1.h"
@@ -133,7 +131,7 @@ int main() {
 	InitializeSound();
 
 	frameTimer = new FrameTimer();
-	frameTimer->Init(69);
+	frameTimer->Init(70);
 
 	MainMenu* mainMenu = new MainMenu();
 	games.push(mainMenu);
@@ -141,7 +139,7 @@ int main() {
 	while (IfMyWindowIsRunning())
 	{
 		audioManager->UpdateSound();
-		games.top()->Input();
+		directInput->GetInput();
 		Update(frameTimer->FramesToUpdate());
 		games.top()->Render();
 	}

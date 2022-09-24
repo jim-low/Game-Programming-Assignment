@@ -30,3 +30,22 @@ void DirectInput::Initialize()
 	dInputKeyboardDevice->SetCooperativeLevel(g_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	dInputMouseDevice->SetCooperativeLevel(g_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 }
+
+void DirectInput::GetInput()
+{
+	dInputKeyboardDevice->Acquire();
+	dInputKeyboardDevice->GetDeviceState(256, diKeys);
+
+	dInputMouseDevice->Acquire();
+	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
+}
+
+boolean DirectInput::IsKeyDown(int key)
+{
+	return diKeys[key] & 0x80;
+}
+
+boolean DirectInput::isMouseDown(int button)
+{
+	return (mouseState.rgbButtons[button] & 0x80);
+}

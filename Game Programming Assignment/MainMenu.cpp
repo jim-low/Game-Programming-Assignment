@@ -227,12 +227,11 @@ void MainMenu::Update() {
 	}
 
 	//sound effect
-	if (currentSelection != UNFOCUS && leftKeyPressed) {
+	if (currentSelection != UNFOCUS && DirectInput::isMouseDown(0)) {
 		audioManager->PlayClickSound();
 	}
 
-	if (leftKeyPressed) {
-		leftKeyPressed = false;
+	if (DirectInput::isMouseDown(0)) {
 		if (currentSelection == PLAY) {
 			audioManager->PlayClickSound();
 			audioManager->StopBackgroundSound(); //stop the BG
@@ -311,16 +310,6 @@ void MainMenu::Render() {
 
 	//	Present the back buffer to screen
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
-}
-
-void MainMenu::Input() {
-	dInputMouseDevice->Acquire();
-	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
-
-	if (BUTTONDOWN(mouseState, 0)) //left click
-	{
-		leftKeyPressed = true;
-	}
 }
 
 MainMenu::~MainMenu() {

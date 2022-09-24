@@ -55,8 +55,6 @@ protected:
 	D3DXVECTOR2 l2EndPoint;
 	D3DXVECTOR2 l2LineVertices[2];
 
-	boolean leftKeyPressed;
-
 private:
 	RECT mouse; // mouse position for collision detection
 
@@ -69,7 +67,6 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif
