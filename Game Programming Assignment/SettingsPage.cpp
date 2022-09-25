@@ -121,8 +121,8 @@ void SettingsPage::Initialize() {
 	effLabel = new Label(D3DXVECTOR2((MyWindowWidth / 2) - (420 / 2), (MyWindowHeight / 10) * 4), "Tw Cen MT Condensed", "SOUND EFFECTS", 30, 80);
 
 	//initialize the gb and effect count
-	bgCount = new Label(D3DXVECTOR2((MyWindowWidth / 2) - (100 / 2), (MyWindowHeight / 10) * 2.3), "Tw Cen MT Condensed", to_string(bGSoundCounter).c_str(), 30, 80);
-	effCount = new Label(D3DXVECTOR2((MyWindowWidth / 2) - (100 / 2), (MyWindowHeight / 10) * 5.3), "Tw Cen MT Condensed", to_string(effSoundCounter).c_str(), 30, 80);
+	bgCount = new Label(D3DXVECTOR2((MyWindowWidth / 2) - (100 / 2), (MyWindowHeight / 10) * 2.3), "Tw Cen MT Condensed", "100", 30, 80); //set as 100 cuz i need the length to be 3 characters long to define rect needed
+	effCount = new Label(D3DXVECTOR2((MyWindowWidth / 2) - (100 / 2), (MyWindowHeight / 10) * 5.3), "Tw Cen MT Condensed", "100", 30, 80);
 
 	//initialize esc Label
 	escLabel = new Label(D3DXVECTOR2(0,0), "News Gothic", "Press the 'ESC' key to go back.", 10, 30);
@@ -134,48 +134,6 @@ void SettingsPage::Update() {
 	decBGVol->Update();
 	incEffVol->Update();
 	decEffVol->Update();
-
-	if (DirectInput::isMouseDown(0)) { //if left key pressed, check if mouse position is on the button texture
-		bufferTimer -= 1;
-
-		if (bufferTimer <= 0) {
-			if (currentSelection == MINUSBG) {
-				if (bGSoundCounter > 0) {
-					bGSoundCounter -= 10;
-					audioManager->setBackgroundVolume(bGSoundCounter);
-					audioManager->PlayClickSound();
-				}
-				//decrease BG Volume
-			}
-			else if (currentSelection == ADDBG) {
-				if (bGSoundCounter < 100) {
-					bGSoundCounter += 10; 
-					audioManager->setBackgroundVolume(bGSoundCounter);
-					audioManager->PlayClickSound();
-					//increase BG Volume
-				}
-			}
-			else if (currentSelection == MINUSEFF) {
-				if (effSoundCounter > 0) {
-					effSoundCounter -= 10; 
-					audioManager->setEffectsVolume(effSoundCounter);
-					audioManager->PlayClickSound();
-					//decrease effect sound volume
-				}
-				
-			}
-			else if (currentSelection == ADDEFF) {
-				if (effSoundCounter < 100) {
-					effSoundCounter += 10;
-					audioManager->setEffectsVolume(effSoundCounter);
-					audioManager->PlayClickSound();
-					//increase effect sound volume
-				}
-			}
-
-			bufferTimer = 5;
-		}
-	}
 
 	if (DirectInput::IsKeyDown(DIK_ESCAPE)) { //if escape key is pressed
 		games.pop();
