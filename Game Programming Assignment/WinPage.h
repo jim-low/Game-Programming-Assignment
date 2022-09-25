@@ -18,9 +18,6 @@ protected:
 	string tempStr;
 	LPCSTR scoreStr;
 
-	// input
-	//boolean escKeyPressed;
-
 public:
 	WinPage(int score) : Game() { //constructor
 		this->Initialize(score);

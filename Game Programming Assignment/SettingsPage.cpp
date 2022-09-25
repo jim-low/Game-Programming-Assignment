@@ -9,7 +9,6 @@ void incBGClick() {
 			audioManager->PlayClickSound();
 
 		}
-		std::cout << bGSoundCounter << std::endl;
 		clickDelay = true;
 	}
 
