@@ -12,9 +12,9 @@ private:
 protected:
 
 	//contain components of a button (Buttons used are as png files, when hovered, the texture alters from the sprite sheet.)
-	//RECT animRect; //defines the rectangle in the spriteSheet
-	//RECT colRect; //defines the rectangle in the spriteSheet
-	//LPDIRECT3DTEXTURE9 buttonTexture; //to initialize what texture to be used for the button
+	//RECT animRect; //defines the rectangle in the spriteSheet (From Game Class)
+	//RECT colRect; //defines the rectangle in the spriteSheet (From Game Class)
+	//LPDIRECT3DTEXTURE9 buttonTexture; //to initialize what texture to be used for the button (From Game Class)
 
 	//define how big the button is in the spritesheet
 	int buttonWidth; 
@@ -23,18 +23,20 @@ protected:
 	//to resize buttons within the game, use matrixes
 	D3DXMATRIX buttonMat;
 
-	//D3DXVECTOR2 buttonPosition;
+	//D3DXVECTOR2 buttonPosition; (From Game Class)
+	//D3DXVECTOR2 scaling (From Game Class)
+	//D3DXVECTOR2 centre (From Game Class)
 
 public:
 	//constructor
 
 	Button(int buttonWidth, int buttonHeight, D3DXVECTOR2 buttonPos, string fileName, void (*clickResponse)(void)) {
 		
-		//initialize texture from the spriteSheet file. (ASSUME that the button spritesheets are located in Assets)
+		//initialize texture from the spriteSheet file. 
 		HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, fileName.c_str(), &texture);
 		if (FAILED(hr)) {
-			std::cout << "Could not find " + fileName;
-			MessageBox(NULL, TEXT(("Could not find " + fileName).c_str()), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+			std::cout << "Could not find button" + fileName;
+			MessageBox(NULL, TEXT(("Could not find button" + fileName).c_str()), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
 		}
 		
 		this->clickResponse = clickResponse;
@@ -58,7 +60,7 @@ public:
 		centre = D3DXVECTOR2(buttonWidth / 2, buttonHeight / 2);
 	}
 
-	Button();
+
 	~Button();
 
 	void Update();

@@ -2,7 +2,6 @@
 #include "CreditsPage.h"
 #include "MainMenu.h"
 #include "SettingsPage.h"
-#include "Button.h"
 
 void playClick() {
 	audioManager->StopBackgroundSound();
@@ -27,21 +26,9 @@ void MainMenu::Initialize() {
 	//=====================
 	//INITIALIZE GAME TITLE
 	//=====================
-	
-	//initialize gametitle
-	HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, "../Assets/game-title.png", &titleTexture);
-	if (FAILED(hr)) {
-		std::cout << "Failed to create Title texture in Menu.";
-		MessageBox(NULL, TEXT("Failed to create Title texture in Menu."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
-	}
+	titleLabel = new Label(D3DXVECTOR2((MyWindowWidth / 2) - (512 / 2), MyWindowHeight / 30), "../Assets/game-title.png", 512, 256);
+
 	audioManager->SetGroupPanning(0);
-	//initialize position 
-	titleWidth = 512;
-	titleHeight = 256;
-	titleRect.top = 0;
-	titleRect.bottom = titleHeight;
-	titleRect.left = 0;
-	titleRect.right = titleWidth;
 
 	mouse.top = mouseY;
 	mouse.left = mouseX;
@@ -74,17 +61,16 @@ void MainMenu::Initialize() {
 	//INITIALIZE BUTTONS
 	//=====================
 	//initialize Brush
-	hr = D3DXCreateSprite(d3dDevice, &sprite);
-	if (FAILED(hr)) {
-		std::cout << "Failed to create the Button Brush.";
-		MessageBox(NULL, TEXT("Failed to create the Button Brush."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
-	}
+	//hr = D3DXCreateSprite(d3dDevice, &sprite);
+	//if (FAILED(hr)) {
+	//	std::cout << "Failed to create the Button Brush.";
+	//	MessageBox(NULL, TEXT("Failed to create the Button Brush."), TEXT("ERROR!"), MB_YESNOCANCEL | MB_ICONQUESTION);
+	//}
 
 	//define button size
 	menuButtonWidth = 351;
 	menuButtonHeight = 163;
 	//define the current selection
-	currentSelection = UNFOCUS;
 
 	//initialize Transformations on buttons
 	scaling = D3DXVECTOR2(0.9f, 0.9f); //make it smaller 
@@ -99,7 +85,6 @@ void MainMenu::Initialize() {
 	//adjust the collision rectangle (by hard code, since it is inaccurate)
 	playButton->presetColRect(25, -75, 15, -90);
 
-	
 	//// dont mind this normal comment
 	//// AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA - Jim 16 September 2022
 
@@ -156,13 +141,7 @@ void MainMenu::Render() {
 	settingsButton->Render();
 	creditsButton->Render();
 	quitButton->Render();
-
-	////set matrix to title
-	position = D3DXVECTOR2((MyWindowWidth / 2) - (titleWidth / 2), MyWindowHeight/30); 
-	centre = D3DXVECTOR2(menuButtonWidth / 2, menuButtonHeight / 2);
-	D3DXMatrixTransformation2D(&mat, &centre, 0.0, NULL, NULL, NULL, &position);
-	sprite->SetTransform(&mat);
-	sprite->Draw(titleTexture, &titleRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+	titleLabel->Render();
 	
 	sprite->End();
 

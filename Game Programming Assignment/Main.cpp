@@ -40,6 +40,10 @@ FrameTimer* frameTimer;
 
 
 float PI = atan(1.f) * 4;
+int bGSoundCounter = 0;
+int effSoundCounter = 0;
+int inputBuffer = 0;
+boolean clickDelay = false;
 
 //mouse stuff
 RECT mouse;
@@ -136,6 +140,8 @@ void InitializeLevel() {
 void InitializeSound() {
 	audioManager = new AudioManager();
 	audioManager->InitializeAudio();
+	bGSoundCounter = audioManager->getBackgroundVolume();
+	effSoundCounter = audioManager->getEffectsVolume();
 }
 
 void Update(int framesToUpdate) {
@@ -180,7 +186,8 @@ int main() {
 
 	frameTimer = new FrameTimer();
 	frameTimer->Init(69);
-
+	//WinPage* winPage = new WinPage(69);
+	//GameOverPage* gameOver = new GameOverPage(30);
 	MainMenu* mainMenu = new MainMenu();
 	games.push(mainMenu);
 

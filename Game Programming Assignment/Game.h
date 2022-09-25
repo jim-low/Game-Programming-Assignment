@@ -36,8 +36,8 @@ protected:
 	// string soundFile;
 	float soundVolume;
 
-	//test (Brushes)
-	LPD3DXFONT fontBrush; //Title of game
+	//brushes
+	LPD3DXFONT fontBrush; 
 	LPD3DXLINE lineBrush; //lines for the panel and cover
 
 public:

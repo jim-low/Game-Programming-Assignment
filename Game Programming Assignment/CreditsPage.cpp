@@ -52,9 +52,9 @@ void CreditsPage::Update()
 	}
 
 	if (exit) {	//when player exits, stop current bg sound and play main menu music
+		games.pop(); 
 		audioManager->StopBackgroundSound();
 		audioManager->PlayMainMenuSoundTrack();
-		games.pop();
 	}
 	position.y -= textSpeed;
 

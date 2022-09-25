@@ -44,6 +44,10 @@ extern DIMOUSESTATE mouseState;
 extern AudioManager* audioManager;
 extern LPD3DXFONT font; // font brush
 extern float PI; // value of PI (used for angle calculation)
+extern int bGSoundCounter;
+extern int effSoundCounter;
+extern int inputBuffer;
+extern boolean clickDelay;
 
 // absolute mouse position values
 extern RECT mouse;

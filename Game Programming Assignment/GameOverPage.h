@@ -3,23 +3,23 @@
 #include "Header.h"
 #include "Game.h"
 #include "RickRoll.h"
+#include "Label.h"
 
 class GameOverPage : public Game
 {
 protected:
 	int score; // final score of player
 
-	// render score text variables
-	RECT scoreRect;
-	D3DXVECTOR2 scorePos;
+	//labels needed
+	Label* loseLabel;
+	Label* escLabel;
+	Label* scoreLabel;
+
+	//for score Label
 	string tempStr;
 	LPCSTR scoreStr;
-	boolean escKeyPressed;
 
-	// render escape label variables
-	RECT escLabelRect;
-	D3DXVECTOR2 escLabelPos;
-	LPD3DXFONT escFont;
+	boolean escKeyPressed;
 
 private:
 	RickRoll* neverGonnaGiveYouUp; // unique animation sprite variables

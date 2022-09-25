@@ -3,6 +3,7 @@
 #include "Header.h"
 #include "Game.h"
 #include "Button.h"
+#include "Label.h"
 
 
 class MainMenu : public Game
@@ -15,7 +16,8 @@ protected:
 	Button* creditsButton;
 	Button* quitButton;
 
-	RECT titleRect; 
+	//label test
+	Label* titleLabel;
 
 	//textures
 	LPDIRECT3DTEXTURE9 titleTexture;
@@ -23,14 +25,8 @@ protected:
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;
-	int titleWidth;
-	int titleHeight;
 	D3DXMATRIX mat; //for matrix position
 	D3DXVECTOR2 titlePosition;
-
-	//currentSelectedButton
-	int currentSelection;
-	enum buttonFocus{UNFOCUS,PLAY,SETTINGS,CREDITS,QUIT};
 
 	//coordinates of line 1----
 	D3DXVECTOR2 l1StartPoint;
@@ -41,8 +37,6 @@ protected:
 	D3DXVECTOR2 l2StartPoint;
 	D3DXVECTOR2 l2EndPoint;
 	D3DXVECTOR2 l2LineVertices[2];
-
-	boolean leftKeyPressed;
 
 public:
 	MainMenu() : Game() { //constructor
