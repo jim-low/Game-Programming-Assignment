@@ -9,7 +9,6 @@
 
 class CreditsPage : public Game {
 private:
-	boolean exit; // whether to exit back to main menu or not
 	LPCSTR credits;
 	float textSpeed;
 	RECT mouse; // mouse rectangle for collision
@@ -24,7 +23,6 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

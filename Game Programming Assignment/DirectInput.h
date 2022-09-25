@@ -13,6 +13,10 @@ public:
 	~DirectInput();
 
 	void Initialize();
+	void GetInput();
+
+	static boolean IsKeyDown(int key);
+	static boolean isMouseDown(int button);
 };
 
 

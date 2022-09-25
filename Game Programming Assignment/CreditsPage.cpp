@@ -51,18 +51,16 @@ void CreditsPage::Update()
 		audioManager->SetGroupPanning(-1);
 	}
 
-	if (exit) {	//when player exits, stop current bg sound and play main menu music
-		games.pop(); 
+	if (DirectInput::IsKeyDown(DIK_ESCAPE)) {	//when player exits, stop current bg sound and play main menu music
 		audioManager->StopBackgroundSound();
 		audioManager->PlayMainMenuSoundTrack();
+		games.pop();
 	}
 	position.y -= textSpeed;
 
 	if (position.y + 1800 <= 0) {//makes the credits replay again on screen after passing through
 		position.y = MyWindowHeight;
 	}
-
-	exit = false;
 }
 
 void CreditsPage::Render() {
@@ -79,16 +77,6 @@ void CreditsPage::Render() {
 
 	d3dDevice->EndScene();
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
-}
-
-void CreditsPage::Input()
-{
-	dInputKeyboardDevice->Acquire();
-	dInputKeyboardDevice->GetDeviceState(256, diKeys);
-
-	if (diKeys[DIK_ESCAPE] & 0x80) {//detect for escape key pressed
-		exit = true;
-	}
 }
 
 CreditsPage::~CreditsPage()

@@ -135,10 +135,51 @@ void SettingsPage::Update() {
 	incEffVol->Update();
 	decEffVol->Update();
 
-	if (escKeyPressed) { //if escape key is pressed
+	if (DirectInput::isMouseDown(0)) { //if left key pressed, check if mouse position is on the button texture
+		bufferTimer -= 1;
+
+		if (bufferTimer <= 0) {
+			if (currentSelection == MINUSBG) {
+				if (bGSoundCounter > 0) {
+					bGSoundCounter -= 10;
+					audioManager->setBackgroundVolume(bGSoundCounter);
+					audioManager->PlayClickSound();
+				}
+				//decrease BG Volume
+			}
+			else if (currentSelection == ADDBG) {
+				if (bGSoundCounter < 100) {
+					bGSoundCounter += 10; 
+					audioManager->setBackgroundVolume(bGSoundCounter);
+					audioManager->PlayClickSound();
+					//increase BG Volume
+				}
+			}
+			else if (currentSelection == MINUSEFF) {
+				if (effSoundCounter > 0) {
+					effSoundCounter -= 10; 
+					audioManager->setEffectsVolume(effSoundCounter);
+					audioManager->PlayClickSound();
+					//decrease effect sound volume
+				}
+				
+			}
+			else if (currentSelection == ADDEFF) {
+				if (effSoundCounter < 100) {
+					effSoundCounter += 10;
+					audioManager->setEffectsVolume(effSoundCounter);
+					audioManager->PlayClickSound();
+					//increase effect sound volume
+				}
+			}
+
+			bufferTimer = 5;
+		}
+	}
+
+	if (DirectInput::IsKeyDown(DIK_ESCAPE)) { //if escape key is pressed
 		games.pop();
 		audioManager->PlayMainMenuSoundTrack();
-		escKeyPressed = false;
 	}
 }
 
@@ -173,18 +214,6 @@ void SettingsPage::Render() {
 
 	//	Present the back buffer to screen
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
-}
-
-void SettingsPage::Input() {
-	dInputKeyboardDevice->Acquire();
-	dInputKeyboardDevice->GetDeviceState(256, diKeys);
-
-	dInputMouseDevice->Acquire();
-	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
-
-	if (diKeys[DIK_ESCAPE] & 0x80) {
-		escKeyPressed = true;
-	}
 }
 
 SettingsPage::~SettingsPage() {

@@ -33,7 +33,6 @@ public:
 	void Initialize(int score);
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

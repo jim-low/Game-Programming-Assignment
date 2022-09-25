@@ -19,7 +19,7 @@ protected:
 	LPCSTR scoreStr;
 
 	// input
-	boolean escKeyPressed;
+	//boolean escKeyPressed;
 
 public:
 	WinPage(int score) : Game() { //constructor
@@ -30,7 +30,6 @@ public:
 	void Initialize(int score);
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

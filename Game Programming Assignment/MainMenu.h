@@ -38,6 +38,9 @@ protected:
 	D3DXVECTOR2 l2EndPoint;
 	D3DXVECTOR2 l2LineVertices[2];
 
+private:
+	RECT mouse; // mouse position for collision detection
+
 public:
 	MainMenu() : Game() { //constructor
 		this->Initialize();
@@ -47,7 +50,6 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

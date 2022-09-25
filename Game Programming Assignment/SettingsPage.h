@@ -94,7 +94,6 @@ public:
 	void Initialize();
 	void Update();
 	void Render();
-	void Input();
 };
 
 #endif

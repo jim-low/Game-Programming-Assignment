@@ -158,10 +158,5 @@ void MainMenu::Render() {
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void MainMenu::Input() {
-	dInputMouseDevice->Acquire();
-	dInputMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);
-}
-
 MainMenu::~MainMenu() {
 }

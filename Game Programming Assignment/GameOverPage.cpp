@@ -30,7 +30,7 @@ void GameOverPage::Update() {
 	// update is never gonna let you down
 	neverGonnaGiveYouUp->Update();
 
-	if (escKeyPressed) {
+	if (DirectInput::IsKeyDown(DIK_ESCAPE)) {
 		/*
 		stop game over background music
 		play main menu sound track
@@ -39,7 +39,6 @@ void GameOverPage::Update() {
 		audioManager->StopBackgroundSound();
 		audioManager->PlayMainMenuSoundTrack();
 		games.pop();
-		escKeyPressed = false;
 	}
 }
 
@@ -59,15 +58,6 @@ void GameOverPage::Render() {
 	sprite->End();
 	d3dDevice->EndScene();
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
-}
-
-void GameOverPage::Input() {
-	dInputKeyboardDevice->Acquire();
-	dInputKeyboardDevice->GetDeviceState(256, diKeys);
-
-	if (diKeys[DIK_ESCAPE] & 0x80) {
-		escKeyPressed = true;
-	}
 }
 
 GameOverPage::~GameOverPage() {

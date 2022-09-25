@@ -45,7 +45,6 @@ public:
 	~Level1();
 
 	void Initialize();
-	void Input();
 	void Update();
 	void Render();
 };
