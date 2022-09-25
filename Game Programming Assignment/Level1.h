@@ -4,6 +4,7 @@
 
 #include "Header.h"
 #include "Game.h"
+#include "Label.h"
 #include "Player.h"
 #include "Comet.h"
 #include "CometExplosion.h"
@@ -16,20 +17,16 @@ protected:
 	Player* player;
 
 	// health indicator string variable
+	Label* healthLabel;
 	string tempHealth;
-	LPCSTR healthStr;
-	RECT healthRect;
-	D3DXVECTOR2 healthPos;
 
 	// comet spawn variables
 	float cometSpawnRate;
 	float cometTimer;
 
 	// score indicator string variable
+	Label* scoreLabel;
 	string tempScore;
-	LPCSTR scoreStr;
-	RECT scoreRect;
-	D3DXVECTOR2 scorePos;
 	float scoreTimer;
 	float scoreCounter;
 	int score;

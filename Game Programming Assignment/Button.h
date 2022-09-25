@@ -30,7 +30,7 @@ protected:
 public:
 	//constructor
 
-	Button(int buttonWidth, int buttonHeight, D3DXVECTOR2 buttonPos, string fileName, void (*clickResponse)(void)) {
+	Button(int buttonWidth, int buttonHeight, D3DXVECTOR2 buttonPos, std::string fileName, void (*clickResponse)(void)) {
 		
 		//initialize texture from the spriteSheet file. 
 		HRESULT hr = D3DXCreateTextureFromFile(d3dDevice, fileName.c_str(), &texture);

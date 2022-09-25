@@ -31,7 +31,7 @@ public:
 	//constructor
 
 	//image label 
-	Label(D3DXVECTOR2 labelPosition, string fileName, int imageWidth, int imageHeight) {
+	Label(D3DXVECTOR2 labelPosition, std::string fileName, int imageWidth, int imageHeight) {
 
 		labelType = IMAGE;
 		this->width = imageWidth;
@@ -57,7 +57,7 @@ public:
 	}
 
 	//font label
-	Label(D3DXVECTOR2 labelPosition, string fontName, string labelString, int fontWidth, int fontHeight) {
+	Label(D3DXVECTOR2 labelPosition, std::string fontName, std::string labelString, int fontWidth, int fontHeight) {
 
 		labelType = TEXT;
 		this->width = fontWidth;
@@ -74,7 +74,7 @@ public:
 		animRect.top = 0;
 		animRect.bottom = animRect.top + fontHeight;
 		animRect.left = 0;
-		animRect.right = animRect.left + ((fontWidth * labelString.length()) + 30);
+		animRect.right = animRect.left + ((fontWidth * labelString.length()) + 69);
 		std::cout << animRect.right << std::endl;
 		std::cout << animRect.bottom << std::endl;
 		scaling = D3DXVECTOR2(1, 1);
@@ -88,7 +88,7 @@ public:
 
 	void Render(); //only render labels. No hover feature
 	// void RenderWithUpdatingValue(int a);
-	void setText(string text);
+	void setText(std::string text);
 
 	void setScaling(float x, float y) {
 		scaling = (D3DXVECTOR2(x, y));

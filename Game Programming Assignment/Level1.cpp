@@ -13,31 +13,17 @@ void Level1::Initialize()
 
 	player = new Player();
 
-	// health text initialize
-	tempHealth = "";
-	healthStr = LPTSTR("");
-	healthRect.top = 10;
-	healthRect.left = 10;
-	healthRect.bottom = healthRect.top + 69;
-	healthRect.right = healthRect.left + 420;
-	healthPos = D3DXVECTOR2(0, 0);
-	scaling = D3DXVECTOR2(1, 1);
-	direction = 0;
+	// health label
+	healthLabel = new Label(D3DXVECTOR2(0, 0), "Tw Cen MT Condensed", "Health: " + to_string(player->GetHealth()), 20, 40);
 
 	cometSpawnRate = 0.8;
 	cometTimer = 10;
 
 	// score text initialize
-	scorePos = D3DXVECTOR2(0, 0);
 	scoreCounter = 0.15;
 	scoreTimer = 10;
 	score = 0;
-	tempScore = "Score: 0";
-	scoreStr = tempScore.c_str();
-	scoreRect.top = 10;
-	scoreRect.right = MyWindowWidth - 10;
-	scoreRect.left = scoreRect.right - 150;
-	scoreRect.bottom = scoreRect.top + 69;
+	scoreLabel = new Label(D3DXVECTOR2(MyWindowWidth - 150 - 20, 10), "Tw Cen MT Condensed", "Score: " + to_string(score), 20, 40);
 
 	audioManager->PlayGameplaySoundTrack();
 }
@@ -166,7 +152,9 @@ void Level1::Update()
 	// update health indicator text
 	if (player != NULL) {
 		tempHealth = "Health: " + to_string(player->GetHealth());
-		healthStr = tempHealth.c_str();
+		healthLabel->setText(tempHealth.c_str());
+		//tempHealth = "Health: " + to_string(player->GetHealth());
+		//healthStr = tempHealth.c_str();
 	}
 
 	// update score indicator text
@@ -175,7 +163,7 @@ void Level1::Update()
 		score += 1;
 		scoreTimer = 10;
 		tempScore = "Score: " + to_string(score);
-		scoreStr = tempScore.c_str();
+		scoreLabel->setText(tempScore.c_str());
 	}
 }
 
@@ -202,14 +190,8 @@ void Level1::Render()
 		}
 	}
 
-	D3DXMATRIX mat;
-	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &healthPos);
-	sprite->SetTransform(&mat);
-	font->DrawText(sprite, healthStr, tempHealth.length(), &healthRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
-
-	D3DXMatrixTransformation2D(&mat, NULL, 0.0, &scaling, NULL, direction, &scorePos);
-	sprite->SetTransform(&mat);
-	font->DrawText(sprite, scoreStr, tempScore.length(), &scoreRect, DT_RIGHT, D3DCOLOR_XRGB(255, 255, 255));
+	healthLabel->Render();
+	scoreLabel->Render();
 
 	sprite->End();
 
