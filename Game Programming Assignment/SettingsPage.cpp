@@ -135,6 +135,9 @@ void SettingsPage::Update() {
 	incEffVol->Update();
 	decEffVol->Update();
 
+	bgCount->setText(to_string(audioManager->getBackgroundVolume()));
+	effCount->setText(to_string(audioManager->getEffectsVolume()));
+
 	if (DirectInput::IsKeyDown(DIK_ESCAPE)) { //if escape key is pressed
 		games.pop();
 		audioManager->PlayMainMenuSoundTrack();
@@ -162,8 +165,10 @@ void SettingsPage::Render() {
 	//render labels
 	bgLabel->Render();
 	effLabel->Render();
-	bgCount->RenderWithUpdatingValue(bGSoundCounter);
-	effCount->RenderWithUpdatingValue(effSoundCounter);
+	//bgCount->RenderWithUpdatingValue(bGSoundCounter);
+	//effCount->RenderWithUpdatingValue(effSoundCounter);
+	bgCount->Render();
+	effCount->Render();
 	escLabel->Render();
 	sprite->End();
 

@@ -87,7 +87,8 @@ public:
 	~Label();
 
 	void Render(); //only render labels. No hover feature
-	void RenderWithUpdatingValue(int a);
+	// void RenderWithUpdatingValue(int a);
+	void setText(string text);
 
 	void setScaling(float x, float y) {
 		scaling = (D3DXVECTOR2(x, y));

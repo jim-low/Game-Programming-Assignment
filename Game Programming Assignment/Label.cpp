@@ -22,14 +22,16 @@ void Label::Render() {
 	}
 }
 
-void Label::RenderWithUpdatingValue(int a) {
+//void Label::RenderWithUpdatingValue(int a) {
+//
+//	if (labelType == TEXT) {
+//		//text label
+//		D3DXMatrixTransformation2D(&labelMat, NULL, 0.0, NULL, NULL, NULL, &position);
+//		sprite->SetTransform(&labelMat);
+//		font->DrawText(sprite, to_string(a).c_str(), labelString.length(), &animRect, 0, D3DCOLOR_XRGB(255, 255, 255));
+//	}
+//}
 
-	if (labelType == TEXT) {
-		//text label
-		D3DXMatrixTransformation2D(&labelMat, NULL, 0.0, NULL, NULL, NULL, &position);
-		sprite->SetTransform(&labelMat);
-		font->DrawText(sprite, to_string(a).c_str(), labelString.length(), &animRect, 0, D3DCOLOR_XRGB(255, 255, 255));
-	}
+void Label::setText(string text) {
+	this->labelString = text;
 }
-
-

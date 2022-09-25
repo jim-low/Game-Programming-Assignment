@@ -183,7 +183,7 @@ int main() {
 	InitializeSound();
 
 	frameTimer = new FrameTimer();
-	frameTimer->Init(70);
+	frameTimer->Init(60);
 
 	MainMenu* mainMenu = new MainMenu();
 	games.push(mainMenu);
