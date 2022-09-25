@@ -48,8 +48,8 @@ extern LPD3DXFONT font; // font brush
 extern float PI; // value of PI (used for angle calculation)
 extern int bGSoundCounter;
 extern int effSoundCounter;
-extern int inputBuffer;
-extern boolean clickDelay;
+extern int inputBuffer; //for interfaces
+extern boolean clickDelay; //for interfaces
 
 // absolute mouse position values
 extern RECT mouse;

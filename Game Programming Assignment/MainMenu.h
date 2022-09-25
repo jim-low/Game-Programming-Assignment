@@ -16,11 +16,8 @@ protected:
 	Button* creditsButton;
 	Button* quitButton;
 
-	//label test
+	//label
 	Label* titleLabel;
-
-	//textures
-	LPDIRECT3DTEXTURE9 titleTexture;
 
 	//buttonSizes
 	int menuButtonWidth;
