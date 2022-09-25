@@ -8,9 +8,6 @@
 class SettingsPage : public Game
 {
 protected:
-	//test
-	LPCSTR tempBGCounter;
-
 	//Buttons needed 
 	Button* incBGVol;
 	Button* decBGVol;

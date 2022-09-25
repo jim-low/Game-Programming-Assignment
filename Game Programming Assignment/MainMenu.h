@@ -22,8 +22,6 @@ protected:
 	//buttonSizes
 	int menuButtonWidth;
 	int menuButtonHeight;
-	D3DXMATRIX mat; //for matrix position
-	D3DXVECTOR2 titlePosition;
 
 	//coordinates of line 1----
 	D3DXVECTOR2 l1StartPoint;
